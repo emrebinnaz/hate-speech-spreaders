@@ -1,0 +1,2 @@
+noktalama işaretleri, emojiler, numaralar çıkarılmayacak hocaya sorulacak.
+rt, mention, boş text, url, cümle içi boşluklar, ingilizce olmayan kelimeler

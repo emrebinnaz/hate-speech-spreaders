@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import matplotlib as plt
+# import matplotlib as plt
 
 tweets = pd.read_csv('ContentOfTweets.csv', sep = ",")
 
