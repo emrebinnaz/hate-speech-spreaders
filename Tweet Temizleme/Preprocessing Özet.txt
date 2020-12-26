@@ -1,2 +1,7 @@
-noktalama işaretleri, emojiler, numaralar çıkarılmayacak hocaya sorulacak.
-rt, mention, boş text, url, cümle içi boşluklar, ingilizce olmayan kelimeler
+Yapılacaklar
+ingilizce olmayan kelimeler(sonra bakılacak)
+noktalama işaretleri gidince hashtagler gitti(#)
+stop words
+
+Yapılanlar
+boş text, numaralar, rt, spaces, cümle içi boşluklar, mention, url, emoji, smiley, noktalama işaretleri

@@ -8,13 +8,17 @@ class ContentOfTweets:
     self.label = label
     self.text = text
 
-def writeTweetToCSV(tweet):
+def writeTweetToCSV(tweet,index):
     with open('ContentOfTweets.csv',
               'a',
               newline='',
               encoding='utf-8') as file:
         fieldnames = ['id', 'text', 'label']
         writer = csv.DictWriter(file, fieldnames = fieldnames)
+        if index == 0 :
+            writer.writerow({'id': "id",
+                             'text': "text",
+                             'label': "label"})
         writer.writerow({'id': tweet.id,
                          'text': tweet.text,
                          'label': tweet.label})
@@ -39,13 +43,12 @@ def removeCommasFrom(tweetText):
     return tweetText
 
 def writeTweetsToCSV(tweets):
-
     index = 0
     for tweet in tweets:
         tweet.text = getTweetById(tweet.id)
         tweet.text = removeCommasFrom(tweet.text)
         print(tweet.id, "Index is: ", index)
-        writeTweetToCSV(tweet)
+        writeTweetToCSV(tweet,index)
         index = index + 1
 
 tweets = []
