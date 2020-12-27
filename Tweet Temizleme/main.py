@@ -3,14 +3,20 @@ import nltk
 import preprocessor as preprocessor
 import os
 from nltk.corpus import stopwords
+from nltk.stem.porter import PorterStemmer
+from textblob import Word
+from Stopwords import createNewStopWordList
+from nltk.stem import WordNetLemmatizer
 from nltk.tokenize.toktok import ToktokTokenizer
 
 words = set(nltk.corpus.words.words())
-stopWordsList = nltk.corpus.stopwords.words('english')
 tokenizer=ToktokTokenizer()
 
+tweetsPath = 'Files/ContentOfTweetsYedek.csv'
+originalTweetsPath = 'Files/ContentOfTweets.csv'
 
-tweets = pd.read_csv('ContentOfTweetsYedek.csv', sep=",", skipinitialspace=True)  # data frame oldu
+tweets = pd.read_csv(tweetsPath, sep=",", skipinitialspace=True)  # data frame oldu
+original_tweets = pd.read_csv(originalTweetsPath, sep=",", skipinitialspace=True)  # data frame oldu
 
 def convertDataTypes():
     tweets['id'] = tweets['id'].astype('string')
@@ -38,20 +44,13 @@ def addQuotesToEndOfTweetText(tweets):
     tweets.update(tweets[['text']].applymap('"{}" '.format))
 
 def createTxtForPreprocessing():
-    tweets.to_csv("ContentOfTweetsYedek.csv", sep=',', index=False)
-    output = open('CleanTxtFile.txt', 'w+', errors="ignore", encoding="ISO-8859-1")
-    with open('ContentOfTweetsYedek.csv', "rt", encoding="ISO-8859-1") as f:
+    tweets.to_csv(tweetsPath, sep=',', index=False)
+    output = open('Files/CleanTxtFile.txt', 'w+', errors="ignore", encoding="ISO-8859-1")
+    with open(tweetsPath, "rt", encoding="ISO-8859-1") as f:
         for row in f:
             output.write(row)
 
-def applyPreprocessing(tweets):
-
-    dropNaFrom(tweets)
-    removeNumbersFrom(tweets)
-    removeRtFrom(tweets)
-    removeSpacesFrom(tweets)
-    addQuotesToEndOfTweetText(tweets)
-    createTxtForPreprocessing()
+def applyPreprocessingInTxtFile():
 
     preprocessor.set_options(preprocessor.OPT.MENTION,
                              preprocessor.OPT.URL,
@@ -59,74 +58,93 @@ def applyPreprocessing(tweets):
                              preprocessor.OPT.EMOJI,
                              preprocessor.OPT.SMILEY)
 
-    return preprocessor.clean_file("CleanTxtFile.txt")
+    return preprocessor.clean_file('Files/CleanTxtFile.txt')
 
 def createCleanCsvFrom(cleanTxtFile):
+    
     readFile = pd.read_csv(cleanTxtFile, sep=",")
-    readFile.to_csv('ContentOfTweetsYedek.csv', index=None)
+    readFile.to_csv(tweetsPath, index=None) 
     os.remove(cleanTxtFile)
 
-def removePunctuations(): # daha sonra hashtagler için # sembolü geri getirilmeli
-
-    tweets = pd.read_csv('ContentOfTweetsYedek.csv', sep=",", skipinitialspace=True)  # data frame oldu
+def removePunctuations(tweets): # daha sonra hashtagler için # sembolü geri getirilmeli
+    
     tweets.text = tweets.text.str.replace('[^\w\s]', '')
-    tweets.to_csv('ContentOfTweetsYedek.csv', index=None)
-
-def readCleanFile():
-    tweets = pd.read_csv('ContentOfTweetsYedek.csv', sep=",")  # data frame oldu
-    convertDataTypes()
-    print(tweets.info())
-
-def cleanNAandSpaceFromOriginalFile():
-
-    original_tweets = pd.read_csv('ContentOfTweets.csv', sep=",", skipinitialspace=True)  # data frame oldu
-    dropNaFrom(original_tweets)
-    removeSpacesFrom(original_tweets)
-    original_tweets.to_csv('ContentOfTweets.csv', index=None)
-
-def addCleanTextToOriginalFile():
-
-    tweets = pd.read_csv('ContentOfTweetsYedek.csv', sep=",", skipinitialspace=True)  # data frame oldu
-    original_tweets = pd.read_csv('ContentOfTweets.csv', sep=",", skipinitialspace=True)  # data frame oldu
-    original_tweets['clean_text'] = tweets['text']
-    original_tweets['label'] = tweets['label']
-    original_tweets.to_csv('ContentOfTweets.csv', index=None)
-    print(original_tweets.info())
-
-def removeNonEnglishWordsFrom(tweets):
-
-    tweets['text'] = tweets['text'].apply(lambda x:  " ".join(w for w in nltk.wordpunct_tokenize(x) \
-         if w.lower() in words or not w.isalpha()))
-    tweets.to_csv('ContentOfTweetsYedek.csv', index=None)
-
+    
 def makeLowercaseTo(tweets):
 
-    tweets['clean_text'] = tweets['clean_text'].apply(lambda text: " ".join(text.lower() for text in text.split()))
+    tweets['text'] = tweets['text'].apply(lambda text: " ".join(text.lower() for text in text.split()))
 
-def removeStopwordsFrom(text):
+def textLemmatization(text):
+
+    lemmatizer = WordNetLemmatizer()
+    text = " ".join([lemmatizer.lemmatize(w) for w in nltk.word_tokenize(text)])
+    return text
+
+def removeStopwords(text):
     # set stopwords to english
 
     tokens = tokenizer.tokenize(text)
     tokens = [token.strip() for token in tokens]
 
+    stopWordsList = createNewStopWordList()
     filtered_tokens = [token for token in tokens if token not in stopWordsList]
-
     filtered_text = ' '.join(filtered_tokens)
+
     return filtered_text
 
+def removeNonEnglishWordsFrom(tweets): #kullanmadık
 
+    tweets['text'] = tweets['text'].apply(lambda x:  " ".join(w for w in nltk.wordpunct_tokenize(x) \
+         if w.lower() in words or not w.isalpha()))
 
+def textStemming(text): #kullanmadık
+
+    ps = nltk.porter.PorterStemmer()
+    text = ' '.join([ps.stem(word) for word in text.split()])
+    return text
+
+def saveCsv(tweets):
+    
+    tweets.to_csv(tweetsPath, index=None)
+    
+def cleanNAandSpaceFromOriginalFile():
+
+    original_tweets = pd.read_csv(originalTweetsPath, sep=",", skipinitialspace=True)  # data frame oldu
+    dropNaFrom(original_tweets)
+    removeSpacesFrom(original_tweets)
+    original_tweets.to_csv(originalTweetsPath, index=None)
+
+def addCleanTextToOriginalFile():
+
+    tweets = pd.read_csv(tweetsPath, sep=",", skipinitialspace=True)  # data frame oldu
+    original_tweets = pd.read_csv(originalTweetsPath, sep=",", skipinitialspace=True)  # data frame oldu
+    original_tweets['clean_text'] = tweets['text']
+    original_tweets['label'] = tweets['label']
+    original_tweets.to_csv(originalTweetsPath, index=None)
+    dropNaFrom(original_tweets)
+    print(original_tweets.info())
 
 # Main commands
-# cleanTxtFile = applyPreprocessing(tweets)
+
+# dropNaFrom(tweets)
+# removeNumbersFrom(tweets)
+# removeRtFrom(tweets)
+# removeSpacesFrom(tweets)
+# addQuotesToEndOfTweetText(tweets)
+# createTxtForPreprocessing()
+# cleanTxtFile = applyPreprocessingInTxtFile()
 # createCleanCsvFrom(cleanTxtFile)
-# removePunctuations()
+#
+# tweets = pd.read_csv(tweetsPath, sep=",", skipinitialspace=True)
+#
+# removePunctuations(tweets)
+# makeLowercaseTo(tweets)
+# tweets['text'] = tweets['text'].apply(textLemmatization)
+# tweets['text'] = tweets['text'].apply(removeStopwords)
+# saveCsv(tweets)
+# cleanNAandSpaceFromOriginalFile()
 # addCleanTextToOriginalFile()
-# readCleanFile()
 
-original_tweets = pd.read_csv('ContentOfTweets.csv', sep=",", skipinitialspace=True)  # data frame oldu
-#makeLowercaseTo(original_tweets)
-#original_tweets['clean_text'] = original_tweets['clean_text'].apply(removeStopwordsFrom)
 
-original_tweets.to_csv('ContentOfTweets.csv', index=None)
-print(original_tweets.info())
+# removeNonEnglishWordsFrom(tweets) #kullanmadık
+# tweets['text'] = tweets['text'].apply(textStemming) #kullanmadık
