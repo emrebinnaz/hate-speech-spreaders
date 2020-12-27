@@ -103,16 +103,16 @@ def textStemming(text): #kullanmadık
     text = ' '.join([ps.stem(word) for word in text.split()])
     return text
 
-def saveCsv(tweets):
+def saveCsv(tweets,path):
     
-    tweets.to_csv(tweetsPath, index=None)
+    tweets.to_csv(path, index=None)
     
 def cleanNAandSpaceFromOriginalFile():
 
     original_tweets = pd.read_csv(originalTweetsPath, sep=",", skipinitialspace=True)  # data frame oldu
     dropNaFrom(original_tweets)
     removeSpacesFrom(original_tweets)
-    original_tweets.to_csv(originalTweetsPath, index=None)
+    saveCsv(original_tweets,originalTweetsPath)
 
 def addCleanTextToOriginalFile():
 
@@ -120,8 +120,8 @@ def addCleanTextToOriginalFile():
     original_tweets = pd.read_csv(originalTweetsPath, sep=",", skipinitialspace=True)  # data frame oldu
     original_tweets['clean_text'] = tweets['text']
     original_tweets['label'] = tweets['label']
-    original_tweets.to_csv(originalTweetsPath, index=None)
     dropNaFrom(original_tweets)
+    saveCsv(original_tweets,originalTweetsPath)
     print(original_tweets.info())
 
 # Main commands
@@ -141,7 +141,7 @@ def addCleanTextToOriginalFile():
 # makeLowercaseTo(tweets)
 # tweets['text'] = tweets['text'].apply(textLemmatization)
 # tweets['text'] = tweets['text'].apply(removeStopwords)
-# saveCsv(tweets)
+# saveCsv(tweets,tweetsPath)
 # cleanNAandSpaceFromOriginalFile()
 # addCleanTextToOriginalFile()
 

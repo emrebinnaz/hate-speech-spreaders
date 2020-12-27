@@ -1,6 +1,8 @@
 import tweepy
 from TwitterConfig import api
 
+abc = "dnz"
+
 def getTweetsOfUser(username):
     tweet_count = 20
     userTimeline = api.user_timeline(id = username, count = tweet_count)

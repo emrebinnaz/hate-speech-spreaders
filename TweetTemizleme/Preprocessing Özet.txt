@@ -3,6 +3,7 @@ ingilizce olmayan kelimeler(sonra bakılacak)
 noktalama işaretleri gidince hashtagler gitti(#)
 kısaltmalar için veriseti veya sözlük olusturulacak
 özel isimleri bulacağız
+py leri düzenle
 
 Yapılanlar
 boş text, numaralar, rt, spaces,
