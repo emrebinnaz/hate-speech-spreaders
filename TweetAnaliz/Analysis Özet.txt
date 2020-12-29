@@ -1,1 +1,2 @@
-dosyaların import edilmesine bakılcaak.
+dosyaların import edilmesine bakılcaak. label categorik tipe dönüüşecek ve modeller yavaştan eğitilecek.
+tfidf'in parametlerine bak
