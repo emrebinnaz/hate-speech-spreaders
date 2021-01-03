@@ -1,2 +1,2 @@
-validasyon seti nedir ? araştır
-naive bayes in içine nasıl tek bir twwet atılıp predictine bakılır ?
+algoritmalarının içine nasıl tek bir twwet atılıp predictine bakılır ?
+file ları tek bir yere at

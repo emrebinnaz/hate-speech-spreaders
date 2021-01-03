@@ -18,11 +18,6 @@ originalTweetsPath = 'Files/ContentOfTweets.csv'
 tweets = pd.read_csv(tweetsPath, sep=",", skipinitialspace=True)  # data frame oldu
 original_tweets = pd.read_csv(originalTweetsPath, sep=",", skipinitialspace=True)  # data frame oldu
 
-def convertDataTypes():
-    tweets['id'] = tweets['id'].astype('string')
-    tweets['text'] = tweets['text'].astype('string')
-    tweets['label'] = tweets['label'].astype('category')
-
 def dropNaFrom(tweets):
 
     tweets.dropna(how = "any", inplace = True)
