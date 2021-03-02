@@ -1,0 +1,8 @@
+algoritmalarının içine nasıl tek bir twwet atılıp predictine bakılır ?
+k fold
+validasyon seti
+word 2 vec bakılacak.
+iyi bir feature extraction bul.
+diğer modeller eklenecek (svm, random forest vb..)
+tweet çekilecek.
+veri seti araştırılabilir.

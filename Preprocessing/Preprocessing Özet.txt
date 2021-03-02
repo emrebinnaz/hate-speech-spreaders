@@ -1,0 +1,5 @@
+Yapılacaklar
+ingilizce olmayan kelimeler(sonra bakılacak)
+noktalama işaretleri gidince hashtagler gitti(#)
+kısaltmalar için veriseti veya sözlük olusturulacak
+özel isimleri bulacağız
