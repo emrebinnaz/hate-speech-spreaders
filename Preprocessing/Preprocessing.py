@@ -10,11 +10,12 @@ from nltk.tokenize.toktok import ToktokTokenizer
 words = set(nltk.corpus.words.words())
 tokenizer = ToktokTokenizer()
 
-tweetsPath = '../Files/TempContentOfTweets.csv'
+tweetsPath = '../Files/.csv' #gelen verisetine göre path değiştir !!!
 cleanTweetsPath = '../Files/ContentOfTweets.csv'
 
-tweets = pd.read_csv(tweetsPath, sep=",", skipinitialspace=True)  # data frame oldu
-original_tweets = pd.read_csv(cleanTweetsPath, sep=",", skipinitialspace=True)  # data frame oldu
+def change1toHatefuland0toNormal(tweets): #label 0 ve 1 olan veriseti varsa bunu uygulamayı unutma!!!
+
+    tweets['label'].replace({1:"hateful", 0:"normal"},inplace=True)
 
 def dropNaFrom(tweets):
 
@@ -96,31 +97,34 @@ def textStemming(text): #kullanmadık
     text = ' '.join([ps.stem(word) for word in text.split()])
     return text
 
-def saveCsv(tweets,path):
-    
-    tweets.to_csv(path, index=None)
-    
-def cleanNAandSpaceFromOriginalFile():
+def dropDuplicate(tweets):
+    tweets.drop_duplicates(subset="text", keep=False, inplace=True)
 
-    original_tweets = pd.read_csv(cleanTweetsPath, sep=",", skipinitialspace=True)  # data frame oldu
-    dropNaFrom(original_tweets)
-    removeSpacesFrom(original_tweets)
-    saveCsv(original_tweets,cleanTweetsPath)
+def saveCsv(tweets,path):
+
+    dropNaFrom(tweets)
+    tweets.to_csv(path, index=None)
 
 def addCleanTextToOriginalFile():
 
     tweets = pd.read_csv(tweetsPath, sep=",", skipinitialspace=True)  # data frame oldu
-    original_tweets = pd.read_csv(cleanTweetsPath, sep=",", skipinitialspace=True)  # data frame oldu
 
-    original_tweets['text'] = tweets['text']
-    original_tweets['label'] = tweets['label']
+    filesize = os.path.getsize(cleanTweetsPath)
+    print(filesize)
+    if filesize == 0:
+        saveCsv(tweets, cleanTweetsPath)
+    else:
+        original_tweets = pd.read_csv(cleanTweetsPath, sep=",", skipinitialspace=True)  # data frame oldu
 
-    dropNaFrom(original_tweets)
-    saveCsv(original_tweets, cleanTweetsPath)
+        frames = [tweets, original_tweets]
+        total_tweets = pd.concat(frames)
 
-    print(original_tweets.info())
+        saveCsv(total_tweets, cleanTweetsPath)
+        print(total_tweets.info())
 
 # Main commands
+
+tweets = pd.read_csv(tweetsPath, sep=",", skipinitialspace=True)
 
 dropNaFrom(tweets)
 removeNumbersFrom(tweets)
@@ -137,10 +141,10 @@ removePunctuations(tweets)
 makeLowercaseTo(tweets)
 tweets['text'] = tweets['text'].apply(textLemmatization)
 tweets['text'] = tweets['text'].apply(removeStopwords)
+dropDuplicate(tweets)
 saveCsv(tweets,tweetsPath)
-cleanNAandSpaceFromOriginalFile()
+
 addCleanTextToOriginalFile()
 
-
-# removeNonEnglishWordsFrom(tweets) #kullanmadık
-# tweets['text'] = tweets['text'].apply(textStemming) #kullanmadık
+removeNonEnglishWordsFrom(tweets) #kullanmadık
+tweets['text'] = tweets['text'].apply(textStemming) #kullanmadık

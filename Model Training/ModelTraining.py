@@ -42,7 +42,7 @@ def applyNaiveBayesTo(dataSet):
     model = MultinomialNB().fit(X_train, y_train)
     saveModel(model, 'MultinomialNaiveBayes')
 
-    # cross_val_score(model, X_train, y_train, cv = 10)
+    cross_val_score(model, X_train, y_train, cv = 10)
 
     predicted = model.predict(X_test)
     print(confusion_matrix(y_test, predicted))
@@ -65,6 +65,7 @@ def applyKnnTo(training_set):
     model = classifier.fit(X_train, y_train)
     saveModel(model, 'Knn')
 
+    cross_val_score(model, X_train, y_train, cv=10)
 
     predicted = classifier.predict(X_test)
     print(confusion_matrix(y_test, predicted))
@@ -81,16 +82,17 @@ def applyKnnTo(training_set):
     # a = error.index(min(error))
     # print(a)
 
-def applyDesicionTreeTo(training_set):
+def applyDecisionTreeTo(training_set):
 
     classifier = DecisionTreeClassifier()
     model = classifier.fit(X_train, y_train)
     saveModel(model, 'DecisionTree')
 
+    cross_val_score(model, X_train, y_train, cv=10)
+
     predicted = model.predict(X_test)
     print(confusion_matrix(y_test, predicted))
     print(classification_report(y_test, predicted))
-
 
 
 dataSet = prepareDataSet()
@@ -103,4 +105,4 @@ X_train, X_test, y_train, y_test = train_test_split(dataSet.drop(['label'],axis 
 
 applyNaiveBayesTo(dataSet)
 # applyKnnTo(dataSet)
-# applyDesicionTreeTo(dataSet)
+# applyDecisionTreeTo(dataSet)
