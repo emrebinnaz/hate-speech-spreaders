@@ -27,8 +27,14 @@ def getFirstXTweetsOfTargetValue(x, target):
 
 def prepareDataSet():
 
-    hateful_tweets = getFirstXTweetsOfTargetValue(2275,'hateful') # dinamik yap (anlarsın heralde)
-    normal_tweets = getFirstXTweetsOfTargetValue(2275, 'normal')
+    numberOfHateful = len(tfidf[tfidf['label'] == 'hateful'])
+    numberOfNormal = len(tfidf[tfidf['label'] == 'normal'])
+
+    minimum = min(numberOfHateful,numberOfNormal)
+    print("minimum olan labelın değeri = ", minimum)
+
+    hateful_tweets = getFirstXTweetsOfTargetValue(minimum,'hateful')
+    normal_tweets = getFirstXTweetsOfTargetValue(minimum, 'normal')
 
     frames = [hateful_tweets, normal_tweets]
 
