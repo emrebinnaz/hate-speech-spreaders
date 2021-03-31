@@ -1,0 +1,7 @@
+validasyon seti
+word 2 vec bakılacak.
+iyi bir feature extraction bul.
+diğer modeller eklenecek (svm, random forest vb..)
+tweet çekilecek.
+veri seti araştırılabilir.
+eğer future predictionun runtime'ı  uzarsa tfidf'in boyutu küçültülebilir
