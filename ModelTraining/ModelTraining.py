@@ -42,7 +42,7 @@ def prepareDataSet():
 
     return tweets
 
-def applyNaiveBayesTo():
+def applyNaiveBayes():
 
     model = MultinomialNB().fit(X_train, y_train)
     saveModel(model, 'MultinomialNaiveBayes')
@@ -64,7 +64,7 @@ def applyNaiveBayesTo():
     # print(confusion_matrix(y_val, predicted))
     # print(accuracy_score(y_val, predicted))
 
-def applyKnnTo():
+def applyKnn():
 
     classifier = KNeighborsClassifier(n_neighbors=2)
     model = classifier.fit(X_train, y_train)
@@ -87,7 +87,7 @@ def applyKnnTo():
     # a = error.index(min(error))
     # print(a)
 
-def applyDecisionTreeTo():
+def applyDecisionTree():
 
     classifier = DecisionTreeClassifier()
     model = classifier.fit(X_train, y_train)
@@ -109,6 +109,6 @@ X_train, X_test, y_train, y_test = train_test_split(dataSet.drop(['label'],axis 
                                                     test_size=0.25,
                                                     random_state=42)
 
-# applyNaiveBayesTo(dataSet)
-# applyKnnTo(dataSet)
-# applyDecisionTreeTo(dataSet)
+# applyNaiveBayes()
+# applyKnn()
+# applyDecisionTree()

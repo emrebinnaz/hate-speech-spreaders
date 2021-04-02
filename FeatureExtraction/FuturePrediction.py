@@ -22,4 +22,4 @@ def prediction(modelName, newTextList):
     print(prediction)
 
 
-prediction('MultinomialNaiveBayes', ["love","I hate you"])
+prediction('MultinomialNaiveBayes', ["fuck you fucking fuck abi","I dont hate you. I am lovely guy. I love you"])

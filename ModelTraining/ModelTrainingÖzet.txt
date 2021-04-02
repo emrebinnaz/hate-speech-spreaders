@@ -4,4 +4,5 @@ iyi bir feature extraction bul.
 diğer modeller eklenecek (svm, random forest vb..)
 tweet çekilecek.
 veri seti araştırılabilir.
+I dont hate you vb cümlelerinin normal olarak elde edilmesi gerekli
 eğer future predictionun runtime'ı  uzarsa tfidf'in boyutu küçültülebilir

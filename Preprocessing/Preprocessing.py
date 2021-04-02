@@ -3,14 +3,15 @@ import nltk
 import preprocessor as preprocessor
 import os
 
-from Stopwords import createNewStopWordList
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize.toktok import ToktokTokenizer
+
+from Stopwords import createNewStopWordList
 
 words = set(nltk.corpus.words.words())
 tokenizer = ToktokTokenizer()
 
-tweetsPath = '../Files/.csv' #gelen verisetine göre path değiştir !!!
+tweetsPath = '../Files/DatasetWithoutTweetId2.csv' #gelen verisetine göre path değiştir !!!
 cleanTweetsPath = '../Files/ContentOfTweets.csv'
 
 def change1toHatefuland0toNormal(tweets): #label 0 ve 1 olan veriseti varsa bunu uygulamayı unutma!!!
