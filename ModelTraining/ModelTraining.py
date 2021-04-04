@@ -7,7 +7,8 @@ from sklearn.model_selection import cross_val_score
 from sklearn.metrics import classification_report
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
-
+from sklearn import svm
+from sklearn.linear_model import LogisticRegression
 
 tfidfPath = '../Files/tfidf.csv'
 trainingSetPath = '../Files/TrainingSet.csv'
@@ -100,6 +101,70 @@ def applyDecisionTree():
     print(confusion_matrix(y_test, predicted))
     print(classification_report(y_test, predicted))
 
+def applyLinearSVM():
+
+    classifier = svm.SVC(kernel='linear')
+    model = classifier.fit(X_train, y_train)
+    saveModel(model, 'LinearSVM')
+
+    cross_val_score(model, X_train, y_train, cv=10)
+
+    predicted = classifier.predict(X_test)
+    print(confusion_matrix(y_test, predicted))
+    print(classification_report(y_test, predicted))
+
+def applyPolynomialSVM():
+
+    classifier = svm.SVC(kernel = 'poly', degree = 8) # degree ayarlanacak.
+    model = classifier.fit(X_train, y_train)
+    saveModel(model, 'PolynomialSVM')
+
+    cross_val_score(model, X_train, y_train, cv=10)
+
+    predicted = classifier.predict(X_test)
+    print(confusion_matrix(y_test, predicted))
+    print(classification_report(y_test, predicted))
+
+def applyGaussianSVM():
+
+    classifier = svm.SVC(kernel = 'rbf') # degree ayarlanacak.
+    model = classifier.fit(X_train, y_train)
+    saveModel(model, 'GaussianSVM')
+
+    cross_val_score(model, X_train, y_train, cv=10)
+
+    predicted = classifier.predict(X_test)
+    print(confusion_matrix(y_test, predicted))
+    print(classification_report(y_test, predicted))
+
+def applySigmoidSVM():
+
+    classifier = svm.SVC(kernel='sigmoid')
+    model = classifier.fit(X_train, y_train)
+    saveModel(model, 'SigmoidSVM')
+
+    cross_val_score(model, X_train, y_train, cv=10)
+
+    predicted = classifier.predict(X_test)
+    print(confusion_matrix(y_test, predicted))
+    print(classification_report(y_test, predicted))
+
+def applyLogisticRegression():
+
+    classifier = LogisticRegression(random_state=0)
+    model = classifier.fit(X_train, y_train)
+    saveModel(model, 'LogisticRegression')
+
+    cross_val_score(model, X_train, y_train, cv=10)
+
+    predicted = classifier.predict(X_test)
+    print(confusion_matrix(y_test, predicted))
+    print(classification_report(y_test, predicted))
+
+
+# def applyRandomForest():
+
+
 
 dataSet = prepareDataSet()
 dataSet = convertDataTypeToCategoric(dataSet)
@@ -109,6 +174,12 @@ X_train, X_test, y_train, y_test = train_test_split(dataSet.drop(['label'],axis 
                                                     test_size=0.25,
                                                     random_state=42)
 
-applyNaiveBayes()
+# applyNaiveBayes()
 # applyKnn()
 # applyDecisionTree()
+# applyLogisticRegression()
+# applyRandomForest() # bak
+# applyLinearSVM()
+# applyPolynomialSVM() bak
+applySigmoidSVM()
+applyGaussianSVM()

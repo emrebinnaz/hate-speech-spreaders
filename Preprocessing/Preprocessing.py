@@ -62,7 +62,7 @@ def createCleanCsvFrom(cleanTxtFile):
 
 def removePunctuations(tweets): # daha sonra hashtagler için # sembolü geri getirilmeli
     
-    tweets.text = tweets.text.str.replace('[^\w\s]', '')
+    tweets.text = tweets.text.str.replace('[^\w\s]', '', regex = True)
     
 def makeLowercaseTo(tweets):
 
