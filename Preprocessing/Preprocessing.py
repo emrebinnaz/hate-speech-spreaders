@@ -5,7 +5,6 @@ import os
 
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize.toktok import ToktokTokenizer
-
 from Stopwords import createNewStopWordList
 
 words = set(nltk.corpus.words.words())
@@ -96,10 +95,13 @@ def textStemming(text): #kullanmadık
 
     ps = nltk.porter.PorterStemmer()
     text = ' '.join([ps.stem(word) for word in text.split()])
+
     return text
 
 def dropDuplicate(tweets):
-    tweets.drop_duplicates(subset="text", keep=False, inplace=True)
+
+
+    tweets.drop_duplicates(subset = "text", keep = 'first' , inplace = True)
 
 def saveCsv(tweets,path):
 
@@ -111,7 +113,7 @@ def addCleanTextToOriginalFile():
     tweets = pd.read_csv(tweetsPath, sep=",", skipinitialspace=True)  # data frame oldu
 
     filesize = os.path.getsize(cleanTweetsPath)
-    print(filesize)
+
     if filesize == 0:
         saveCsv(tweets, cleanTweetsPath)
     else:
@@ -119,7 +121,7 @@ def addCleanTextToOriginalFile():
 
         frames = [tweets, original_tweets]
         total_tweets = pd.concat(frames)
-
+        dropDuplicate(total_tweets)
         saveCsv(total_tweets, cleanTweetsPath)
         print(total_tweets.info())
 
@@ -143,9 +145,9 @@ makeLowercaseTo(tweets)
 tweets['text'] = tweets['text'].apply(textLemmatization)
 tweets['text'] = tweets['text'].apply(removeStopwords)
 dropDuplicate(tweets)
-saveCsv(tweets,tweetsPath)
+saveCsv(tweets, tweetsPath)
 
 addCleanTextToOriginalFile()
 
-removeNonEnglishWordsFrom(tweets) #kullanmadık
-tweets['text'] = tweets['text'].apply(textStemming) #kullanmadık
+# removeNonEnglishWordsFrom(tweets) #kullanmadık
+# tweets['text'] = tweets['text'].apply(textStemming) #kullanmadık
