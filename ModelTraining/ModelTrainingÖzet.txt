@@ -7,6 +7,4 @@ veri seti araştırılabilir.
 I dont hate you vb cümlelerinin normal olarak elde edilmesi gerekli
 eğer future predictionun runtime'ı  uzarsa tfidf'in boyutu küçültülebilir
 stopword listesinden olumsuzluk belirten sözcükler kalkacak
-lemmatizasyon çeşitleri -> https://www.geeksforgeeks.org/python-lemmatization-approaches-with-examples/
 preprocessing dosyasında txt file'ı oluşturmaya gerek kalmadı.
-iki harfli tüm kelime kombinasyonlarını stopwords'e koy.
