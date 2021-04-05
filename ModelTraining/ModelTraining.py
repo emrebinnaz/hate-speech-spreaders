@@ -174,12 +174,12 @@ X_train, X_test, y_train, y_test = train_test_split(dataSet.drop(['label'],axis 
                                                     test_size=0.25,
                                                     random_state=42)
 
-# applyNaiveBayes()
+applyNaiveBayes()
 # applyKnn()
 # applyDecisionTree()
 # applyLogisticRegression()
 # applyRandomForest() # bak
 # applyLinearSVM()
 # applyPolynomialSVM() bak
-applySigmoidSVM()
-applyGaussianSVM()
+# applySigmoidSVM()
+# applyGaussianSVM()

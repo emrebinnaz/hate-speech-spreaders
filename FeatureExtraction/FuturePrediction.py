@@ -1,12 +1,13 @@
-import nltk
+
 import pandas as pd
 import joblib
-import preprocessor as preprocessor
 
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize.toktok import ToktokTokenizer
 from ModelTraining.ModelFunctions import loadModel
 from Preprocessing.Stopwords import createNewStopWordList
+from Config.Preprocessor import *
+from Config.Lemmatization import *
 
 words = set(nltk.corpus.words.words())
 tokenizer = ToktokTokenizer()
@@ -14,7 +15,7 @@ tokenizer = ToktokTokenizer()
 def textLemmatization(text):
 
     lemmatizer = WordNetLemmatizer()
-    text = " ".join([lemmatizer.lemmatize(w) for w in nltk.word_tokenize(text)])
+    text = " ".join([lemmatizer.lemmatize(w, get_wordnet_pos(w)) for w in nltk.word_tokenize(text)])
 
     return text
 
@@ -38,13 +39,7 @@ def prediction(modelName, newTextList):
     data = {'text': newTextList}
     tweets = pd.DataFrame(data = data)
 
-    preprocessor.set_options(preprocessor.OPT.MENTION,
-                             preprocessor.OPT.URL,
-                             preprocessor.OPT.RESERVED,
-                             preprocessor.OPT.EMOJI,
-                             preprocessor.OPT.SMILEY)
-
-    tweets['text'] = tweets['text'].apply(lambda text : preprocessor.clean(text))
+    tweets['text'] = tweets['text'].apply(lambda text : getPreprocessor().clean(text))
     tweets.text = tweets.text.replace('#', '', regex=True)  # remove hashtag mark
     tweets.text = tweets.text.replace('\d+', '', regex=True) # remove numbers
     tweets.text = tweets.text.replace("RT", '', regex=True) # remove RT
