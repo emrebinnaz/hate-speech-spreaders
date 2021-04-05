@@ -11,6 +11,7 @@ words = set(nltk.corpus.words.words())
 tokenizer = ToktokTokenizer()
 
 ## ContentOfTweets silinirse çalıştırılacak file sırası:
+
 # DatasetWithTweetIdFromTweetAccess.csv
 # DatasetWithoutTweetId.csv
 # DatasetWithoutTweetId2.csv

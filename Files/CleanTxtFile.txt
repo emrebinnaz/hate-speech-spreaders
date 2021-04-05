@@ -1,5 +1,5 @@
 id,text,label
-0,"""america year obamas ideology hillary shithole country"" ",hateful
+0,"""year obamas ideology hillary shithole country"" ",hateful
 3,"""queue fuck retard feel chance fcfs fucksake"" ",hateful
 4,"""soit pa burundais refugies alerte car leur corp sont visibles loeil nu"" ",hateful
 9,"""bitter cunt arsenal player player fod sell"" ",hateful
@@ -32,7 +32,7 @@ id,text,label
 115,"""feminazis roll fraud"" ",hateful
 118,"""spic polach"" ",hateful
 120,"""feminist fat twat"" ",hateful
-127,"""exam pass collage fuck mongy place cheeky pay rise beforeu"" ",hateful
+127,"""exam collage fuck mongy place cheeky pay rise beforeu"" ",hateful
 128,"""love negro"" ",hateful
 132,"""mind negroso open mind screen door impressive carterv"" ",hateful
 133,"""skip shithole city ndetrou"" ",hateful
@@ -46,7 +46,7 @@ id,text,label
 173,"""faggot clap cheek nigga"" ",hateful
 174,"""charlie sloth mongy cunt"" ",hateful
 176,"""tag denilson spic"" ",hateful
-180,"""sheus africa ya place ucshithole countriesud locateduddudeuddudeuddudeuddude"" ",hateful
+180,"""sheus ya place ucshithole countriesud locateduddudeuddudeuddudeuddude"" ",hateful
 190,"""soulless fuck twat"" ",hateful
 203,"""series machado faggot insult"" ",hateful
 205,"""sort thing shithole country"" ",hateful
@@ -55,8 +55,8 @@ id,text,label
 212,"""baby told beautiful bare face nigger twist"" ",hateful
 218,"""force deal retard people everyday"" ",hateful
 219,"""itus faggot"" ",hateful
-225,"""decide race indian carry caucasoid australoid mongoloid race intermediu"" ",hateful
-238,"""lol speak hazaramongol people ethnic afghan geneticalu"" ",hateful
+225,"""decide race carry caucasoid australoid mongoloid race intermediu"" ",hateful
+238,"""lol speak hazaramongol people ethnic geneticalu"" ",hateful
 239,"""coat"" ",hateful
 246,"""word retard derogatory sense youure piece shit lol"" ",hateful
 251,"""chinaman wetback combo"" ",hateful
@@ -94,13 +94,13 @@ id,text,label
 376,"""high pitch ching chong"" ",hateful
 378,"""angry cunt"" ",hateful
 381,"""camerroonians celebrity uddudeuddudeuddudeuddudeuddude people surely shout wan retardeduddude"" ",hateful
-382,"""hey american follower country shithole political sense vote ium high pain killer"" ",hateful
+382,"""hey follower country shithole political sense vote ium high pain killer"" ",hateful
 389,"""faggot lady fuck youuddudeduddudedudduded"" ",hateful
 397,"""bombing shoot president mental capacity flea united state real shithole country"" ",hateful
 398,"""answer phone faggot fuck"" ",hateful
 401,"""aye offense faggot ta faggot"" ",hateful
 405,"""stand meanspirited nigger"" ",hateful
-416,"""wouldshould chinese immigrant care chinatown strathcona"" ",hateful
+416,"""wouldshould immigrant care chinatown strathcona"" ",hateful
 417,"""fuck retard flirt guy girlfriend matu"" ",hateful
 419,"""retard uddudeuddudeuddudeyou special class floyd"" ",hateful
 420,"""update buck manny machado twat"" ",hateful
@@ -133,7 +133,7 @@ id,text,label
 554,"""lanie post single dyke god good ready shitposts hey lanie hope notifs ily"" ",hateful
 556,"""faggot dick hardnyou dance sau"" ",hateful
 558,"""dirtiest chinaman criminal lee hsien loong incite racial hatred malaysianu"" ",hateful
-560,"""outdated retard gop mentality paranoid idea brainwash citizen american visceu"" ",hateful
+560,"""outdated retard gop mentality paranoid idea brainwash citizen visceu"" ",hateful
 566,"""true christian retard cousin family"" ",hateful
 570,"""fuck monster boro fan frighten deffo water inbred smoggy mongy wanker"" ",hateful
 572,"""steve cunt thehauntingofhillhouse"" ",hateful
@@ -161,7 +161,7 @@ id,text,label
 651,"""tighten immigration lawsprevent immigration shithole country usa whilst hau"" ",hateful
 652,"""shush nigger"" ",hateful
 653,"""class mongy cunt decision"" ",hateful
-658,"""change america shithole country flee mayu"" ",hateful
+658,"""change shithole country flee mayu"" ",hateful
 663,"""sothe black chinaman"" ",hateful
 667,"""negro pls negro sry"" ",hateful
 673,"""fyou dipshit atleast apologizes low esteem cunt younnagain catu"" ",hateful
@@ -170,7 +170,7 @@ id,text,label
 686,"""whous retard kick"" ",hateful
 691,"""gttella outta cannyou mongoloid"" ",hateful
 696,"""retard political goon uddude fake propaganda people reject desperatu"" ",hateful
-700,"""hate chinese customer dis talk ching chong"" ",hateful
+700,"""hate customer dis talk ching chong"" ",hateful
 703,"""scoreboard goddamn retard uddudeuddudeuddude didnut grade math"" ",hateful
 708,"""true race caucasoid white mongoloid asian negroidblack allu"" ",hateful
 709,"""nice mob angry feminazi democratic woman stand decent conservative"" ",hateful
@@ -191,11 +191,11 @@ id,text,label
 800,"""sound shithole country"" ",hateful
 804,"""picture ching chong eat dog lmfaoo"" ",hateful
 805,"""female retard nigga doesnut"" ",hateful
-811,"""sebastian stan south africa cape town greek attire highly"" ",hateful
+811,"""sebastian stan south cape town attire highly"" ",hateful
 813,"""clockwork white liberal applaud diplomatic magic negro patience"" ",hateful
 814,"""orthodox spin dull leggie chinaman spinner overrate"" ",hateful
 815,"""today sling day life shithole country pgh"" ",hateful
-823,"""illegal organ harvest rampant egypt refugee main target africa egypt middleeast"" ",hateful
+823,"""illegal organ harvest rampant egypt refugee main target egypt middleeast"" ",hateful
 827,"""shameful mother raise retard"" ",hateful
 831,"""sign sexy dreamy cunt"" ",hateful
 835,"""surprised party movie kind plot raghead placu"" ",hateful
@@ -203,8 +203,8 @@ id,text,label
 847,"""boy child slave unfunny spic beaner titty suck unfunny gook"" ",hateful
 858,"""potato potato ching chong tomato"" ",hateful
 872,"""dirty jew"" ",hateful
-875,"""mad ching chong chinese dirty cheater defend team"" ",hateful
-878,"""france ha bloody great migrant problem rapidly shithole europe countu"" ",hateful
+875,"""mad ching chong dirty cheater defend team"" ",hateful
+878,"""ha bloody great migrant problem rapidly shithole europe countu"" ",hateful
 886,"""zealot left criminal leftist domesticu"" ",hateful
 895,"""guyus fuck retard lmfao"" ",hateful
 896,"""suspicion upstairs chinaman neighbor feign mental illness year ago slam gu"" ",hateful
@@ -219,7 +219,7 @@ id,text,label
 943,"""yakuza ha taught hate men gon kick shit fucker cunt"" ",hateful
 946,"""talk fact retard parent check sanity"" ",hateful
 959,"""fuck game gay retard"" ",hateful
-971,"""lol ching chong guy rich dude china suddenly campus"" ",hateful
+971,"""lol ching chong guy rich dude suddenly campus"" ",hateful
 986,"""spic message friend curious cat gon beat frienu"" ",hateful
 999,"""literal twat hey justify twitter toonthis guy twitchcon tou"" ",hateful
 1004,"""retard brain censor"" ",hateful
@@ -244,7 +244,7 @@ id,text,label
 1111,"""scarlett johansson walk faggot walk personal cellu"" ",hateful
 1112,"""blunt cunt rhyme reason bitch"" ",hateful
 1113,"""record muslim immigrant shithole country wu"" ",hateful
-1119,"""trump talk america shithole country comment uddude"" ",hateful
+1119,"""trump talk shithole country comment uddude"" ",hateful
 1123,"""black metal poetry daynni virgin cunt spawn snakenni witness tribe judah reducu"" ",hateful
 1124,"""heus maga trump republican moronic twat"" ",hateful
 1129,"""dave robert fucken retard"" ",hateful
@@ -338,7 +338,7 @@ id,text,label
 1553,"""today ridiculously vapid intolerant cuntradiction brought letter ascendertransitiou"" ",hateful
 1556,"""literally heard worker cuss boyfriend phone uca retard fat fuckud taku"" ",hateful
 1561,"""verbal abuse nightnnucyou fuck freak faggotudnnucyouure ugly face gu"" ",hateful
-1562,"""chinese area weak personally ching chong crazy access orange chicken regularly"" ",hateful
+1562,"""area weak personally ching chong crazy access orange chicken regularly"" ",hateful
 1563,"""hey thought hat retard"" ",hateful
 1568,"""negro wake"" ",hateful
 1571,"""thought allen baby boy heus cool guitar pero vocal hinde mongoloid siya"" ",hateful
@@ -350,14 +350,14 @@ id,text,label
 1595,"""exo fuck nigger life left"" ",hateful
 1603,"""itus synagogue fault arm place worship guard retard"" ",hateful
 1607,"""remember drink gamble responsibly youull twat uddudegn"" ",hateful
-1611,"""literally minute vote twat farage good morning britain thing lie"" ",hateful
+1611,"""literally minute vote twat farage good morning thing lie"" ",hateful
 1612,"""dis dyke finna brutalize"" ",hateful
-1615,"""gtrders ching chongn belgium item held custom await presentation custom commissioneu"" ",hateful
+1615,"""gtrders ching chongn item held custom await presentation custom commissioneu"" ",hateful
 1624,"""yep bias twatter turd white female muslim convert bint"" ",hateful
 1625,"""uddudeuddudeuddudeuddudeuddudeuddude irony unwashed crltc fan soup takeruddudeuddude rememberu"" ",hateful
 1627,"""retweet comment reply quit faggot fuck reply nextu"" ",hateful
 1628,"""unrestricted immigration doe people turn country shithole leftu"" ",hateful
-1633,"""oomf mexican nigger"" ",hateful
+1633,"""oomf nigger"" ",hateful
 1637,"""semi ching chong song"" ",hateful
 1645,"""wow real driver issue uber retard time"" ",hateful
 1647,"""watch charles twitch care retard child hand gonnu"" ",hateful
@@ -369,7 +369,7 @@ id,text,label
 1668,"""remember dude stranger candy retard joke"" ",hateful
 1670,"""good luck semi day ya hibs cunt"" ",hateful
 1674,"""bra crush girl london ha crush kid heus retard lol iu"" ",hateful
-1677,"""ucwhah whah whah socialist healthcareud retard america"" ",hateful
+1677,"""ucwhah whah whah socialist healthcareud retard"" ",hateful
 1683,"""wan spic"" ",hateful
 1685,"""good jewish lawyer money dothis nigga retard dumpy hoe"" ",hateful
 1687,"""retard body language gesture respect"" ",hateful
@@ -395,7 +395,7 @@ id,text,label
 1776,"""listen shit lil spic uddudeudeudduddude sing lyric didnut"" ",hateful
 1779,"""man cunt word dead set cunt"" ",hateful
 1782,"""fullblown retard corner"" ",hateful
-1783,"""trump turn america violent shithole country"" ",hateful
+1783,"""trump turn violent shithole country"" ",hateful
 1784,"""fuck retard"" ",hateful
 1786,"""great president nigger faggot white house suck michelle michael dick liberal jerk"" ",hateful
 1787,"""people literally dumbass cunt shit"" ",hateful
@@ -432,7 +432,7 @@ id,text,label
 1912,"""illegal alien voting demsloose power"" ",hateful
 1916,"""country parent birth ucshitholeud shu"" ",hateful
 1917,"""fck ching chong pop dude life sing"" ",hateful
-1923,"""trump jail hunt defenseless animal africa"" ",hateful
+1923,"""trump jail hunt defenseless animal"" ",hateful
 1934,"""white person word spic handle rtd timeline earlier"" ",hateful
 1936,"""retweet buzzfeed news pretend retard hey good bitmy bit sameu"" ",hateful
 1938,"""lexi drug behaving faggot"" ",hateful
@@ -469,7 +469,7 @@ id,text,label
 2080,"""fuck zombie apocalypse gon happen nim worried thick cunt apocalypse"" ",hateful
 2087,"""bitch crazy retard"" ",hateful
 2092,"""yall energy faggot reply negativity butu"" ",hateful
-2093,"""god californian unstable california shithole counu"" ",hateful
+2093,"""god californian unstable shithole counu"" ",hateful
 2096,"""eurafrica white"" ",hateful
 2103,"""suck white lol yall word niggernigga amp yall"" ",hateful
 2111,"""retard facedoxxing disdain jws"" ",hateful
@@ -483,10 +483,10 @@ id,text,label
 2192,"""illegal alien voting election"" ",hateful
 2193,"""answer retard question didnut hurt wigu"" ",hateful
 2204,"""clocksback cunt insomniadonut poke bear today"" ",hateful
-2207,"""bout mexico send people fine people shithole country yeah"" ",hateful
+2207,"""bout send people fine people shithole country yeah"" ",hateful
 2208,"""negro bar idk"" ",hateful
 2209,"""fail condemn actively promote bigotry term shithole country ring"" ",hateful
-2214,"""true care illegal alien muslim american"" ",hateful
+2214,"""true care illegal alien muslim"" ",hateful
 2220,"""mid smelly psy blk mom send retard blk kid goon car night sleepni camera nnreport"" ",hateful
 2223,"""ching chong ding dong"" ",hateful
 2234,"""twat series great gain lot game watch"" ",hateful
@@ -497,7 +497,7 @@ id,text,label
 2256,"""tpain comedy negro funny bruh"" ",hateful
 2261,"""twat add bean degenerate"" ",hateful
 2262,"""gon hand faggot"" ",hateful
-2266,"""canada country immigrant mix immigrant family"" ",hateful
+2266,"""country immigrant mix immigrant family"" ",hateful
 2270,"""cousin ha news yuall mongoloid baby boy"" ",hateful
 2273,"""ching chong nip nong lady"" ",hateful
 2296,"""concha spic uddudeuddudeua"" ",hateful
@@ -508,13 +508,13 @@ id,text,label
 2307,"""offense deadass heterosexual heard faggot life"" ",hateful
 2310,"""didnut notice friend point spic"" ",hateful
 2311,"""wasnut antigay retard uddudeuddudeuddudeuddude"" ",hateful
-2317,"""iconic factual thing slothy cunt ha long time merry saturday filthy aniu"" ",hateful
+2317,"""iconic factual thing slothy cunt ha long time merry filthy aniu"" ",hateful
 2325,"""deport raghead"" ",hateful
 2326,"""spic"" ",hateful
 2332,"""shut fuck fuckin furry faggot"" ",hateful
 2335,"""faggoti forget"" ",hateful
 2339,"""sarah silverman ha ufull retardun"" ",hateful
-2343,"""robert bower muslim mexican medium leftist woman refugeenwaiting"" ",hateful
+2343,"""robert bower muslim medium leftist woman refugeenwaiting"" ",hateful
 2345,"""hahaha justin retard hobbitni ntheendless frightclub"" ",hateful
 2350,"""encourage yuall work ucause guy retard bad thing anytime"" ",hateful
 2352,"""bloody psychopath resign country pakistan"" ",hateful
@@ -524,7 +524,7 @@ id,text,label
 2371,"""sheus retard honor"" ",hateful
 2374,"""youure retard didnut people stupid kill drop collecu"" ",hateful
 2379,"""die retard"" ",hateful
-2387,"""hate jewish people mexican haitian shithole country muslim isu"" ",hateful
+2387,"""hate jewish people haitian shithole country muslim isu"" ",hateful
 2390,"""delete post term ucragheadud uctowel headud uccamel fuckerudu"" ",hateful
 2392,"""svenskeren fuck retard level xin chase level viktor tower btw level becausu"" ",hateful
 2393,"""tbf canut bad sing pub bunch mongy south walliansu"" ",hateful
@@ -545,12 +545,12 @@ id,text,label
 2453,"""talk blessing negro block"" ",hateful
 2461,"""damn shawty nigger suspend lmao"" ",hateful
 2464,"""expect left hypocritical feminazi twit professional asap"" ",hateful
-2465,"""syria ha death refugee happen libya clos"" ",hateful
+2465,"""ha death refugee happen libya clos"" ",hateful
 2468,"""aid test thompson wife dude faggot garrison southpark"" ",hateful
 2470,"""holy crap ching chong font"" ",hateful
-2471,"""hear canada nice immigrant sayin"" ",hateful
+2471,"""hear nice immigrant sayin"" ",hateful
 2472,"""time teach abstract language learn favorite ching chong boy"" ",hateful
-2473,"""black person spanish people spic andor wetback"" ",hateful
+2473,"""black person people spic andor wetback"" ",hateful
 2480,"""timing complete cunt moan"" ",hateful
 2484,"""peternmichelle shut fuck faggot loser musty bitch die hole"" ",hateful
 2485,"""ching chong eat dog"" ",hateful
@@ -568,17 +568,17 @@ id,text,label
 2561,"""guy ta clean gon rot bring disease"" ",hateful
 2562,"""nigger stir rouble tweet confess love random jezebel"" ",hateful
 2564,"""ium homosexual blind retard man pathetu"" ",hateful
-2569,"""build movement idea itus hate muslim mexican people shithole country sucu"" ",hateful
+2569,"""build movement idea itus hate muslim people shithole country sucu"" ",hateful
 2581,"""aye hate nigga salute breathe nigga retard"" ",hateful
 2583,"""iuve literally video fuck retard close didnut laugh"" ",hateful
 2586,"""historic shithole country sign law book sneedle wau"" ",hateful
 2590,"""type slow retard"" ",hateful
-2611,"""iull calm retard eat turkey sandwich deal"" ",hateful
+2611,"""iull calm retard eat sandwich deal"" ",hateful
 2616,"""grandmother room spic spannshe throw monkeyu"" ",hateful
 2631,"""face corrupt lier lock charge traitor usa rope hussein raghead"" ",hateful
 2632,"""ching chong ching chong"" ",hateful
-2639,"""congress represent illegal immigrantswho fight invasion american"" ",hateful
-2642,"""leftistmarxistdems terrorist illegal alien reduce tax burden american bad trade deal exce"" ",hateful
+2639,"""congress represent illegal immigrantswho fight invasion"" ",hateful
+2642,"""leftistmarxistdems terrorist illegal alien reduce tax burden bad trade deal exce"" ",hateful
 2644,"""fuck absolute mongy virgin shot"" ",hateful
 2653,"""hun good computer ignore twat"" ",hateful
 2658,"""twat son bitch shitfuck fuck"" ",hateful
@@ -590,18 +590,18 @@ id,text,label
 2690,"""friend epic join stupid cunt whatus fuck problem shit cunt"" ",hateful
 2693,"""mature sad retard nnyoull learn day bos ahaha"" ",hateful
 2703,"""brain morning potato potato ching chong tomato"" ",hateful
-2704,"""harry london tuesday country day"" ",hateful
-2708,"""remember xbox live spic spoke spanish yuall wasu"" ",hateful
+2704,"""harry london country day"" ",hateful
+2708,"""remember xbox live spic spoke yuall wasu"" ",hateful
 2710,"""hey nigger lover"" ",hateful
 2711,"""yo faggot pedo fuck"" ",hateful
-2712,"""chinese ching chong carry korean"" ",hateful
+2712,"""ching chong carry korean"" ",hateful
 2720,"""low ghanese enjoy shithole country built genius"" ",hateful
 2721,"""faggot americanim redneck agendannow propagandanand sing age paranoia"" ",hateful
 2722,"""thereus leftist terroristnyouure data scientist"" ",hateful
 2723,"""iull spit dyke donut beat bitch"" ",hateful
 2728,"""kimbrel doe retard arm thing half robot pose pop lockin contest"" ",hateful
 2730,"""wan fuck cunt"" ",hateful
-2735,"""trump africanamericans shithole country mexican rapist murderer goodu"" ",hateful
+2735,"""trump africanamericans shithole country rapist murderer goodu"" ",hateful
 2754,"""betsy devos hinders shithole country"" ",hateful
 2757,"""nah fuck ching chong ling long phone"" ",hateful
 2758,"""sample huffpo vox feminazi commenters claim hold door"" ",hateful
@@ -613,7 +613,7 @@ id,text,label
 2803,"""baby potus mongoloid"" ",hateful
 2811,"""yass dyke"" ",hateful
 2815,"""cancel schedule testimony lie feminazi ford"" ",hateful
-2817,"""maga asshole turn america shithole countryuddude"" ",hateful
+2817,"""maga asshole turn shithole countryuddude"" ",hateful
 2825,"""drats feminazi abortion devil troll carload cash despicable"" ",hateful
 2832,"""migrant bring disease death properly vet"" ",hateful
 2836,"""gay faggot"" ",hateful
@@ -636,10 +636,10 @@ id,text,label
 2962,"""theyuve cut rush limbaughus supply moral retard period"" ",hateful
 2968,"""hey spic kinkdom big fact send puppet talk smacknnur server isu"" ",hateful
 2969,"""twt lgbtq people seek asylum told country pretend"" ",hateful
-2972,"""iuve story overhyped jamal khashoggi bullshit american donut care raghead reporteu"" ",hateful
+2972,"""iuve story overhyped jamal khashoggi bullshit donut care raghead reporteu"" ",hateful
 2973,"""ggs talk shit lose retard"" ",hateful
 2978,"""fuck feminazis outrage bring"" ",hateful
-2987,"""fuck raghead britishnnsadiq khan claim british trustinu"" ",hateful
+2987,"""fuck raghead britishnnsadiq khan claim trustinu"" ",hateful
 2990,"""fallait pad arriver retard"" ",hateful
 2991,"""uni faggot"" ",hateful
 2995,"""mongy commentator bitter pontus janssons minute winner year ago"" ",hateful
@@ -648,7 +648,7 @@ id,text,label
 3000,"""report illegal immigrant cross boarder question veracity"" ",hateful
 3004,"""price guaranteed account feminazi"" ",hateful
 3009,"""actively enjoy dim witted mongoloid"" ",hateful
-3014,"""america shithole country angeles good"" ",hateful
+3014,"""shithole country angeles good"" ",hateful
 3016,"""itus shitholecountry leavennoh yeahbecause itus shithole country overran byu"" ",hateful
 3017,"""shithole ignorant people aru"" ",hateful
 3022,"""itus tea retard"" ",hateful
@@ -672,7 +672,7 @@ id,text,label
 3103,"""yeah friend gay retard time ium piece shit uddude"" ",hateful
 3104,"""rich hilltwat"" ",hateful
 3107,"""illegal alien illegally vote dem voter fraud machine doe count"" ",hateful
-3112,"""soros company american tax dollar build app illegal alien evade authority"" ",hateful
+3112,"""soros company tax dollar build app illegal alien evade authority"" ",hateful
 3120,"""bit belly yuall argue fat cunt"" ",hateful
 3124,"""fun fact life spic wetback told dou"" ",hateful
 3126,"""group absolutely sense origin ucshithole cou"" ",hateful
@@ -727,7 +727,7 @@ id,text,label
 3371,"""iuve monster squad minute iuve heard uchomoud ucfaggotud jesus christ wu"" ",hateful
 3372,"""ooga booga chinaman"" ",hateful
 3380,"""passport plane shithole country"" ",hateful
-3381,"""desire learn shithole country language french unpopular teacher becu"" ",hateful
+3381,"""desire learn shithole country language unpopular teacher becu"" ",hateful
 3382,"""heus twat"" ",hateful
 3383,"""fuck dumbass mongoloid asshole breath doesnut wan pay tax bag nno"" ",hateful
 3389,"""venmo wolffis suck dick faggot birdsstone"" ",hateful
@@ -739,14 +739,14 @@ id,text,label
 3407,"""ching chong high save"" ",hateful
 3410,"""buh faggot boomer music ha racial boundary epic"" ",hateful
 3413,"""rest country couldnut fuck london shithole"" ",hateful
-3414,"""kavvanaughs accuser arrest mexico alongside illegal alien mexi"" ",hateful
-3415,"""uca foreign cuntud canut speak british street spoke parliament neu"" ",hateful
-3428,"""amaze ching chong finish ebingo faster"" ",hateful
+3414,"""kavvanaughs accuser arrest alongside illegal alien mexi"" ",hateful
+3415,"""uca foreign cuntud canut speak street spoke parliament neu"" ",hateful
+3428,"""amaze ching chong ebingo faster"" ",hateful
 3433,"""retard steven stay wall bruh"" ",hateful
 3434,"""vc antic mongoloid"" ",hateful
 3435,"""lolgot negro outta"" ",hateful
 3437,"""big spic energy"" ",hateful
-3446,"""speak german espanol raghead"" ",hateful
+3446,"""speak espanol raghead"" ",hateful
 3450,"""drunk feel retard"" ",hateful
 3457,"""literally faggot"" ",hateful
 3461,"""donald invade brown people shithole country liberal angry mob amp democrat tu"" ",hateful
@@ -771,13 +771,13 @@ id,text,label
 3551,"""violenceyou mad year ago shithole country mind fleeiu"" ",hateful
 3555,"""appeal red scare host retard bad people internet mad constantly"" ",hateful
 3565,"""ya shouldnut meeting nonce ya mongy"" ",hateful
-3566,"""saturday night spent bed cunt earth uddudeduddudedudduded unreal stuff"" ",hateful
+3566,"""night spent bed cunt earth uddudeduddudedudduded unreal stuff"" ",hateful
 3571,"""swear nigga retard bruh"" ",hateful
 3575,"""whoop remake faggot whis"" ",hateful
 3580,"""msnbc fuckin retard state man woman discard umbrella fucu"" ",hateful
 3583,"""yearsnwas dream live country retard ignorant inbred monkey dontu"" ",hateful
 3584,"""listen thy light care retard opinion iu"" ",hateful
-3594,"""mdr macron demolit franceaccepte terrorismeles migrantsnon serra pa lui qui protegera france"" ",hateful
+3594,"""mdr macron demolit franceaccepte terrorismeles migrantsnon serra pa lui qui protegera"" ",hateful
 3598,"""literally mudslinging retard"" ",hateful
 3603,"""extraordinary black teen year ago retard face touch mou"" ",hateful
 3605,"""weepy woopy deepy doopy bing bong ching chong wicky wacky tow asian speak ching chong language"" ",hateful
@@ -787,10 +787,10 @@ id,text,label
 3622,"""ching chong group"" ",hateful
 3624,"""dave galactic faggot"" ",hateful
 3627,"""cheat cunt"" ",hateful
-3636,"""rosie odonnell ching chong ping pong wing wong cool chinese friend cool"" ",hateful
+3636,"""rosie odonnell ching chong ping pong wing wong cool friend cool"" ",hateful
 3642,"""shut fuck stupid bitch retard"" ",hateful
 3647,"""thankful live europe demonstration country"" ",hateful
-3650,"""caravan people ucshitholeud country south america refugee wave theu"" ",hateful
+3650,"""caravan people ucshitholeud country south refugee wave theu"" ",hateful
 3651,"""hate club twat"" ",hateful
 3653,"""protect child sexual harassment abuse feminazi"" ",hateful
 3656,"""rat retard"" ",hateful
@@ -812,7 +812,7 @@ id,text,label
 3723,"""spic gon lie"" ",hateful
 3731,"""kana ole nigger"" ",hateful
 3737,"""quote white mad"" ",hateful
-3738,"""chuck person eccojam opn toto venue play africa toto"" ",hateful
+3738,"""chuck person eccojam opn toto venue play toto"" ",hateful
 3739,"""fox immigrant card carry member evil hombre"" ",hateful
 3743,"""single comment faggot faggot lot time spent worry analuddude"" ",hateful
 3744,"""ium complicate twat hate"" ",hateful
@@ -838,20 +838,20 @@ id,text,label
 3845,"""clear thinknnhed chinaman reason"" ",hateful
 3846,"""homo order chilli chicken wrap costa gay faggot"" ",hateful
 3849,"""faggot bitch"" ",hateful
-3851,"""youure muslim mexican shithole countrynntrumpian hypocrisy unparalleled bouu"" ",hateful
+3851,"""youure muslim shithole countrynntrumpian hypocrisy unparalleled bouu"" ",hateful
 3853,"""fuck nigger"" ",hateful
 3882,"""bro early delivery lol fat sweaty ball bos stinky stink face faggot"" ",hateful
-3885,"""ium easy toy turkey eat retard canut reply lmao"" ",hateful
+3885,"""ium easy toy eat retard canut reply lmao"" ",hateful
 3891,"""inuacels npc retard meme"" ",hateful
 3894,"""shut fat sweaty mongoloid high stan southpark"" ",hateful
 3897,"""fact guy bio read shithole country small theu"" ",hateful
-3904,"""canadian model ngo group private individual sponsor refugee federal intake"" ",hateful
-3906,"""lmaoooooo love ppls excuse ucthe rep vagueud god literally chinese cod mongol"" ",hateful
+3904,"""model ngo group private individual sponsor refugee federal intake"" ",hateful
+3906,"""lmaoooooo love ppls excuse ucthe rep vagueud god literally cod mongol"" ",hateful
 3915,"""tory lanez garbage faggot"" ",hateful
 3924,"""dad ching chon wong wong ching chong chong"" ",hateful
 3928,"""chink gook chinaman ching chong"" ",hateful
 3929,"""illegal alien undocumented immigrant"" ",hateful
-3932,"""america turn shithole country guy caravan"" ",hateful
+3932,"""turn shithole country guy caravan"" ",hateful
 3935,"""ahaha guy type fat retard ban cya"" ",hateful
 3938,"""nigger rolf meme"" ",hateful
 3941,"""worry europe communist country immigrant"" ",hateful
@@ -861,7 +861,7 @@ id,text,label
 3951,"""retard daddy butter potato butter retard"" ",hateful
 3959,"""retard block lol"" ",hateful
 3965,"""disease ridden illiterate pig turn shithole countriesu"" ",hateful
-3971,"""struggle feel american elect retard lead countrynnfor sensitiveu"" ",hateful
+3971,"""struggle feel elect retard lead countrynnfor sensitiveu"" ",hateful
 3977,"""twat shot sleep udeudd lion"" ",hateful
 3990,"""gee criticism arm guard church talk shithole country muricau"" ",hateful
 4015,"""mega faggot"" ",hateful
@@ -888,7 +888,7 @@ id,text,label
 4123,"""imagine race god place constantly collectively retard"" ",hateful
 4127,"""pompous arrogant twat country"" ",hateful
 4128,"""shithole shithole country question toouudeudd"" ",hateful
-4135,"""american vote retard lead country"" ",hateful
+4135,"""vote retard lead country"" ",hateful
 4139,"""nigger faggot"" ",hateful
 4142,"""neophyte nigger nonsupervisory rove"" ",hateful
 4145,"""stfu weakchinned turtlefaced hypocritical skunk twat"" ",hateful
@@ -930,12 +930,12 @@ id,text,label
 4318,"""ucbitchud uccuntud talk"" ",hateful
 4322,"""lmfao cunt"" ",hateful
 4323,"""fukem retard"" ",hateful
-4324,"""illegal immigrant destroy america saddest thing"" ",hateful
+4324,"""illegal immigrant destroy saddest thing"" ",hateful
 4328,"""illegal alien mobile phone"" ",hateful
 4336,"""canut jam spic music ion"" ",hateful
 4342,"""udduded"" ",hateful
 4344,"""ucthis good manchester utdud fume hairy hand mongy burk"" ",hateful
-4346,"""wow middle east africa south asia shithole country gather walk thouu"" ",hateful
+4346,"""wow middle east south asia shithole country gather walk thouu"" ",hateful
 4349,"""hey twitter nigger shit fuckibg bitch fuck democratic libtard nigger lover"" ",hateful
 4350,"""comfortable gon retard"" ",hateful
 4352,"""mongoloid version young dolph"" ",hateful
@@ -996,7 +996,7 @@ id,text,label
 4584,"""yup flee shithole country rule evil people nope trump evil trump wu"" ",hateful
 4589,"""hatnen ya chinaman lukaine wit kick flava pimp shit"" ",hateful
 4590,"""anytime fag faggot casually grade people lmao"" ",hateful
-4591,"""banishment send trump people trump place shithole country africa meu"" ",hateful
+4591,"""banishment send trump people trump place shithole country meu"" ",hateful
 4596,"""raven wouldve quit watch nigger felon league year ago"" ",hateful
 4612,"""andme ancestor travel oceangoing caravan shithole country authoritarian leader"" ",hateful
 4614,"""boy kb faggot"" ",hateful
@@ -1020,12 +1020,12 @@ id,text,label
 4704,"""ai spic inglisuddudecuddudecuddudecuddudec"" ",hateful
 4709,"""country live job"" ",hateful
 4713,"""fox news kevin jackson soo hard uncle toming house negro force dumb smh byefelicia"" ",hateful
-4723,"""canut honestly asshole shithole country italy andu"" ",hateful
+4723,"""canut honestly asshole shithole country andu"" ",hateful
 4730,"""retard uddude"" ",hateful
 4731,"""magabomber notnmexicannblacknasylum seekernmuslimncitizen shithole countryncitizen terrorist countryu"" ",hateful
 4734,"""hate cunt"" ",hateful
 4737,"""aaron straightup rancid cunt"" ",hateful
-4744,"""script feminazi march thursday"" ",hateful
+4744,"""script feminazi march"" ",hateful
 4764,"""uda bossu fuck cunt relevanu"" ",hateful
 4771,"""people retard ordy man"" ",hateful
 4775,"""bitch straight slow bought multiple bottle faggot malibu drink choice whou"" ",hateful
@@ -1118,12 +1118,12 @@ id,text,label
 5173,"""starve faggot starve faggot dad thought fam play game uddude sonu"" ",hateful
 5175,"""good morning ching chong"" ",hateful
 5179,"""mongoloid"" ",hateful
-5182,"""bandri country pakistan country country afghanistan"" ",hateful
+5182,"""bandri country pakistan country country"" ",hateful
 5188,"""pauline hanson white thing garbage genocide iceberg"" ",hateful
 5190,"""fuck talk fat eyed fuck retard"" ",hateful
 5198,"""retard gon cheese touch"" ",hateful
 5200,"""hate nigga ium entertain conversation dyke fuck yo goofy nigga"" ",hateful
-5206,"""god america freespeechfree shithole country europe america whyu"" ",hateful
+5206,"""god freespeechfree shithole country europe whyu"" ",hateful
 5224,"""shutup nigger"" ",hateful
 5225,"""cracker carry weight nigger spick wetback chiu"" ",hateful
 5228,"""alright tbf attract mongy element gig"" ",hateful
@@ -1132,7 +1132,7 @@ id,text,label
 5264,"""leave shithole country turn europe continent shithole countriesngo"" ",hateful
 5276,"""nigera fucker nigger pooper"" ",hateful
 5283,"""faggot pay underwear message"" ",hateful
-5285,"""finish sentence mongol"" ",hateful
+5285,"""sentence mongol"" ",hateful
 5296,"""smh woman retard"" ",hateful
 5297,"""lmao twitch abandon faggot"" ",hateful
 5301,"""uhhh stupid faggot goblin slayer sense uddudcaf"" ",hateful
@@ -1152,7 +1152,7 @@ id,text,label
 5361,"""twat change mindnnand stay fuck"" ",hateful
 5366,"""automatic car total fuck mongoloid thechase"" ",hateful
 5367,"""bby faggot black ball"" ",hateful
-5368,"""france germany britain sweden shithole country"" ",hateful
+5368,"""shithole country"" ",hateful
 5370,"""sooooo impressed chimp broadspeak uneducated low info mongoloiu"" ",hateful
 5375,"""leftist read social medium post hat refugee immiu"" ",hateful
 5382,"""thatus mom buy headphone fuck animal kill faggot"" ",hateful
@@ -1169,7 +1169,7 @@ id,text,label
 5433,"""stupid speccy retard free dub"" ",hateful
 5448,"""rondo retard lmao kill"" ",hateful
 5451,"""fuck literal retard"" ",hateful
-5457,"""poor sweden turn shithole country eurofruits donut wu"" ",hateful
+5457,"""poor turn shithole country eurofruits donut wu"" ",hateful
 5458,"""daughter jew simplistic retard"" ",hateful
 5459,"""yuall hoe dumb stupid retard wan kno"" ",hateful
 5466,"""jk rowling tory twat imo"" ",hateful
@@ -1188,14 +1188,14 @@ id,text,label
 5516,"""nigger vote"" ",hateful
 5527,"""prick head cunt interviewed"" ",hateful
 5537,"""webcam weeb gamenretard starter pack"" ",hateful
-5538,"""mexican lookin mongoloid bot"" ",hateful
+5538,"""lookin mongoloid bot"" ",hateful
 5543,"""antisemitism betokens retard culturen frederick engels"" ",hateful
 5550,"""faggot walk"" ",hateful
 5555,"""kevin gate president retard"" ",hateful
-5556,"""turkish president liar hate america fun raghead suck big time"" ",hateful
+5556,"""president liar hate fun raghead suck big time"" ",hateful
 5562,"""lobby childhood uddudeniuve wetback spic time"" ",hateful
 5570,"""lemotdujour retard"" ",hateful
-5573,"""people insult asian ching chong ching chong china forever burning hatred"" ",hateful
+5573,"""people insult asian ching chong ching chong forever burning hatred"" ",hateful
 5579,"""country disgraceful start campaign honest uptill"" ",hateful
 5582,"""faggot love tryna cure depression stay tamagochi haha kawaii sudoku uuduucuudu uufu"" ",hateful
 5588,"""shake hand retard ufcmoncton"" ",hateful
