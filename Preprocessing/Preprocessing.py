@@ -1,14 +1,19 @@
 import pandas as pd
-import nltk
-import preprocessor as preprocessor
 import os
 
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize.toktok import ToktokTokenizer
 from Stopwords import createNewStopWordList
+from Config.Lemmatization import *
+from Config.Preprocessor import getPreprocessor
 
 words = set(nltk.corpus.words.words())
 tokenizer = ToktokTokenizer()
+
+## ContentOfTweets silinirse çalıştırılacak file sırası:
+# DatasetWithTweetIdFromTweetAccess.csv
+# DatasetWithoutTweetId.csv
+# DatasetWithoutTweetId2.csv
 
 tweetsPath = '../Files/DatasetWithoutTweetId2.csv' #gelen verisetine göre path değiştir !!!
 cleanTweetsPath = '../Files/ContentOfTweets.csv'
@@ -46,11 +51,7 @@ def createTxtForPreprocessing():
 
 def applyPreprocessingInTxtFile():
 
-    preprocessor.set_options(preprocessor.OPT.MENTION,
-                             preprocessor.OPT.URL,
-                             preprocessor.OPT.RESERVED,
-                             preprocessor.OPT.EMOJI,
-                             preprocessor.OPT.SMILEY)
+    preprocessor = getPreprocessor()
 
     return preprocessor.clean_file('../Files/CleanTxtFile.txt')
 
@@ -71,7 +72,8 @@ def makeLowercaseTo(tweets):
 def textLemmatization(text):
 
     lemmatizer = WordNetLemmatizer()
-    text = " ".join([lemmatizer.lemmatize(w) for w in nltk.word_tokenize(text)])
+    text = " ".join([lemmatizer.lemmatize(w, get_wordnet_pos(w)) for w in nltk.word_tokenize(text)])
+
     return text
 
 def removeStopwords(text):
@@ -99,7 +101,6 @@ def textStemming(text): #kullanmadık
     return text
 
 def dropDuplicate(tweets):
-
 
     tweets.drop_duplicates(subset = "text", keep = 'first' , inplace = True)
 
