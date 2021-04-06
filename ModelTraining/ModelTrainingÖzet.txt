@@ -8,3 +8,4 @@ I dont hate you vb cümlelerinin normal olarak elde edilmesi gerekli
 eğer future predictionun runtime'ı  uzarsa tfidf'in boyutu küçültülebilir
 stopword listesinden olumsuzluk belirten sözcükler kalkacak
 preprocessing dosyasında txt file'ı oluşturmaya gerek kalmadı.
+text blob ile yanlıs yazılan kelimeler düzeltilebilir.

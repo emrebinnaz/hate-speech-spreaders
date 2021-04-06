@@ -88,6 +88,7 @@ def applyKnn():
     # a = error.index(min(error))
     # print(a)
 
+
 def applyDecisionTree():
 
     classifier = DecisionTreeClassifier()
@@ -101,6 +102,7 @@ def applyDecisionTree():
     print(confusion_matrix(y_test, predicted))
     print(classification_report(y_test, predicted))
 
+
 def applyLinearSVM():
 
     classifier = svm.SVC(kernel='linear')
@@ -112,6 +114,7 @@ def applyLinearSVM():
     predicted = classifier.predict(X_test)
     print(confusion_matrix(y_test, predicted))
     print(classification_report(y_test, predicted))
+
 
 def applyPolynomialSVM():
 
@@ -125,6 +128,7 @@ def applyPolynomialSVM():
     print(confusion_matrix(y_test, predicted))
     print(classification_report(y_test, predicted))
 
+
 def applyGaussianSVM():
 
     classifier = svm.SVC(kernel = 'rbf') # degree ayarlanacak.
@@ -137,6 +141,7 @@ def applyGaussianSVM():
     print(confusion_matrix(y_test, predicted))
     print(classification_report(y_test, predicted))
 
+
 def applySigmoidSVM():
 
     classifier = svm.SVC(kernel='sigmoid')
@@ -148,6 +153,7 @@ def applySigmoidSVM():
     predicted = classifier.predict(X_test)
     print(confusion_matrix(y_test, predicted))
     print(classification_report(y_test, predicted))
+
 
 def applyLogisticRegression():
 
@@ -163,7 +169,6 @@ def applyLogisticRegression():
 
 
 # def applyRandomForest():
-
 
 
 dataSet = prepareDataSet()

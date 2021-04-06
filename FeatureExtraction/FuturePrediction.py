@@ -50,6 +50,7 @@ def prediction(modelName, newTextList):
     tweets['text'] = tweets['text'].apply(textLemmatization)
     tweets['text'] = tweets['text'].apply(removeStopwords)
 
+
     wordList = tfidfVector.get_feature_names() # columns
     newSample = tfidfVector.transform(tweets['text']) # Transform dictionary features into 2D feature matrix.
     newSampleAsDataFrame = pd.DataFrame(data = newSample.toarray(),
@@ -59,4 +60,5 @@ def prediction(modelName, newTextList):
     print(tweets)
     print(prediction)
 
-prediction('MultinomialNaiveBayes', ["farmer ability","A lot of niggas think I’m dumb ima let em think what they want"])
+
+prediction('MultinomialNaiveBayes', ["my name is john"])
