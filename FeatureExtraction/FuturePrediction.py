@@ -62,4 +62,4 @@ def prediction(modelName, newTextList):
     print(prediction)
 
 
-prediction('MultinomialNaiveBayes', ["my name is john"])
+prediction('RandomForest', ["my name is john"])

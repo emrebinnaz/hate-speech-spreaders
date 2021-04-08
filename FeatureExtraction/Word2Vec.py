@@ -19,16 +19,16 @@ def tokenizeTweets(original_tweets):
                                          original_tweets['text']]  # for word2vec
 
 
-def prepareDataSet(docs_vectors):
+def prepareDataSet(vectors):
 
-    numberOfHateful = len(docs_vectors[docs_vectors['label'] == 'hateful'])
-    numberOfNormal = len(docs_vectors[docs_vectors['label'] == 'normal'])
+    numberOfHateful = len(vectors[vectors['label'] == 'hateful'])
+    numberOfNormal = len(vectors[vectors['label'] == 'normal'])
 
     minimum = min(numberOfHateful, numberOfNormal)
     print("minimum olan labelın değeri = ", minimum)
 
-    hateful_tweets = getFirstXTweetsOfTargetValue(minimum, 'hateful',docs_vectors)
-    normal_tweets = getFirstXTweetsOfTargetValue(minimum, 'normal',docs_vectors)
+    hateful_tweets = getFirstXTweetsOfTargetValue(minimum, 'hateful',vectors)
+    normal_tweets = getFirstXTweetsOfTargetValue(minimum, 'normal',vectors)
 
     frames = [hateful_tweets, normal_tweets]
 
@@ -76,6 +76,7 @@ def convertDataTypeToCategoric(df):
 
     return df
 
+
 def createWord2VecModelFile():
 
     size = 1000
@@ -86,7 +87,7 @@ def createWord2VecModelFile():
 
     word2vec_model_file = '../Files/word2vec_' + str(size) + '.model'
     tokenized_text = pd.Series(original_tweets['tokenized_text']).values
-    # Train the Word2Vec Model
+
     w2v_model = Word2Vec(tokenized_text,
                          min_count=min_count,
                          workers=workers,
@@ -129,9 +130,7 @@ def generateWord2VecVectors(originalTweets):
 # createWord2VecModelFile()
 # vectors = generateWord2VecVectors(original_tweets)
 
-vectors = pd.read_csv(allVectorValuesPath,
-                          sep=",",
-                          skipinitialspace=True)
+vectors = pd.read_csv(allVectorValuesPath, sep=",", skipinitialspace=True)
 vectors = convertDataTypeToCategoric(vectors)
 
 dataSet = prepareDataSet(vectors)
