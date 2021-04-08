@@ -1,17 +1,15 @@
-import numpy as np
+
 import pandas as pd
 from gensim.models import Word2Vec
 from gensim.utils import simple_preprocess
 from sklearn.metrics import confusion_matrix, classification_report
 from sklearn.model_selection import train_test_split, cross_val_score
-import time
-import umap
-import matplotlib as plt
-from sklearn.tree import DecisionTreeClassifier
+from sklearn import svm
+from ModelTraining.ModelFunctions import saveModel
 
 originalTweetsPath = '../Files/ContentOfTweets.csv'
 trainingSetPath = '../Files/Word2VecTrainingSet.csv'
-word2vec_filename = '../Files/train_word2vec.csv'
+allVectorValuesPath = '../Files/allWord2VecVectorValues.csv'
 original_tweets = pd.read_csv(originalTweetsPath, sep=",", skipinitialspace=True)
 
 
@@ -21,16 +19,16 @@ def tokenizeTweets(original_tweets):
                                          original_tweets['text']]  # for word2vec
 
 
-def prepareDataSet(original_tweets):
+def prepareDataSet(docs_vectors):
 
-    numberOfHateful = len(original_tweets[original_tweets['label'] == 'hateful'])
-    numberOfNormal = len(original_tweets[original_tweets['label'] == 'normal'])
+    numberOfHateful = len(docs_vectors[docs_vectors['label'] == 'hateful'])
+    numberOfNormal = len(docs_vectors[docs_vectors['label'] == 'normal'])
 
     minimum = min(numberOfHateful, numberOfNormal)
     print("minimum olan labelın değeri = ", minimum)
 
-    hateful_tweets = getFirstXTweetsOfTargetValue(minimum, 'hateful')
-    normal_tweets = getFirstXTweetsOfTargetValue(minimum, 'normal')
+    hateful_tweets = getFirstXTweetsOfTargetValue(minimum, 'hateful',docs_vectors)
+    normal_tweets = getFirstXTweetsOfTargetValue(minimum, 'normal',docs_vectors)
 
     frames = [hateful_tweets, normal_tweets]
 
@@ -40,32 +38,43 @@ def prepareDataSet(original_tweets):
     return tweets
 
 
-def getFirstXTweetsOfTargetValue(x, target):
+def getFirstXTweetsOfTargetValue(x, target,docs_vectors):
 
-    firstNTweets = original_tweets[original_tweets['label'] == target]
-    return firstNTweets.head(n = x)
+    tweets = docs_vectors[docs_vectors['label'] == target]
+
+    return tweets.head(n = x)
 
 
-def split_train_test(test_size=0.25, shuffle_state=True):
+def split_train_test(dataSet,test_size=0.25, shuffle_state=True):
 
-    dataSet = pd.read_csv(trainingSetPath,
-                          sep=",",
-                          skipinitialspace=True)
 
-    X_train, X_test, Y_train, Y_test = train_test_split(dataSet['tokenized_text'],
+    X_train, X_test, Y_train, Y_test = train_test_split(dataSet.drop(['label'],axis = 1),
                                                         dataSet['label'],
                                                         shuffle=shuffle_state,
                                                         test_size=test_size,
                                                         random_state=15)
-    X_train = X_train.reset_index()
-    X_test = X_test.reset_index()
+
     Y_train = Y_train.to_frame()
-    Y_train = Y_train.reset_index()
     Y_test = Y_test.to_frame()
-    Y_test = Y_test.reset_index()
+
+    print(Y_train.info())
+    print(len(Y_train[Y_train['label'] == 'hateful']))
+    print(len(Y_train[Y_train['label'] == 'normal']))
+
 
     return X_train, X_test, Y_train, Y_test
 
+
+def convertDataTypeToCategoric(df):
+
+    cols = [i for i in df.columns if i not in ["label"]]
+
+    for col in cols:
+        df[col] = df[col].astype('float64')
+
+    df['label'] = df['label'].astype('category')
+
+    return df
 
 def createWord2VecModelFile():
 
@@ -87,50 +96,55 @@ def createWord2VecModelFile():
     w2v_model.save(word2vec_model_file)
 
 
-def generateWord2VecVectors(X_train):
+def generateWord2VecVectors(originalTweets):
 
-    # Store the vectors for train data in following file
-
+    vectors = pd.DataFrame()
     word2vec_model_file = '../Files/word2vec_1000.model'
-    sg_w2v_model = Word2Vec.load(word2vec_model_file)
+    word2VecModel = Word2Vec.load(word2vec_model_file)
 
-    with open(word2vec_filename, 'w+') as word2vec_file:
-        for index, row in X_train.iterrows():
-            print("ROWW")
-            print(row)
-            model_vector = (np.mean([sg_w2v_model[token] for token in row['tokenized_text']], axis=0)).tolist()
-            if index == 0:
-                header = ",".join(str(ele) for ele in range(1000))
-                word2vec_file.write(header)
-                word2vec_file.write("\n")
-            # Check if the line exists else it is vector of zeros
-            if type(model_vector) is list:
-                line1 = ",".join([str(vector_element) for vector_element in model_vector])
-            else:
-                line1 = ",".join([str(0) for i in range(1000)])
-            word2vec_file.write(line1)
-            word2vec_file.write('\n')
+    for tokenizedTextList in originalTweets['tokenized_text']:
 
-# # Call the train_test_split
+        temp = pd.DataFrame()  ## initially empty, and empty on every iteration
+
+        for word in tokenizedTextList:
+
+            try:
+                word_vec = word2VecModel.wv[word]  ## if present, the following code applies
+                print(word)
+                temp = temp.append(pd.Series(word_vec),ignore_index=True)
+
+            except:
+                pass
+
+        vector = temp.mean()
+        vectors = vectors.append(vector, ignore_index=True)  ## added to the empty data frame
+
+    vectors['label'] = original_tweets['label']
+    vectors = vectors.fillna(0)
+    vectors.to_csv(allVectorValuesPath, index=None)
+
+    return vectors
+
 # tokenizeTweets(original_tweets)
-# dataSet = prepareDataSet(original_tweets)
-X_train, X_test, Y_train, Y_test = split_train_test()
 # createWord2VecModelFile()
-# generateWord2VecVectors(X_train)
+# vectors = generateWord2VecVectors(original_tweets)
 
-word2vec_model_file = '../Files/word2vec_1000.model'
-model = Word2Vec.load(word2vec_model_file)
+vectors = pd.read_csv(allVectorValuesPath,
+                          sep=",",
+                          skipinitialspace=True)
+vectors = convertDataTypeToCategoric(vectors)
+
+dataSet = prepareDataSet(vectors)
+X_train, X_test, Y_train, Y_test = split_train_test(dataSet)
 
 
-# word2vec_df = pd.read_csv(word2vec_filename)
+classifier = svm.SVC(kernel='linear')
+model = classifier.fit(X_train, Y_train)
+# saveModel(model, 'SVMLinearWithWord2Vec') ## change path of models
 
-# clf_decision_word2vec = DecisionTreeClassifier()
-# start_time = time.time()
-# # Fit the model
-# clf_decision_word2vec.fit(df, Y_train['label'])
-# print("Time taken to fit the model with word2vec vectors: " + str(time.time() - start_time))
-# cross_val_score(df, X_train, Y_train, cv=10)
-# predicted = df.predict(X_test)
-# print(predicted)
-# print(confusion_matrix(Y_test, predicted))
-# print(classification_report(Y_test, predicted))
+cross_val_score(model, X_train, Y_train, cv=10)
+predicted = classifier.predict(X_test)
+
+print(predicted)
+print(confusion_matrix(Y_test, predicted))
+print(classification_report(Y_test, predicted))

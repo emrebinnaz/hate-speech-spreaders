@@ -1,4 +1,3 @@
-
 import pandas as pd
 import joblib
 
@@ -12,12 +11,14 @@ from Config.Lemmatization import *
 words = set(nltk.corpus.words.words())
 tokenizer = ToktokTokenizer()
 
+
 def textLemmatization(text):
 
     lemmatizer = WordNetLemmatizer()
     text = " ".join([lemmatizer.lemmatize(w, get_wordnet_pos(w)) for w in nltk.word_tokenize(text)])
 
     return text
+
 
 def removeStopwords(text):
 
