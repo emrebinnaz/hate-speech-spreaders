@@ -7,10 +7,10 @@ from ModelTraining.ModelFunctions import loadModel
 from Preprocessing.Stopwords import createNewStopWordList
 from Config.Preprocessor import *
 from Config.Lemmatization import *
+from SentimentalPolarity import getSentimentalPolarity
 
 words = set(nltk.corpus.words.words())
 tokenizer = ToktokTokenizer()
-
 
 def textLemmatization(text):
 
@@ -62,4 +62,5 @@ def prediction(modelName, newTextList):
     print(prediction)
 
 
-prediction('RandomForest', ["my name is john"])
+prediction('RandomForest', ["I dont hate you"])
+getSentimentalPolarity("I love you")

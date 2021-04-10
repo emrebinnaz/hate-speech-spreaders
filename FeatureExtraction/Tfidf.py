@@ -44,7 +44,6 @@ def saveTfidfMatrix(vectorizer):
 
 
 
-# filterFrequencies() bag of words
 vectorizer = createTfidfMatrix()
 saveTfidfMatrix(vectorizer)
 

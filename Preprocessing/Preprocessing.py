@@ -16,7 +16,7 @@ tokenizer = ToktokTokenizer()
 # DatasetWithoutTweetId.csv
 # DatasetWithoutTweetId2.csv
 
-tweetsPath = '../Files/DatasetWithoutTweetId2.csv' #gelen verisetine göre path değiştir !!!
+tweetsPath = '../Files/DatasetWithTweetIdFromTweetAccess.csv' #gelen verisetine göre path değiştir !!!
 cleanTweetsPath = '../Files/ContentOfTweets.csv'
 
 def change1toHatefuland0toNormal(tweets): #label 0 ve 1 olan veriseti varsa bunu uygulamayı unutma!!!

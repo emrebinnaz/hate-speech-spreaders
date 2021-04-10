@@ -195,13 +195,13 @@ X_train, X_test, y_train, y_test = train_test_split(dataSet.drop(['label'],axis 
                                                     test_size=0.25,
                                                     random_state=42)
 
-model = loadModel("Models/", "RandomForest")
-predicted = model.predict(X_test)
-print(confusion_matrix(y_test, predicted))
-print(classification_report(y_test, predicted))
-
-plot_confusion_matrix(model, X_test, y_test)
-plt.show()
+# model = loadModel("Models/", "RandomForest")
+# predicted = model.predict(X_test)
+# print(confusion_matrix(y_test, predicted))
+# print(classification_report(y_test, predicted))
+#
+# plot_confusion_matrix(model, X_test, y_test)
+# plt.show()
 
 # applyNaiveBayes()
 # applyKnn()

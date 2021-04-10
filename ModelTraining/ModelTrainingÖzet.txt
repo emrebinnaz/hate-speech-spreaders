@@ -8,3 +8,4 @@ stopword listesinden olumsuzluk belirten sözcükler kalkacak
 preprocessing dosyasında txt file'ı oluşturmaya gerek kalmadı.
 random forest'ın ve word2vec'in parametrelerine bakabiliriz iyileştirme için.
 word2vec future prediction
+tfidf'i 15 yap.
