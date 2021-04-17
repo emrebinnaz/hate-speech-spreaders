@@ -49,6 +49,7 @@ def prepareDataSet():
 
 def applyNaiveBayes():
 
+    print("MultinomialNaiveBayes is running")
     model = MultinomialNB().fit(X_train, y_train)
     saveModel(model, 'MultinomialNaiveBayes')
 
@@ -71,6 +72,7 @@ def applyNaiveBayes():
 
 def applyKnn():
 
+    print("KNN is running")
     classifier = KNeighborsClassifier(n_neighbors=2)
     model = classifier.fit(X_train, y_train)
     saveModel(model, 'Knn')
@@ -95,6 +97,7 @@ def applyKnn():
 
 def applyDecisionTree():
 
+    print("Decision Tree is running")
     classifier = DecisionTreeClassifier()
     model = classifier.fit(X_train, y_train)
     saveModel(model, 'DecisionTree')
@@ -102,13 +105,13 @@ def applyDecisionTree():
     cross_val_score(model, X_train, y_train, cv=10)
 
     predicted = model.predict(X_test)
-    print(predicted)
     print(confusion_matrix(y_test, predicted))
     print(classification_report(y_test, predicted))
 
 
 def applyLinearSVM():
 
+    print("Linear SVM is running")
     classifier = svm.SVC(kernel='linear')
     model = classifier.fit(X_train, y_train)
     saveModel(model, 'LinearSVM')
@@ -122,6 +125,7 @@ def applyLinearSVM():
 
 def applyPolynomialSVM():
 
+    print("Polynomial SVM is running")
     classifier = svm.SVC(kernel = 'poly', degree = 8) # degree ayarlanacak.
     model = classifier.fit(X_train, y_train)
     saveModel(model, 'PolynomialSVM')
@@ -135,6 +139,7 @@ def applyPolynomialSVM():
 
 def applyGaussianSVM():
 
+    print("Gaussian SVM is running")
     classifier = svm.SVC(kernel = 'rbf') # degree ayarlanacak.
     model = classifier.fit(X_train, y_train)
     saveModel(model, 'GaussianSVM')
@@ -148,6 +153,7 @@ def applyGaussianSVM():
 
 def applySigmoidSVM():
 
+    print("Sigmoid SVM is running")
     classifier = svm.SVC(kernel='sigmoid')
     model = classifier.fit(X_train, y_train)
     saveModel(model, 'SigmoidSVM')
@@ -161,6 +167,7 @@ def applySigmoidSVM():
 
 def applyLogisticRegression():
 
+    print("Logistic Regression is running")
     classifier = LogisticRegression(random_state=0)
     model = classifier.fit(X_train, y_train)
     saveModel(model, 'LogisticRegression')
@@ -174,6 +181,7 @@ def applyLogisticRegression():
 
 def applyRandomForest():
 
+    print("Random Forest is running")
     classifier = RandomForestClassifier(n_estimators=1000, max_leaf_nodes=18, random_state=21) # parametrelere bak
     model = classifier.fit(X_train, y_train)
     saveModel(model, 'RandomForest')
@@ -209,6 +217,6 @@ X_train, X_test, y_train, y_test = train_test_split(dataSet.drop(['label'],axis 
 # applyLogisticRegression()
 # applyRandomForest()
 # applyLinearSVM()
-# applyPolynomialSVM() bak
+# applyPolynomialSVM()
 # applySigmoidSVM()
 # applyGaussianSVM()

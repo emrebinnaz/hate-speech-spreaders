@@ -43,7 +43,6 @@ def saveTfidfMatrix(vectorizer):
     joblib.dump(vectorizer, open("../Files/TfidfVector.pkl", "wb"))
 
 
-
 vectorizer = createTfidfMatrix()
 saveTfidfMatrix(vectorizer)
 
