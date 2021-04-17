@@ -3,7 +3,7 @@ import joblib
 
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize.toktok import ToktokTokenizer
-from ModelTraining.ModelFunctions import loadModel
+from ModelTraining.ModelFunctionsML import loadModel
 from Preprocessing.Stopwords import createNewStopWordList
 from Config.Preprocessor import *
 from Config.Lemmatization import *
@@ -34,7 +34,7 @@ def removeStopwords(text):
 
 def prediction(modelName, newTextList):
 
-    model = loadModel("../ModelTraining/Models/", modelName)
+    model = loadModel("../ModelTraining/ModelsML/", modelName)
     tfidfVector = joblib.load(open("../Files/TfidfVector.pkl", "rb"))
 
     data = {'text': newTextList}
