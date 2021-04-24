@@ -1,4 +1,3 @@
-validasyon seti
 word 2 vec bakılacak.
 tweet çekilecek.
 veri seti araştırılabilir.
@@ -9,3 +8,4 @@ preprocessing dosyasında txt file'ı oluşturmaya gerek kalmadı.
 random forest'ın ve word2vec'in parametrelerine bakabiliriz iyileştirme için.
 word2vec future prediction
 tfidf'i 15 yap.
+bigram + unigram dene

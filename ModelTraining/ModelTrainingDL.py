@@ -1,7 +1,6 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split, cross_val_score
 
-
 trainingSetPath = '../Files/Word2VecTrainingSet.csv'
 allVectorValuesPath = '../Files/allWord2VecVectorValues.csv'
 
@@ -53,11 +52,11 @@ def split_train_test(dataSet,test_size=0.25, shuffle_state=True):
     Y_test = Y_test.to_frame()
 
     print(Y_train.info())
+    print(Y_test.info())
     print(len(Y_train[Y_train['label'] == 'hateful']))
     print(len(Y_train[Y_train['label'] == 'normal']))
 
     return X_train, X_test, Y_train, Y_test
-
 
 vectors = pd.read_csv(allVectorValuesPath, sep=",", skipinitialspace=True)
 vectors = convertDataTypeToCategoric(vectors)

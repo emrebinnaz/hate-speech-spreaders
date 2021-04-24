@@ -28,7 +28,7 @@ def filterFrequencies():
 def createTfidfMatrix():
 
     cleanTexts = original_tweets['text']
-    vectorizer = TfidfVectorizer(analyzer = 'word', lowercase = True, min_df = 13)
+    vectorizer = TfidfVectorizer(analyzer = 'word', lowercase = True, min_df = 20)
 
     trainVector = vectorizer.fit_transform(cleanTexts)
     tfidf = pd.DataFrame(trainVector.toarray(), columns = vectorizer.get_feature_names())

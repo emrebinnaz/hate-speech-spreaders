@@ -1,7 +1,6 @@
 import pandas as pd
 from gensim.models import Word2Vec
 from gensim.utils import simple_preprocess
-
 originalTweetsPath = '../Files/ContentOfTweets.csv'
 trainingSetPath = '../Files/Word2VecTrainingSet.csv'
 allVectorValuesPath = '../Files/allWord2VecVectorValues.csv'

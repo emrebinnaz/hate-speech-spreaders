@@ -62,5 +62,4 @@ def prediction(modelName, newTextList):
     print(prediction)
 
 
-prediction('RandomForest', ["I dont hate you"])
-getSentimentalPolarity("I love you")
+prediction('DecisionTree', ["you are retarded", "faggot", ""])
