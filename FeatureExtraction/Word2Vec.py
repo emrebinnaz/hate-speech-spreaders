@@ -62,6 +62,6 @@ def generateWord2VecVectors(originalTweets):
 
     return vectors
 
-# tokenizeTweets(original_tweets)
-# createWord2VecModelFile()
-# vectors = generateWord2VecVectors(original_tweets)
+tokenizeTweets(original_tweets)
+createWord2VecModelFile()
+vectors = generateWord2VecVectors(original_tweets)

@@ -5,9 +5,9 @@ from nltk.stem import WordNetLemmatizer
 from nltk.tokenize.toktok import ToktokTokenizer
 from ModelTraining.ModelFunctionsML import loadModel
 from Preprocessing.Stopwords import createNewStopWordList
+from Preprocessing.Stopwords import createNewSpecialNameList
 from Config.Preprocessor import *
 from Config.Lemmatization import *
-from SentimentalPolarity import getSentimentalPolarity
 
 words = set(nltk.corpus.words.words())
 tokenizer = ToktokTokenizer()
@@ -31,6 +31,18 @@ def removeStopwords(text):
 
     return filtered_text
 
+def removeSpecialNames(text):
+    # set stopwords to english
+
+    tokens = tokenizer.tokenize(text)
+    tokens = [token.strip() for token in tokens]
+
+    specialNameList = createNewSpecialNameList()
+    filtered_tokens = [token for token in tokens if token not in specialNameList]
+    filtered_text = ' '.join(filtered_tokens)
+
+    return filtered_text
+
 
 def prediction(modelName, newTextList):
 
@@ -50,6 +62,7 @@ def prediction(modelName, newTextList):
 
     tweets['text'] = tweets['text'].apply(textLemmatization)
     tweets['text'] = tweets['text'].apply(removeStopwords)
+    tweets['text'] = tweets['text'].apply(removeSpecialNames)
 
 
     wordList = tfidfVector.get_feature_names() # columns
@@ -62,4 +75,4 @@ def prediction(modelName, newTextList):
     print(prediction)
 
 
-prediction('DecisionTree', ["you are retarded", "faggot", ""])
+prediction('DecisionTree', ["fuck", "shit", "you like pussy"])

@@ -213,7 +213,7 @@ X_train, X_test, y_train, y_test = train_test_split(dataSet.drop(['label'],axis 
 
 # applyNaiveBayes()
 # applyKnn()
-applyDecisionTree()
+# applyDecisionTree()
 # applyLogisticRegression()
 # applyRandomForest()
 # applyLinearSVM()

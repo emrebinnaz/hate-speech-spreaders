@@ -3,7 +3,7 @@ import os
 
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize.toktok import ToktokTokenizer
-from Stopwords import createNewStopWordList
+from Stopwords import createNewStopWordList, createNewSpecialNameList
 from Config.Lemmatization import *
 from Config.Preprocessor import getPreprocessor
 
@@ -15,6 +15,7 @@ tokenizer = ToktokTokenizer()
 # DatasetWithTweetIdFromTweetAccess.csv
 # DatasetWithoutTweetId.csv
 # DatasetWithoutTweetId2.csv
+# DatasetWith27000Hateful.csv
 
 tweetsPath = '../Files/DatasetWith27000Hateful.csv' #gelen verisetine göre path değiştir !!!
 cleanTweetsPath = '../Files/ContentOfTweets.csv'
@@ -89,6 +90,18 @@ def removeStopwords(text):
 
     return filtered_text
 
+def removeSpecialNames(text):
+    # set stopwords to english
+
+    tokens = tokenizer.tokenize(text)
+    tokens = [token.strip() for token in tokens]
+
+    specialNameList = createNewSpecialNameList()
+    filtered_tokens = [token for token in tokens if token not in specialNameList]
+    filtered_text = ' '.join(filtered_tokens)
+
+    return filtered_text
+
 def removeNonEnglishWordsFrom(tweets): #kullanmadık
 
     tweets['text'] = tweets['text'].apply(lambda x:  " ".join(w for w in nltk.wordpunct_tokenize(x) \
@@ -146,6 +159,7 @@ removePunctuations(tweets)
 makeLowercaseTo(tweets)
 tweets['text'] = tweets['text'].apply(textLemmatization)
 tweets['text'] = tweets['text'].apply(removeStopwords)
+tweets['text'] = tweets['text'].apply(removeSpecialNames)
 dropDuplicate(tweets)
 saveCsv(tweets, tweetsPath)
 
@@ -156,40 +170,40 @@ addCleanTextToOriginalFile()
 # tweets['text'] = tweets['text'].apply(textStemming) #kullanmadık
 
 
-def preprocessOf27000HatefulTweetFile():
-
-    dirtyFile = open(tweetsPath, "r")
-    file = open("../Files/DatasetWith27000Hateful.csv", "w")
-
-    dirtyLines = dirtyFile.readlines()
-
-    # Strips the newline character
-    count = 0
-    commaCount = 0
-    flag = True
-    for dirtyLine in dirtyLines:
-        count += 1
-        dirtyLine = dirtyLine.rstrip('\n')
-        labelStringForm = ""
-        for index,element in enumerate(dirtyLine):
-            if element == ',':
-                commaCount += 1
-
-            if commaCount == 5 and flag:
-                label = dirtyLine[index + 1]
-                if label == "2":
-                    labelStringForm = "normal"
-                else:
-                    labelStringForm = "hateful"
-
-                flag = False
-
-            elif commaCount == 6:
-
-                commaCount = 0
-                text = dirtyLine[index + 1 : ]
-                text = text.replace(",", "")
-                file.write(str(count) + "," + text + "," + labelStringForm)
-                file.write("\n")
-                flag = True
-                break
+# def preprocessOf27000HatefulTweetFile():
+#
+#     dirtyFile = open(tweetsPath, "r")
+#     file = open("../Files/DatasetWith27000Hateful.csv", "w")
+#
+#     dirtyLines = dirtyFile.readlines()
+#
+#     # Strips the newline character
+#     count = 0
+#     commaCount = 0
+#     flag = True
+#     for dirtyLine in dirtyLines:
+#         count += 1
+#         dirtyLine = dirtyLine.rstrip('\n')
+#         labelStringForm = ""
+#         for index,element in enumerate(dirtyLine):
+#             if element == ',':
+#                 commaCount += 1
+#
+#             if commaCount == 5 and flag:
+#                 label = dirtyLine[index + 1]
+#                 if label == "2":
+#                     labelStringForm = "normal"
+#                 else:
+#                     labelStringForm = "hateful"
+#
+#                 flag = False
+#
+#             elif commaCount == 6:
+#
+#                 commaCount = 0
+#                 text = dirtyLine[index + 1 : ]
+#                 text = text.replace(",", "")
+#                 file.write(str(count) + "," + text + "," + labelStringForm)
+#                 file.write("\n")
+#                 flag = True
+#                 break
