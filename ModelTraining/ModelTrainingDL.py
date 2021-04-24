@@ -1,5 +1,26 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split, cross_val_score
+import pandas as pd
+import os
+import re
+from gensim.models.phrases import Phrases, Phraser
+from time import time
+import multiprocessing
+from gensim.models import Word2Vec
+from sklearn.manifold import TSNE
+import numpy as np
+from sklearn.preprocessing import scale
+import keras
+import tensorflow as tf
+from keras.models import Sequential, Model
+from keras import layers
+from keras.layers import Dense, Conv1D, MaxPooling1D, Flatten, Dropout, Input, Embedding
+from keras.layers.merge import Concatenate
+from sklearn.feature_extraction.text import TfidfVectorizer
+from nltk.tokenize import RegexpTokenizer
+from sklearn.metrics import confusion_matrix
+from tensorflow.python.client import device_lib
+import ctypes
 
 trainingSetPath = '../Files/Word2VecTrainingSet.csv'
 allVectorValuesPath = '../Files/allWord2VecVectorValues.csv'
@@ -39,6 +60,7 @@ def getFirstXTweetsOfTargetValue(x, target,docs_vectors):
 
     return tweets.head(n = x)
 
+hllDll = ctypes.WinDLL("C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v10.1\\bin\\cudart64_101.dll")
 
 def split_train_test(dataSet,test_size=0.25, shuffle_state=True):
 
@@ -58,8 +80,37 @@ def split_train_test(dataSet,test_size=0.25, shuffle_state=True):
 
     return X_train, X_test, Y_train, Y_test
 
+
 vectors = pd.read_csv(allVectorValuesPath, sep=",", skipinitialspace=True)
 vectors = convertDataTypeToCategoric(vectors)
 
 dataSet = prepareDataSet(vectors)
 X_train, X_test, Y_train, Y_test = split_train_test(dataSet)
+
+
+
+print(device_lib.list_local_devices())
+
+sonuc = tf.test.is_gpu_available(
+    cuda_only=False,
+    min_cuda_compute_capability=None
+)
+print(sonuc)
+
+
+model = Sequential()
+
+model.add(Dense(128, activation='relu', input_dim=300))
+model.add(Dropout(0.7))
+model.add(Dense(1, activation='sigmoid'))
+model.compile(optimizer='adadelta',
+              loss='binary_crossentropy',
+              metrics=['accuracy'])
+model.summary()
+
+history = model.fit(X_train, Y_train, epochs=20, batch_size=50,
+                   validation_data=(X_test,Y_test))
+loss, accuracy = model.evaluate(X_train, Y_train, verbose=False)
+print("Training Accuracy: {:.4f}".format(accuracy))
+loss, accuracy = model.evaluate(X_test, Y_test, verbose=False)
+print("Testing Accuracy:  {:.4f}".format(accuracy))

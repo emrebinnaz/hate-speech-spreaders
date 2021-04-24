@@ -47,7 +47,7 @@ def generateWord2VecVectors(originalTweets):
 
             try:
                 word_vec = word2VecModel.wv[word]  ## if present, the following code applies
-                print(word)
+
                 temp = temp.append(pd.Series(word_vec),ignore_index=True)
 
             except:
