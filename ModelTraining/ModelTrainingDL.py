@@ -60,8 +60,6 @@ def getFirstXTweetsOfTargetValue(x, target,docs_vectors):
 
     return tweets.head(n = x)
 
-hllDll = ctypes.WinDLL("C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v10.1\\bin\\cudart64_101.dll")
-
 def split_train_test(dataSet,test_size=0.25, shuffle_state=True):
 
     X_train, X_test, Y_train, Y_test = train_test_split(dataSet.drop(['label'],axis = 1),
@@ -70,16 +68,15 @@ def split_train_test(dataSet,test_size=0.25, shuffle_state=True):
                                                         test_size=test_size,
                                                         random_state=15)
 
+
+
     Y_train = Y_train.to_frame()
     Y_test = Y_test.to_frame()
 
-    print(Y_train.info())
-    print(Y_test.info())
-    print(len(Y_train[Y_train['label'] == 'hateful']))
-    print(len(Y_train[Y_train['label'] == 'normal']))
+    print("HATEFUL SAYISI",len(Y_train[Y_train['label'] == 'hateful']))
+    print("NORMAL SAYISI", len(Y_train[Y_train['label'] == 'normal']))
 
     return X_train, X_test, Y_train, Y_test
-
 
 vectors = pd.read_csv(allVectorValuesPath, sep=",", skipinitialspace=True)
 vectors = convertDataTypeToCategoric(vectors)
@@ -87,20 +84,10 @@ vectors = convertDataTypeToCategoric(vectors)
 dataSet = prepareDataSet(vectors)
 X_train, X_test, Y_train, Y_test = split_train_test(dataSet)
 
-
-
-print(device_lib.list_local_devices())
-
-sonuc = tf.test.is_gpu_available(
-    cuda_only=False,
-    min_cuda_compute_capability=None
-)
-print(sonuc)
-
+# print(device_lib.list_local_devices())
 
 model = Sequential()
-
-model.add(Dense(128, activation='relu', input_dim=300))
+model.add(Dense(128, activation='relu', input_dim=100))
 model.add(Dropout(0.7))
 model.add(Dense(1, activation='sigmoid'))
 model.compile(optimizer='adadelta',
@@ -108,8 +95,11 @@ model.compile(optimizer='adadelta',
               metrics=['accuracy'])
 model.summary()
 
-history = model.fit(X_train, Y_train, epochs=20, batch_size=50,
-                   validation_data=(X_test,Y_test))
+Y_train['label'].replace({'hateful': 1, "normal" : 0}, inplace = True)
+Y_test['label'].replace({'hateful': 1, "normal" : 0}, inplace = True)
+
+model.fit(X_train, Y_train, epochs=20, batch_size=50, validation_data=(X_test,Y_test))
+
 loss, accuracy = model.evaluate(X_train, Y_train, verbose=False)
 print("Training Accuracy: {:.4f}".format(accuracy))
 loss, accuracy = model.evaluate(X_test, Y_test, verbose=False)
