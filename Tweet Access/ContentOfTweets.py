@@ -9,7 +9,7 @@ class ContentOfTweets:
     self.text = text
 
 def writeTweetToCSV(tweet,index):
-    with open('../Files/DatasetWithTweetIdFromTweetAccess.csv',
+    with open('../Files/CleanDatasets/DatasetWithTweetIdFromTweetAccess.csv',
               'a',
               newline='',
               encoding='utf-8') as file:
@@ -52,7 +52,7 @@ def writeTweetsToCSV(tweets):
         index = index + 1
 
 tweets = []
-tweets = readDataSet("../Files/DatasetWithTweetId.csv")
+tweets = readDataSet("../Files/DirtyDatasets/DatasetWithTweetId.csv")
 writeTweetsToCSV(tweets)
 
 

@@ -1,7 +1,5 @@
 
-
-import pandas as pd
-tweetsPath = '../Files/happy-sad-surprise-tweets.csv' #gelen verisetine göre path değiştir !!!
+tweetsPath = '../Files/DirtyDatasets/neutral-positive-negative-tweets.csv' #gelen verisetine göre path değiştir !!!
 
 def change1toHatefuland0toNormal(tweets): #label 0 ve 1 olan veriseti varsa bunu uygulamayı unutma!!!
 
@@ -11,7 +9,7 @@ def change1toHatefuland0toNormal(tweets): #label 0 ve 1 olan veriseti varsa bunu
 def preprocessOf27000HatefulTweetFile():
 
     dirtyFile = open(tweetsPath, "r")
-    file = open("../Files/DatasetWith27000Hateful.csv", "w")
+    file = open("../Files/CleanDatasets/DatasetWith27000Hateful.csv", "w")
 
     dirtyLines = dirtyFile.readlines()
 
@@ -50,39 +48,47 @@ def preprocessOf27000HatefulTweetFile():
 def preprocessNormalTweets():
 
     dirtyFile = open(tweetsPath, "r")
-    file = open("../Files/DatasetOfNormalTweetsWithTweetId.csv", "w+")
+    file = open("../Files/CleanDatasets/DatasetWith3500Normal.csv", "w+")
 
     dirtyLines = dirtyFile.readlines()
-
+    positiveCount = 0
     for dirtyLine in dirtyLines:
+
+
         dirtyLine = dirtyLine.rstrip('\n')
+
         for indexOfFirstComma,element in enumerate(dirtyLine):
             if element == ',':
 
-                dirtyTweetTextWithLabel = dirtyLine[indexOfFirstComma + 1:]
+                dirtyTweetText= dirtyLine[indexOfFirstComma + 1:]
                 tweetId = dirtyLine[: indexOfFirstComma]
 
-                splittedTweet = dirtyTweetTextWithLabel.split(",")
+                splittedTweet = dirtyTweetText.split(",")
 
                 splitCount = len(splittedTweet)
                 tweetLabel = splittedTweet[splitCount - 1]
 
-                if isTweetNormal(tweetLabel):
+                if isTweetPositive(tweetLabel):
+                    positiveCount += 1
 
                     tweetText = extractTweetText(dirtyLine,tweetLabel, indexOfFirstComma)
-                    tweetText = tweetText.replace(",", "")
+                    tweetText = tweetText.replace(",","")
+
+                    tweetText = ' '.join(getUniqueWordsFrom(tweetText.split()))
+                    print(tweetText)
 
                     file.write(tweetId + "," + tweetText + ",normal")
                     file.write("\n")
 
                     break
 
+        if positiveCount == 3500:
+            break
 
-def isTweetNormal(label):
 
-    return (label == 'surprise' or label == 'nocode' or
-            label == 'happy' or label == 'happy|surprise' or
-            label == 'happy|sad' or label == 'sad')
+def isTweetPositive(label):
+
+    return (label == 'positive')
 
 
 def extractTweetText(line, tweetLabel, indexOfFirstComma):
@@ -93,7 +99,11 @@ def extractTweetText(line, tweetLabel, indexOfFirstComma):
     return tweetText
 
 
-preprocessNormalTweets()
+def getUniqueWordsFrom(l):
+    ulist = []
+    [ulist.append(x) for x in l if x not in ulist]
+    return ulist
 
+preprocessNormalTweets()
 
 

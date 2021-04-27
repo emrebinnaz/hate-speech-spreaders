@@ -17,8 +17,9 @@ tokenizer = ToktokTokenizer()
 # DatasetWithoutTweetId2.csv
 # DatasetWith27000Hateful.csv
 # DatasetOfNormalTweetsWithTweetId.csv
+# DatasetWith3500Normal.csv
 
-tweetsPath = '../Files/DatasetOfNormalTweetsWithTweetId.csv' #gelen verisetine göre path değiştir !!!
+tweetsPath = '../Files/CleanDatasets/DatasetWith3500Normal.csv' #gelen verisetine göre path değiştir !!!
 cleanTweetsPath = '../Files/ContentOfTweets.csv'
 
 def dropNaFrom(tweets):
