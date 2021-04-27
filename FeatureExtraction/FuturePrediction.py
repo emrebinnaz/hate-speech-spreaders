@@ -9,8 +9,12 @@ from Preprocessing.Stopwords import createNewSpecialNameList
 from Config.Preprocessor import *
 from Config.Lemmatization import *
 
+import os
+
 words = set(nltk.corpus.words.words())
 tokenizer = ToktokTokenizer()
+
+mlModelsPath = '../ModelTraining/ModelsML/'
 
 def textLemmatization(text):
 
@@ -46,7 +50,7 @@ def removeSpecialNames(text):
 
 def prediction(modelName, newTextList):
 
-    model = loadModel("../ModelTraining/ModelsML/", modelName)
+    model = loadModel(mlModelsPath, modelName)
     tfidfVector = joblib.load(open("../Files/TfidfVector.pkl", "rb"))
 
     data = {'text': newTextList}
@@ -64,15 +68,26 @@ def prediction(modelName, newTextList):
     tweets['text'] = tweets['text'].apply(removeStopwords)
     tweets['text'] = tweets['text'].apply(removeSpecialNames)
 
-
     wordList = tfidfVector.get_feature_names() # columns
     newSample = tfidfVector.transform(tweets['text']) # Transform dictionary features into 2D feature matrix.
     newSampleAsDataFrame = pd.DataFrame(data = newSample.toarray(),
                                         columns = wordList)
 
+    # predictWithModelEnsemble(newSampleAsDataFrame)
     prediction = model.predict(newSampleAsDataFrame)
     print(tweets)
     print(prediction)
 
 
-prediction('DecisionTree', ["fuck", "shit", "you like pussy"])
+prediction('LogisticRegression', ["this place dirty"])
+
+
+def predictWithModelEnsemble(newSampleAsDataFrame): # will be continue
+
+    modelNameList = os.listdir(mlModelsPath)
+    models = []
+    index = 0
+
+    for modelName in modelNameList:
+        models[index] = loadModel(mlModelsPath, modelName)
+        index += 1

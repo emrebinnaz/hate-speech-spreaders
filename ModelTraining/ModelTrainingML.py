@@ -210,13 +210,13 @@ X_train, X_test, y_train, y_test = train_test_split(dataSet.drop(['label'],axis 
 #
 # plot_confusion_matrix(model, X_test, y_test)
 # plt.show()
-
+#
 # applyNaiveBayes()
 # applyKnn()
 # applyDecisionTree()
 # applyLogisticRegression()
 # applyRandomForest()
-# applyLinearSVM()
-# applyPolynomialSVM()
+# # applyLinearSVM()
 # applySigmoidSVM()
 # applyGaussianSVM()
+# applyPolynomialSVM()
