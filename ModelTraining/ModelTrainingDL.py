@@ -1,4 +1,3 @@
-
 from sklearn.model_selection import train_test_split
 import pandas as pd
 from keras.models import Sequential
@@ -11,8 +10,8 @@ from tensorflow.python.keras.preprocessing.text import Tokenizer
 originalTweetsPath = '../Files/ContentOfTweets.csv'
 allVectorValuesPath = '../Files/allWord2VecVectorValues.csv'
 
-def convertDataTypeToCategoric(df):
 
+def convertDataTypeToCategoric(df):
     cols = [i for i in df.columns if i not in ["label"]]
 
     for col in cols:
@@ -24,22 +23,21 @@ def convertDataTypeToCategoric(df):
 
 
 def convertLabelToFloat(df):
-
     df['label'] = df['label'].replace(["hateful", "normal"], [float(1), float(0)])
     df['label'] = pd.to_numeric(df['label'], errors='coerce')
 
     return df
 
-def prepareDataSet(vectors):
 
+def prepareDataSet(vectors):
     numberOfHateful = len(vectors[vectors['label'] == 1])
     numberOfNormal = len(vectors[vectors['label'] == 0])
 
     minimum = min(numberOfHateful, numberOfNormal)
     print("minimum olan labelın değeri = ", minimum)
 
-    hateful_tweets = getFirstXTweetsOfTargetValue(minimum, 1,vectors)
-    normal_tweets = getFirstXTweetsOfTargetValue(minimum, 0,vectors)
+    hateful_tweets = getFirstXTweetsOfTargetValue(minimum, 1, vectors)
+    normal_tweets = getFirstXTweetsOfTargetValue(minimum, 0, vectors)
 
     frames = [hateful_tweets, normal_tweets]
 
@@ -47,15 +45,15 @@ def prepareDataSet(vectors):
 
     return tweets
 
-def getFirstXTweetsOfTargetValue(x, target,docs_vectors):
 
+def getFirstXTweetsOfTargetValue(x, target, docs_vectors):
     tweets = docs_vectors[docs_vectors['label'] == target]
 
-    return tweets.head(n = x)
+    return tweets.head(n=x)
 
-def split_train_test(dataSet,test_size=0.25, shuffle_state=True):
 
-    dataSet = dataSet.drop(['id'], axis = 1)
+def split_train_test(dataSet, test_size=0.25, shuffle_state=True):
+    dataSet = dataSet.drop(['id'], axis=1)
     X_train, X_test, Y_train, Y_test = train_test_split(dataSet['text'].values,
                                                         dataSet['label'].values,
                                                         shuffle=shuffle_state,
@@ -69,7 +67,6 @@ def split_train_test(dataSet,test_size=0.25, shuffle_state=True):
 
 
 def deepLearningMethodWithWord2Vec():
-
     vectors = pd.read_csv(allVectorValuesPath, sep=",", skipinitialspace=True)
     vectors = convertDataTypeToCategoric(vectors)
 
@@ -87,10 +84,10 @@ def deepLearningMethodWithWord2Vec():
                   metrics=['accuracy'])
     model.summary()
 
-    Y_train['label'].replace({'hateful': 1, "normal" : 0}, inplace = True)
-    Y_test['label'].replace({'hateful': 1, "normal" : 0}, inplace = True)
+    Y_train['label'].replace({'hateful': 1, "normal": 0}, inplace=True)
+    Y_test['label'].replace({'hateful': 1, "normal": 0}, inplace=True)
 
-    model.fit(X_train, Y_train, epochs=20, batch_size=50, validation_data=(X_test,Y_test))
+    model.fit(X_train, Y_train, epochs=20, batch_size=50, validation_data=(X_test, Y_test))
 
     loss, accuracy = model.evaluate(X_train, Y_train, verbose=False)
     print("Training Accuracy: {:.4f}".format(accuracy))
@@ -99,7 +96,6 @@ def deepLearningMethodWithWord2Vec():
 
 
 def applyGRU(vocab_size, max_length):
-
     print("GRU deep learning method is running")
     Embedding(vocab_size, 100, input_length=max_length)
     model = Sequential()
@@ -114,39 +110,56 @@ def applyGRU(vocab_size, max_length):
     return model
 
 
-def predict(modelName, max_length):
-
-    model = loadModel(modelName)
-
-    test = "I hate you"
-
-    tests = [test]
-    test_samples_token = tokenizer_obj.texts_to_sequences(tests)
-    test_samples_tokens_pad = pad_sequences(test_samples_token, maxlen=max_length)
-
-    print(model.predict(x=test_samples_tokens_pad))
-
-
-original_tweets = pd.read_csv(originalTweetsPath, sep=",", skipinitialspace=True)
-original_tweets = convertLabelToFloat(original_tweets)
-
-dataSet = prepareDataSet(original_tweets)
-X_train, X_test, Y_train, Y_test = split_train_test(dataSet)
+# def predict(modelName, max_length):
+#
+#     model = loadModel(modelName)
+#
+#     test = "I hate you"
+#
+#     tests = [test]
+#     test_samples_token = tokenizer_obj.texts_to_sequences(tests)
+#     test_samples_tokens_pad = pad_sequences(test_samples_token, maxlen=max_length)
+#
+#     print(model.predict(x=test_samples_tokens_pad))
 
 
-tokenizer_obj = Tokenizer()
-total_tweets = original_tweets['text'].values
-tokenizer_obj.fit_on_texts(total_tweets)
+# original_tweets = pd.read_csv(originalTweetsPath, sep=",", skipinitialspace=True)
+# original_tweets = convertLabelToFloat(original_tweets)
+#
+# dataSet = prepareDataSet(original_tweets)
+# X_train, X_test, Y_train, Y_test = split_train_test(dataSet)
+#
+# tokenizer_obj = Tokenizer()
+# total_tweets = original_tweets['text'].values
+# tokenizer_obj.fit_on_texts(total_tweets)
+#
+# max_length = max([len(s.split()) for s in total_tweets])
+# vocab_size = len(tokenizer_obj.word_index) + 1
+#
+# X_train_tokens = tokenizer_obj.texts_to_sequences(X_train)
+# X_test_tokens = tokenizer_obj.texts_to_sequences(X_test)
+#
+# X_train_pad = pad_sequences(X_train_tokens,maxlen=max_length,padding='post')
+# X_test_pad = pad_sequences(X_test_tokens,maxlen=max_length,padding='post')
+#
+# model = applyGRU(vocab_size, max_length)
+# model.fit(X_train_pad, Y_train, batch_size=128, epochs=1, validation_data=(X_test_pad, Y_test), verbose=2)
+# saveModel(model, "GRU")
 
-max_length = max([len(s.split()) for s in total_tweets])
-vocab_size = len(tokenizer_obj.word_index) + 1
+word2VecValues = pd.read_csv(allVectorValuesPath, sep=",", skipinitialspace=True)
+word2VecValues = convertLabelToFloat(word2VecValues)
+word2VecValues = prepareDataSet(word2VecValues)
 
-X_train_tokens = tokenizer_obj.texts_to_sequences(X_train)
-X_test_tokens = tokenizer_obj.texts_to_sequences(X_test)
+X = word2VecValues.iloc[:, :-1]
+Y = word2VecValues.iloc[:, -1]
 
-X_train_pad = pad_sequences(X_train_tokens,maxlen=max_length,padding='post')
-X_test_pad = pad_sequences(X_test_tokens,maxlen=max_length,padding='post')
+model = Sequential()
+model.add(Dense(12, input_dim=100, activation='relu'))
+model.add(Dense(8, activation='relu'))
+model.add(Dense(1, activation='sigmoid'))
 
-model = applyGRU(vocab_size, max_length)
-model.fit(X_train_pad, Y_train, batch_size=128, epochs=1, validation_data=(X_test_pad, Y_test), verbose=2)
-saveModel(model, "GRU")
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.fit(X, Y, epochs=25, batch_size=10)
+
+_, accuracy = model.evaluate(X, Y)
+print('Accuracy: %.2f' % (accuracy * 100))
