@@ -199,8 +199,7 @@ def applyLSTM(tweets):
 
     # validation set'te accuracy artmıyorsa, EarlyStopping sayesinde eğitim duruyor.
 
-    # saveModel(model, "LSTM")
-    model.save("ModelsDL/LSTM")
+    tf.keras.models.save_model(model, "ModelsDL/LSTM", save_format="h5")
 
 
     test_sequences = tokenizer.texts_to_sequences(X_test)
@@ -220,22 +219,23 @@ def applyLSTM(tweets):
     print(model.predict(x=test_samples_tokens_pad))
 
     del model
-#
-#
-# original_tweets = pd.read_csv(originalTweetsPath, sep=",", skipinitialspace=True)
-# original_tweets = convertLabelToFloat(original_tweets)
-# original_tweets = prepareDataSetForDL(original_tweets)
-#
-# applyLSTM(original_tweets)
-#
-#
-# texts = ["hope", "feel relax", "feel energy", "peaceful day","nigga", "nigga", "idiot", "idiot faggot"]
-#
-# model = load_model("ModelsDL/LSTM")
-# model.compile(loss='binary_crossentropy', optimizer="adam", metrics=['accuracy'])
-#
-# tokenizer.fit_on_texts(texts)
-# test_samples_token = tokenizer.texts_to_sequences(texts)
-# test_samples_tokens_pad = pad_sequences(test_samples_token, maxlen=max_len)
-#
-# print(model.predict(x=test_samples_tokens_pad))
+
+if __name__ == '__main__':
+
+    original_tweets = pd.read_csv(originalTweetsPath, sep=",", skipinitialspace=True)
+    original_tweets = convertLabelToFloat(original_tweets)
+    original_tweets = prepareDataSetForDL(original_tweets)
+
+    applyLSTM(original_tweets)
+
+
+    texts = ["hope", "feel relax", "feel energy", "peaceful day","nigga", "nigga", "idiot", "idiot faggot"]
+
+    model = load_model("ModelsDL/LSTM.h5")
+    model.compile(loss='binary_crossentropy', optimizer="adam", metrics=['accuracy'])
+
+    tokenizer.fit_on_texts(texts)
+    test_samples_token = tokenizer.texts_to_sequences(texts)
+    test_samples_tokens_pad = pad_sequences(test_samples_token, maxlen=max_len)
+
+    print(model.predict(x=test_samples_tokens_pad))

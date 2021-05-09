@@ -3,7 +3,7 @@ import os
 
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize.toktok import ToktokTokenizer
-from Stopwords import createNewStopWordList, createNewSpecialNameList
+from Preprocessing.Stopwords import createNewStopWordList, createNewSpecialNameList
 from Config.Lemmatization import *
 from Config.Preprocessor import getPreprocessor
 
@@ -25,6 +25,7 @@ cleanTweetsPath = '../Files/ContentOfTweets.csv'
 def dropNaFrom(tweets):
 
     tweets.dropna(how = "any", inplace = True)
+
 
 def removeNumbersFrom(tweets):
 
@@ -138,32 +139,50 @@ def addCleanTextToOriginalFile():
         saveCsv(total_tweets, cleanTweetsPath)
         print(total_tweets.info())
 
-# Main commands
 
-tweets = pd.read_csv(tweetsPath, sep=",", skipinitialspace=True)
+def generalPreprocessingForPrediction(df):
 
-dropNaFrom(tweets)
-removeNumbersFrom(tweets)
-removeRtFrom(tweets)
-removeSpacesFrom(tweets)
-addQuotesToEndOfTweetText(tweets)
-createTxtForPreprocessing()
-cleanTxtFile = applyPreprocessingInTxtFile()
-createCleanCsvFrom(cleanTxtFile)
+    df['text'] = df['text'].apply(lambda text: getPreprocessor().clean(text))
+    df.text = df.text.replace('#', '', regex=True)  # remove hashtag mark
+    df.text = df.text.replace('\d+', '', regex=True)  # remove numbers
+    df.text = df.text.replace("RT", '', regex=True)  # remove RT
+    df.text = df.text.replace('\s+', ' ', regex=True)  # remove blanks
+    df.text = df.text.str.replace('[^\w\s]', '')  # remove punctuations
+    df['text'] = df['text'].apply(lambda text: " ".join(text.lower() for text in text.split()))  # lowercase
 
-tweets = pd.read_csv(tweetsPath, sep=",", skipinitialspace=True)
+    df['text'] = df['text'].apply(textLemmatization)
+    df['text'] = df['text'].apply(removeStopwords)
+    df['text'] = df['text'].apply(removeSpecialNames)
 
-removePunctuations(tweets)
-makeLowercaseTo(tweets)
-tweets['text'] = tweets['text'].apply(textLemmatization)
-tweets['text'] = tweets['text'].apply(removeStopwords)
-tweets['text'] = tweets['text'].apply(removeSpecialNames)
-dropDuplicate(tweets)
-saveCsv(tweets, tweetsPath)
-
-addCleanTextToOriginalFile()
+    return df
 
 
-# removeNonEnglishWordsFrom(tweets) #kullanmadık
-# tweets['text'] = tweets['text'].apply(textStemming) #kullanmadık
 
+if __name__ == '__main__':
+
+    tweets = pd.read_csv(tweetsPath, sep=",", skipinitialspace=True)
+
+    dropNaFrom(tweets)
+    removeNumbersFrom(tweets)
+    removeRtFrom(tweets)
+    removeSpacesFrom(tweets)
+    addQuotesToEndOfTweetText(tweets)
+    createTxtForPreprocessing()
+    cleanTxtFile = applyPreprocessingInTxtFile()
+    createCleanCsvFrom(cleanTxtFile)
+
+    tweets = pd.read_csv(tweetsPath, sep=",", skipinitialspace=True)
+
+    removePunctuations(tweets)
+    makeLowercaseTo(tweets)
+    tweets['text'] = tweets['text'].apply(textLemmatization)
+    tweets['text'] = tweets['text'].apply(removeStopwords)
+    tweets['text'] = tweets['text'].apply(removeSpecialNames)
+    dropDuplicate(tweets)
+    saveCsv(tweets, tweetsPath)
+
+    addCleanTextToOriginalFile()
+
+
+    # removeNonEnglishWordsFrom(tweets) #kullanmadık
+    # tweets['text'] = tweets['text'].apply(textStemming) #kullanmadık
