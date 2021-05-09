@@ -4,14 +4,12 @@ import matplotlib.pyplot as plt
 from ModelFunctionsML import *
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
-from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import cross_val_score
-from sklearn.metrics import classification_report
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn import svm
 from sklearn.linear_model import LogisticRegression
-
+from DatasetFunctions import getFirstXTweetsOfTargetValue, printConfusionMatrix, convertDataTypeToCategoric
 from sklearn.metrics import plot_confusion_matrix
 
 tfidfPath = '../Files/tfidf.csv'
@@ -19,15 +17,6 @@ trainingSetPath = '../Files/TrainingSet.csv'
 
 tfidf = pd.read_csv(tfidfPath, sep=",", skipinitialspace=True)
 
-def convertDataTypeToCategoric(df):
-
-    df['label'] = df['label'].astype('category')
-    return df
-
-def getFirstXTweetsOfTargetValue(x, target):
-
-    firstNTweets = tfidf[tfidf['label'] == target]
-    return firstNTweets.head(n = x)
 
 def prepareDataSet():
 
@@ -37,8 +26,8 @@ def prepareDataSet():
     minimum = min(numberOfHateful,numberOfNormal)
     print("minimum olan labelın değeri = ", minimum)
 
-    hateful_tweets = getFirstXTweetsOfTargetValue(minimum,'hateful')
-    normal_tweets = getFirstXTweetsOfTargetValue(minimum, 'normal')
+    hateful_tweets = getFirstXTweetsOfTargetValue(minimum,'hateful', tfidf)
+    normal_tweets = getFirstXTweetsOfTargetValue(minimum, 'normal', tfidf)
 
     frames = [hateful_tweets, normal_tweets]
 
@@ -46,6 +35,7 @@ def prepareDataSet():
     tweets.to_csv(trainingSetPath, index=None)
 
     return tweets
+
 
 def applyNaiveBayes():
 
@@ -56,8 +46,8 @@ def applyNaiveBayes():
     cross_val_score(model, X_train, y_train, cv = 10)
 
     predicted = model.predict(X_test)
-    print(confusion_matrix(y_test, predicted))
-    print(classification_report(y_test, predicted))
+    printConfusionMatrix(y_test, predicted)
+
 
     # X_train, X_val, y_train, y_val = train_test_split(X_train,
     #                                                   y_train,
@@ -70,6 +60,7 @@ def applyNaiveBayes():
     # print(confusion_matrix(y_val, predicted))
     # print(accuracy_score(y_val, predicted))
 
+
 def applyKnn():
 
     print("KNN is running")
@@ -80,8 +71,8 @@ def applyKnn():
     cross_val_score(model, X_train, y_train, cv=10)
 
     predicted = classifier.predict(X_test)
-    print(confusion_matrix(y_test, predicted))
-    print(classification_report(y_test, predicted))
+
+    printConfusionMatrix(y_test, predicted)
 
     # error = []
     # # Calculating error for K values between 1 and 40
@@ -105,8 +96,8 @@ def applyDecisionTree():
     cross_val_score(model, X_train, y_train, cv=10)
 
     predicted = model.predict(X_test)
-    print(confusion_matrix(y_test, predicted))
-    print(classification_report(y_test, predicted))
+
+    printConfusionMatrix(y_test, predicted)
 
 
 def applyLinearSVM():
@@ -119,8 +110,8 @@ def applyLinearSVM():
     cross_val_score(model, X_train, y_train, cv=10)
 
     predicted = classifier.predict(X_test)
-    print(confusion_matrix(y_test, predicted))
-    print(classification_report(y_test, predicted))
+
+    printConfusionMatrix(y_test, predicted)
 
 
 def applyPolynomialSVM():
@@ -133,8 +124,8 @@ def applyPolynomialSVM():
     cross_val_score(model, X_train, y_train, cv=10)
 
     predicted = classifier.predict(X_test)
-    print(confusion_matrix(y_test, predicted))
-    print(classification_report(y_test, predicted))
+
+    printConfusionMatrix(y_test, predicted)
 
 
 def applyGaussianSVM():
@@ -147,8 +138,8 @@ def applyGaussianSVM():
     cross_val_score(model, X_train, y_train, cv=10)
 
     predicted = classifier.predict(X_test)
-    print(confusion_matrix(y_test, predicted))
-    print(classification_report(y_test, predicted))
+
+    printConfusionMatrix(y_test, predicted)
 
 
 def applySigmoidSVM():
@@ -161,8 +152,8 @@ def applySigmoidSVM():
     cross_val_score(model, X_train, y_train, cv=10)
 
     predicted = classifier.predict(X_test)
-    print(confusion_matrix(y_test, predicted))
-    print(classification_report(y_test, predicted))
+
+    printConfusionMatrix(y_test, predicted)
 
 
 def applyLogisticRegression():
@@ -175,8 +166,8 @@ def applyLogisticRegression():
     cross_val_score(model, X_train, y_train, cv=10)
 
     predicted = classifier.predict(X_test)
-    print(confusion_matrix(y_test, predicted))
-    print(classification_report(y_test, predicted))
+
+    printConfusionMatrix(y_test, predicted)
 
 
 def applyRandomForest():
@@ -189,11 +180,12 @@ def applyRandomForest():
     cross_val_score(model, X_train, y_train, cv=10)
 
     predicted = classifier.predict(X_test)
-    print(confusion_matrix(y_test, predicted))
-    print(classification_report(y_test, predicted))
+
+    printConfusionMatrix(y_test, predicted)
 
     plot_confusion_matrix(model, X_test, y_test)
     plt.show()
+
 
 dataSet = prepareDataSet()
 dataSet = convertDataTypeToCategoric(dataSet)
