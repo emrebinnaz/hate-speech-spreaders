@@ -1,3 +1,5 @@
+import pickle
+
 from gensim.models import Word2Vec
 from sklearn.model_selection import train_test_split
 import pandas as pd
@@ -15,13 +17,12 @@ from keras.preprocessing import sequence
 from keras.optimizers import RMSprop
 from keras.models import Model
 from keras.layers import LSTM, Activation, Dense, Dropout, Input, Embedding
-from keras.backend import manual_variable_initialization
 from ModelTraining.DatasetFunctions import convertLabelToFloat, prepareDataSetForDL
-from ModelTraining.ModelFunctionsDL import saveModel, loadModel
+from ModelTraining.ModelFunctionsDL import *
 
 from numpy.random import seed
 import tensorflow as tf
-
+import random as python_random
 originalTweetsPath = '../Files/ContentOfTweets.csv'
 allVectorValuesPath = '../Files/allWord2VecVectorValues.csv'
 
@@ -30,6 +31,11 @@ max_words = 10000
 max_len = 150
 
 tokenizer = Tokenizer(num_words=max_words)
+
+np.random.seed(42)
+python_random.seed(42)
+seed(42)  # keras seed fixing
+tf.random.set_seed(42)  # tensorflow seed fixing
 
 def deepLearningMethodWithWord2Vec():
 
@@ -171,8 +177,6 @@ def applyLSTM(tweets):
     labels = LabelEncoder().fit_transform(labels)
     labels = labels.reshape(-1, 1) ## galiba lstm için boyutları değiştirdi.
 
-    seed(42)# keras seed fixing
-    tf.random.set_seed(42)  # tensorflow seed fixing
 
     X_train, X_test, Y_train, Y_test = train_test_split(texts, labels, test_size=0.20,random_state=42)
 
@@ -199,8 +203,9 @@ def applyLSTM(tweets):
 
     # validation set'te accuracy artmıyorsa, EarlyStopping sayesinde eğitim duruyor.
 
-    tf.keras.models.save_model(model, "ModelsDL/LSTM", save_format="h5")
-
+    modelName = "LSTM"
+    model.save('ModelsDL/' + modelName + ".h5")
+    saveTokenizerOfModel(tokenizer, modelName)
 
     test_sequences = tokenizer.texts_to_sequences(X_test)
     test_sequences_matrix = sequence.pad_sequences(test_sequences, maxlen=max_len)
@@ -209,32 +214,33 @@ def applyLSTM(tweets):
 
     print('Test set\n  Loss: {:0.3f}\n  Accuracy: {:0.3f}'.format(accr[0], accr[1]))
 
+    tests = ["hope", "feel relax", "feel energy", "peaceful day"]
 
-    texts = ["hope", "feel relax", "feel energy", "peaceful day"]
-
-    tokenizer.fit_on_texts(texts)
-    test_samples_token = tokenizer.texts_to_sequences(texts)
+    tokenizer.fit_on_texts(tests)
+    test_samples_token = tokenizer.texts_to_sequences(tests)
     test_samples_tokens_pad = pad_sequences(test_samples_token, maxlen=max_len)
 
     print(model.predict(x=test_samples_tokens_pad))
 
     del model
 
+
 if __name__ == '__main__':
 
-    original_tweets = pd.read_csv(originalTweetsPath, sep=",", skipinitialspace=True)
-    original_tweets = convertLabelToFloat(original_tweets)
-    original_tweets = prepareDataSetForDL(original_tweets)
+    # original_tweets = pd.read_csv(originalTweetsPath, sep=",", skipinitialspace=True)
+    # original_tweets = convertLabelToFloat(original_tweets)
+    # original_tweets = prepareDataSetForDL(original_tweets)
+    #
+    # applyLSTM(original_tweets)
 
-    applyLSTM(original_tweets)
-
-
-    texts = ["hope", "feel relax", "feel energy", "peaceful day","nigga", "nigga", "idiot", "idiot faggot"]
+    texts = ["hope", "feel relax", "feel energy", "peaceful day", "feel bad"]
 
     model = load_model("ModelsDL/LSTM.h5")
     model.compile(loss='binary_crossentropy', optimizer="adam", metrics=['accuracy'])
 
+    tokenizer = loadTokenizerOfModel("ModelsDL/", "LSTM")
     tokenizer.fit_on_texts(texts)
+
     test_samples_token = tokenizer.texts_to_sequences(texts)
     test_samples_tokens_pad = pad_sequences(test_samples_token, maxlen=max_len)
 
