@@ -1,5 +1,3 @@
-hateful tweet sayısı kadar normal tweet eklenebilir.
-I dont hate you vb cümlelerinin normal olarak elde edilmesi gerekli (elde ediliyor, fakat bu sefer de "i hate you" gibi cümlelere normal diyor :D )
 eğer future predictionun runtime'ı uzarsa tfidf'in boyutu küçültülebilir
 preprocessing dosyasında txt file'ı oluşturmaya gerek kalmadı.
 random forest'ın ve word2vec'in parametrelerine bakabiliriz iyileştirme için.
