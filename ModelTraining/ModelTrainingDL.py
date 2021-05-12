@@ -57,8 +57,6 @@ def deepLearningMethodWithWord2Vec():
     model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
     model.fit(X, Y, epochs=25, batch_size=10)
 
-    saveModel(model, "Word2Vec")
-
     _, accuracy = model.evaluate(X, Y)
     print('Accuracy: %.2f' % (accuracy * 100))
 
@@ -68,7 +66,7 @@ def applyGRU(tweets):
     X_train, X_test, Y_train, Y_test = split_train_test(tweets)
 
     tokenizer_obj = Tokenizer()
-    total_tweets = original_tweets['text'].values
+    total_tweets = tweets['text'].values
     tokenizer_obj.fit_on_texts(total_tweets)
 
     max_length = max([len(s.split()) for s in total_tweets])
@@ -91,9 +89,13 @@ def applyGRU(tweets):
                   loss='binary_crossentropy',
                   metrics=['accuracy'])
 
-    model.fit(X_train_pad, Y_train, batch_size=128, epochs=1, validation_data=(X_test_pad, Y_test), verbose=2)
+    earlyStopping = EarlyStopping(monitor='val_loss', min_delta=0.0001, restore_best_weights=False)
+
+    model.fit(X_train_pad, Y_train, batch_size=128, epochs=1, validation_data=(X_test_pad, Y_test), verbose=2, callbacks=[earlyStopping])
+
     modelName = "GRU"
-    saveModel(model, modelName)
+    model.save('ModelsDL/' + modelName + ".h5")
+    saveTokenizerOfModel(tokenizer, modelName)
 
 
 def applyLSTM(tweets):
@@ -138,22 +140,6 @@ def applyLSTM(tweets):
 
     saveTokenizerOfModel(tokenizer, modelName)
 
-    test_sequences = tokenizer.texts_to_sequences(X_test)
-    test_sequences_matrix = sequence.pad_sequences(test_sequences, maxlen=max_len)
-
-    accr = model.evaluate(test_sequences_matrix, Y_test)
-
-    print('Test set\n  Loss: {:0.3f}\n  Accuracy: {:0.3f}'.format(accr[0], accr[1]))
-
-    tests = ["hope", "feel relax", "feel energy", "peaceful day"]
-
-    tokenizer.fit_on_texts(tests)
-    test_samples_token = tokenizer.texts_to_sequences(tests)
-    test_samples_tokens_pad = pad_sequences(test_samples_token, maxlen=max_len)
-
-    print(model.predict(x=test_samples_tokens_pad))
-
-    del model
 
 if __name__ == '__main__':
 
@@ -161,18 +147,5 @@ if __name__ == '__main__':
     original_tweets = convertLabelToFloat(original_tweets)
     original_tweets = prepareDataSetForDL(original_tweets)
 
-    applyLSTM(original_tweets)
-    # applyGRU(original_tweets)
-
-    texts = ["hope", "feel relax", "feel energy", "peaceful day", "feel bad"]
-
-    model = load_model("ModelsDL/LSTM.h5")
-    model.compile(loss='binary_crossentropy', optimizer="adam", metrics=['accuracy'])
-
-    tokenizer = loadTokenizerOfModel("ModelsDL/", "LSTM")
-    tokenizer.fit_on_texts(texts)
-
-    test_samples_token = tokenizer.texts_to_sequences(texts)
-    test_samples_tokens_pad = pad_sequences(test_samples_token, maxlen=max_len)
-
-    print(model.predict(x=test_samples_tokens_pad))
+    # applyLSTM(original_tweets)
+    applyGRU(original_tweets)
