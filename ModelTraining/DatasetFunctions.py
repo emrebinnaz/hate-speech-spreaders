@@ -4,17 +4,17 @@ from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
 
 
+def convertDataTypeToCategoric(df):
+
+    df['label'] = df['label'].astype('category')
+    return df
+
+
 def convertLabelToFloat(df):
 
     df['label'] = df['label'].replace(["hateful", "normal"], [float(1), float(0)])
     df['label'] = pd.to_numeric(df['label'], errors='coerce')
 
-    return df
-
-
-def convertDataTypeToCategoric(df):
-
-    df['label'] = df['label'].astype('category')
     return df
 
 
@@ -50,9 +50,6 @@ def split_train_test(dataSet, test_size=0.25, shuffle_state=True):
                                                         shuffle=shuffle_state,
                                                         test_size=test_size,
                                                         random_state=15)
-
-    # print("HATEFUL SAYISI",len(Y_train[Y_train['label'] == 'hateful']))
-    # print("NORMAL SAYISI", len(Y_train[Y_train['label'] == 'normal']))
 
     return X_train, X_test, Y_train, Y_test
 

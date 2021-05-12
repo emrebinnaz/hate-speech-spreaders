@@ -156,8 +156,6 @@ def generalPreprocessingForPrediction(df):
 
     return df
 
-
-
 if __name__ == '__main__':
 
     tweets = pd.read_csv(tweetsPath, sep=",", skipinitialspace=True)

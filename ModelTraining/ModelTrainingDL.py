@@ -1,9 +1,9 @@
 import pickle
-
-from gensim.models import Word2Vec
-from sklearn.model_selection import train_test_split
 import pandas as pd
 import numpy as np
+import collections
+import tensorflow as tf
+import random as python_random
 from keras.models import Sequential
 from keras.layers import Dense, Embedding, GRU
 from sklearn.preprocessing import LabelEncoder
@@ -17,12 +17,13 @@ from keras.preprocessing import sequence
 from keras.optimizers import RMSprop
 from keras.models import Model
 from keras.layers import LSTM, Activation, Dense, Dropout, Input, Embedding
-from ModelTraining.DatasetFunctions import convertLabelToFloat, prepareDataSetForDL
+from ModelTraining.DatasetFunctions import convertLabelToFloat, prepareDataSetForDL, split_train_test
 from ModelTraining.ModelFunctionsDL import *
-
+from gensim.models import Word2Vec
+from sklearn.model_selection import train_test_split
 from numpy.random import seed
-import tensorflow as tf
-import random as python_random
+
+
 originalTweetsPath = '../Files/ContentOfTweets.csv'
 allVectorValuesPath = '../Files/allWord2VecVectorValues.csv'
 
@@ -36,6 +37,7 @@ np.random.seed(42)
 python_random.seed(42)
 seed(42)  # keras seed fixing
 tf.random.set_seed(42)  # tensorflow seed fixing
+
 
 def deepLearningMethodWithWord2Vec():
 
@@ -61,33 +63,22 @@ def deepLearningMethodWithWord2Vec():
     print('Accuracy: %.2f' % (accuracy * 100))
 
 
-# def deepLearningModelWithoutWord2Vec():
-#
-#     original_tweets = pd.read_csv(originalTweetsPath, sep=",", skipinitialspace=True)
-#     original_tweets = convertLabelToFloat(original_tweets)
-#
-#     dataSet = prepareDataSet(original_tweets)
-#     X_train, X_test, Y_train, Y_test = split_train_test(dataSet)
-#
-#     tokenizer_obj = Tokenizer()
-#     total_tweets = original_tweets['text'].values
-#     tokenizer_obj.fit_on_texts(total_tweets)
-#
-#     max_length = max([len(s.split()) for s in total_tweets])
-#     vocab_size = len(tokenizer_obj.word_index) + 1
-#
-#     X_train_tokens = tokenizer_obj.texts_to_sequences(X_train)
-#     X_test_tokens = tokenizer_obj.texts_to_sequences(X_test)
-#
-#     X_train_pad = pad_sequences(X_train_tokens,maxlen=max_length,padding='post')
-#     X_test_pad = pad_sequences(X_test_tokens,maxlen=max_length,padding='post')
-#
-#     # model = applyGRU(vocab_size, max_length)
-#     # model.fit(X_train_pad, Y_train, batch_size=128, epochs=1, validation_data=(X_test_pad, Y_test), verbose=2)
-#     # saveModel(model, "GRU")
+def applyGRU(tweets):
 
+    X_train, X_test, Y_train, Y_test = split_train_test(tweets)
 
-def applyGRU(vocab_size, max_length):
+    tokenizer_obj = Tokenizer()
+    total_tweets = original_tweets['text'].values
+    tokenizer_obj.fit_on_texts(total_tweets)
+
+    max_length = max([len(s.split()) for s in total_tweets])
+    vocab_size = len(tokenizer_obj.word_index) + 1
+
+    X_train_tokens = tokenizer_obj.texts_to_sequences(X_train)
+    X_test_tokens = tokenizer_obj.texts_to_sequences(X_test)
+
+    X_train_pad = pad_sequences(X_train_tokens, maxlen=max_length, padding='post')
+    X_test_pad = pad_sequences(X_test_tokens, maxlen=max_length, padding='post')
 
     print("GRU deep learning method is running")
     Embedding(vocab_size, 100, input_length=max_length)
@@ -100,90 +91,29 @@ def applyGRU(vocab_size, max_length):
                   loss='binary_crossentropy',
                   metrics=['accuracy'])
 
-    return model
-
-
-
-# deepLearningMethodWithWord2Vec()
-
-
-def createDeepLearningModelFrom(tweets):
-
-    labels = tweets['label'].values.tolist()
-    tweetTexts = tweets['text'].values.tolist() # tüm textleri array'e atar.
-
-    trainingSetSize = int(len(tweetTexts) * 0.80)  ## bu ve altındaki 2 satır prepareDataset gibi bir fonksiyona alınabilir
-
-    X_train, X_test = tweetTexts[: trainingSetSize], tweetTexts[trainingSetSize: ]
-    Y_train, Y_test = labels[: trainingSetSize], labels[trainingSetSize: ]
-
-    maxWordCount = 10000 # Verisetinden en cok kullanılan 10000 tane kelime alınacak. Her kelimeye karşılık farklı bir sayı gelmiş olacak.
-
-    tokenizer = Tokenizer(num_words = maxWordCount)
-    tokenizer.fit_on_texts(tweetTexts)
-
-    tokensOfX_train = tokenizer.texts_to_sequences(X_train)
-    tokensOfX_test = tokenizer.texts_to_sequences(X_test)
-
-    # for example
-    # print(X_train[10000]) # thisty hoe
-    # print(tokensOfX_train[10000])  # [9506, 2]
-
-    tokensCount = [len(tokens) for tokens in tokensOfX_train + tokensOfX_test]
-    tokensCount = np.array(tokensCount)
-    # print(np.mean(tokenCounts)) # ort olarak 1 tweette 5.359920406597622 kadar token varmış
-
-    #rnn uygulamak için textlerin boyutlarını eşitlememiz gerekiyor.
-
-    constantTokenCount = np.mean(tokensCount) + (2 * np.std(tokensCount))
-    constantTokenCount = int(constantTokenCount)
-
-    # print(constantTokenCount) # textlerin boyutunu 13'e eşitlemiş olduk rnn'e vermek için.
-
-    # print(np.sum(tokensCount < constantTokenCount) / len(tokensCount)) elde ettiğimiz boyut, textlerin %97'sini kapsıyormuş
-
-    X_trainWithPadding = pad_sequences(tokensOfX_train, maxlen = constantTokenCount)
-    X_testWithPadding = pad_sequences(tokensOfX_test, maxlen = constantTokenCount)
-
-    # print(X_trainWithPadding.shape) # (33369, 13) 33369 text var, 13 boyutundalar
-
-    embedding_size = 70
-    model = Sequential()
-    model.add(Embedding(input_dim=maxWordCount,
-                        output_dim=embedding_size,
-                        input_length=constantTokenCount,
-                        name="embedding_layer"))
-
-    model.add(layers.Conv1D(128, 5, activation='relu'))
-    model.add(layers.GlobalMaxPooling1D())
-    model.add(layers.Dense(10, activation='relu'))
-    model.add(layers.Dense(1, activation='sigmoid'))
-
-    model.compile(loss="binary_crossentropy", optimizer='adam', metrics=["accuracy"])
-
-    X_trainWithPadding = np.array(X_trainWithPadding)
-    Y_train = np.array(Y_train)
-    Y_test = np.array(Y_test)
-
-    model.fit(X_trainWithPadding, Y_train, validation_data=(X_testWithPadding, Y_test), epochs=10, batch_size=256)
+    model.fit(X_train_pad, Y_train, batch_size=128, epochs=1, validation_data=(X_test_pad, Y_test), verbose=2)
+    modelName = "GRU"
+    saveModel(model, modelName)
 
 
 def applyLSTM(tweets):
-
 
     texts = tweets['text']
     labels = tweets['label']
 
     labels = LabelEncoder().fit_transform(labels)
-    labels = labels.reshape(-1, 1) ## galiba lstm için boyutları değiştirdi.
-
+    labels = labels.reshape(-1, 1) # galiba lstm için boyutları değiştirdi.
 
     X_train, X_test, Y_train, Y_test = train_test_split(texts, labels, test_size=0.20,random_state=42)
+
+    # print(np.count_nonzero(Y_train))
+    # print(len(Y_train) - np.count_nonzero(Y_train))
 
     tokenizer.fit_on_texts(X_train)
     sequences = tokenizer.texts_to_sequences(X_train)
     sequences_matrix = sequence.pad_sequences(sequences, maxlen=max_len)
 
+    print("LSTM deep learning method is running")
     inputs = Input(name='inputs', shape=[max_len])
     layer = Embedding(max_words, 50, input_length=max_len)(inputs)
     layer = LSTM(64)(layer)
@@ -205,6 +135,7 @@ def applyLSTM(tweets):
 
     modelName = "LSTM"
     model.save('ModelsDL/' + modelName + ".h5")
+
     saveTokenizerOfModel(tokenizer, modelName)
 
     test_sequences = tokenizer.texts_to_sequences(X_test)
@@ -224,14 +155,14 @@ def applyLSTM(tweets):
 
     del model
 
-
 if __name__ == '__main__':
 
-    # original_tweets = pd.read_csv(originalTweetsPath, sep=",", skipinitialspace=True)
-    # original_tweets = convertLabelToFloat(original_tweets)
-    # original_tweets = prepareDataSetForDL(original_tweets)
-    #
-    # applyLSTM(original_tweets)
+    original_tweets = pd.read_csv(originalTweetsPath, sep=",", skipinitialspace=True)
+    original_tweets = convertLabelToFloat(original_tweets)
+    original_tweets = prepareDataSetForDL(original_tweets)
+
+    applyLSTM(original_tweets)
+    # applyGRU(original_tweets)
 
     texts = ["hope", "feel relax", "feel energy", "peaceful day", "feel bad"]
 

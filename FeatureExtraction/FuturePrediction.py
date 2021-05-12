@@ -39,7 +39,6 @@ def predictWithML(modelName, newTextList):
     # predictions = model.predict(newSampleAsDataFrame)
 
 
-
 def predictWithDL(modelName, newTextList):
 
     model = ModelFunctionsDL.loadModel(dlModelsPath, modelName)
