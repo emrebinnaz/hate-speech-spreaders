@@ -19,8 +19,8 @@ toktokTokenizer = ToktokTokenizer()
 mlModelsPath = '../ModelTraining/ModelsML/'
 dlModelsPath = '../ModelTraining/ModelsDL/'
 
-def predictWithML(modelName, newTextList):
 
+def predictWithML(modelName, newTextList):
     print("Predicted by " + modelName + ".....")
 
     model = ModelFunctionsML.loadModel(mlModelsPath, modelName)
@@ -30,11 +30,11 @@ def predictWithML(modelName, newTextList):
 
     tweets = generalPreprocessingForPrediction(tweets)
 
-    wordList = tfidfVector.get_feature_names() # columns
+    wordList = tfidfVector.get_feature_names()  # columns
 
-    newSample = tfidfVector.transform(tweets['text']) # Transform dictionary features into 2D feature matrix.
-    newSampleAsDataFrame = pd.DataFrame(data = newSample.toarray(),
-                                        columns = wordList)
+    newSample = tfidfVector.transform(tweets['text'])  # Transform dictionary features into 2D feature matrix.
+    newSampleAsDataFrame = pd.DataFrame(data=newSample.toarray(),
+                                        columns=wordList)
 
     predictions = model.predict(newSampleAsDataFrame)
 
@@ -42,7 +42,6 @@ def predictWithML(modelName, newTextList):
 
 
 def predictWithDL(modelName, newTextList):
-
     print("Predicted by " + modelName + ".....")
 
     model = load_model(dlModelsPath + modelName)
@@ -72,13 +71,11 @@ def predictWithDL(modelName, newTextList):
 
 
 def predictWithModelEnsemble(newTextList):
-
     print("Predicted by " + "Model Ensemble Method .....")
 
     tfidfVector = joblib.load(open("../Files/TfidfVector.pkl", "rb"))
 
     tweets = pd.DataFrame({'text': newTextList})
-
     tweets = generalPreprocessingForPrediction(tweets)
 
     wordList = tfidfVector.get_feature_names()  # columns
@@ -90,50 +87,45 @@ def predictWithModelEnsemble(newTextList):
     predictedTweets = []
 
     for newText in newTextList:
-
-        predictedTweet = PredictedTweet(newText)
+        predictedTweet = PredictedTweet(newText, " ")
         predictedTweets.append(predictedTweet)
 
     modelNameList = os.listdir(mlModelsPath)
-    modelNameList = ["DecisionTree.pkl", "LogisticRegression.pkl"] # burası değişcek
+    modelAccList = [91, 93, 75, 93, 92, 86, 90, 92]
+    modelInfo = pd.DataFrame({'Name': modelNameList, 'Acc': modelAccList})
 
-    for modelName in modelNameList:
-
-        modelName = modelName.replace(".pkl","")
+    for index, anyModel in modelInfo.iterrows():
+        modelName = anyModel['Name'].replace(".pkl", "")
         model = ModelFunctionsML.loadModel(mlModelsPath, modelName)
 
         predictions = model.predict(newSampleAsDataFrame)
 
         index = 0
-
         for prediction in predictions:
-
-            text = predictedTweets[index].text
-
             if prediction == 'normal':
-                predictedTweets[index].numberOfNormalPrediction += 1
+                predictedTweets[index].rateOfNormalPrediction += anyModel["Acc"]
+                predictedTweets[index].models += modelName + " "
             else:
-                predictedTweets[index].numberOfHatefulPrediction += 1
+                predictedTweets[index].rateOfHatefulPrediction += anyModel["Acc"]
 
             index += 1
 
     for predictedTweet in predictedTweets:
+        value = ""
+        if predictedTweet.isTweetHateful():
+            value = "Hateful"
+        else:
+            value = "Normal"
 
-        print(predictedTweet.toString(), "Tweet is :", predictedTweet.isTweetHateful())
+        print(predictedTweet.toString(), "\nTweet is :", value, "\n")
 
 
 modelName = "GRU.h5"
 # modelName = "LogisticRegression"
 
-newTextList = ["hope", "love", "feel energy", "jew", "nigga", "hate bitch"]
+newTextList = ["hope", "love", "feel energy", "jew", "nigga", "hate bitch", "dont hate", "racism",
+               "i dont love to my baby boy"]
 
-predictWithDL(modelName, newTextList)
+# predictWithDL(modelName, newTextList)
 # predictWithML(modelName, newTextList)
-# predictWithModelEnsemble(newTextList)
-
-
-
-
-
-
-
+predictWithModelEnsemble(newTextList)

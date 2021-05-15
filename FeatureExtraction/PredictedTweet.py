@@ -1,16 +1,19 @@
 class PredictedTweet:
 
-    def __init__(self, text):
+    def __init__(self, text, models):
         self.text = text
-        self.numberOfNormalPrediction = 0
-        self.numberOfHatefulPrediction = 0
+        self.models = models
+        self.rateOfNormalPrediction = 0
+        self.rateOfHatefulPrediction = 0
 
     def toString(self):
 
-        return self.text + \
-               " Hateful prediction count:  " + str(self.numberOfHatefulPrediction) + \
-               " Normal prediction count :" + str(self.numberOfNormalPrediction)
+        return self.text + "--->" \
+               " Normal diyen modeller : " + str(self.models) + "\n" \
+               "Hateful prediction rate:  " + str(self.rateOfHatefulPrediction) + "\n" \
+               "Normal prediction rate :" + str(self.rateOfNormalPrediction)
+
 
     def isTweetHateful(self):
 
-        return self.numberOfHatefulPrediction > self.numberOfNormalPrediction
+        return self.rateOfHatefulPrediction > self.rateOfNormalPrediction

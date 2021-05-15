@@ -71,5 +71,104 @@ Linear SVM is running
    macro avg       0.96      0.96      0.96      8874
 weighted avg       0.96      0.96      0.96      8874
 
+---------------------------------------------------------
+
+MultinomialNaiveBayes is running
+[[4560  576]
+ [ 841 4322]]
+              precision    recall  f1-score   support
+
+     hateful       0.84      0.89      0.87      5136
+      normal       0.88      0.84      0.86      5163
+
+    accuracy                           0.86     10299
+   macro avg       0.86      0.86      0.86     10299
+weighted avg       0.86      0.86      0.86     10299
+
+KNN is running
+[[3928 1208]
+ [1340 3823]]
+              precision    recall  f1-score   support
+
+     hateful       0.75      0.76      0.76      5136
+      normal       0.76      0.74      0.75      5163
+
+    accuracy                           0.75     10299
+   macro avg       0.75      0.75      0.75     10299
+weighted avg       0.75      0.75      0.75     10299
+
+Decision Tree is running
+[[4618  518]
+ [ 444 4719]]
+              precision    recall  f1-score   support
+
+     hateful       0.91      0.90      0.91      5136
+      normal       0.90      0.91      0.91      5163
+
+    accuracy                           0.91     10299
+   macro avg       0.91      0.91      0.91     10299
+weighted avg       0.91      0.91      0.91     10299
+
+Logistic Regression is running
+[[4493  643]
+ [ 165 4998]]
+              precision    recall  f1-score   support
+
+     hateful       0.96      0.87      0.92      5136
+      normal       0.89      0.97      0.93      5163
+
+    accuracy                           0.92     10299
+   macro avg       0.93      0.92      0.92     10299
+weighted avg       0.93      0.92      0.92     10299
+
+Random Forest is running
+[[4263  873]
+ [ 143 5020]]
+              precision    recall  f1-score   support
+
+     hateful       0.97      0.83      0.89      5136
+      normal       0.85      0.97      0.91      5163
+
+    accuracy                           0.90     10299
+   macro avg       0.91      0.90      0.90     10299
+weighted avg       0.91      0.90      0.90     10299
+
+Linear SVM is running
+[[4542  594]
+ [ 154 5009]]
+              precision    recall  f1-score   support
+
+     hateful       0.97      0.88      0.92      5136
+      normal       0.89      0.97      0.93      5163
+
+    accuracy                           0.93     10299
+   macro avg       0.93      0.93      0.93     10299
+weighted avg       0.93      0.93      0.93     10299
+
+Sigmoid SVM is running
+[[4536  600]
+ [ 205 4958]]
+              precision    recall  f1-score   support
+
+     hateful       0.96      0.88      0.92      5136
+      normal       0.89      0.96      0.92      5163
+
+    accuracy                           0.92     10299
+   macro avg       0.92      0.92      0.92     10299
+weighted avg       0.92      0.92      0.92     10299
+
+Gaussian SVM is running
+[[4517  619]
+ [ 135 5028]]
+              precision    recall  f1-score   support
+
+     hateful       0.97      0.88      0.92      5136
+      normal       0.89      0.97      0.93      5163
+
+    accuracy                           0.93     10299
+   macro avg       0.93      0.93      0.93     10299
+weighted avg       0.93      0.93      0.93     10299
+
+
 
 

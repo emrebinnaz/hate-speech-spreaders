@@ -114,20 +114,6 @@ def applyLinearSVM():
     printConfusionMatrix(y_test, predicted)
 
 
-def applyPolynomialSVM():
-
-    print("Polynomial SVM is running")
-    classifier = svm.SVC(kernel = 'poly', degree = 8) # degree ayarlanacak.
-    model = classifier.fit(X_train, y_train)
-    saveModel(model, 'PolynomialSVM')
-
-    cross_val_score(model, X_train, y_train, cv=10)
-
-    predicted = classifier.predict(X_test)
-
-    printConfusionMatrix(y_test, predicted)
-
-
 def applyGaussianSVM():
 
     print("Gaussian SVM is running")
@@ -202,13 +188,12 @@ X_train, X_test, y_train, y_test = train_test_split(dataSet.drop(['label'],axis 
 #
 # plot_confusion_matrix(model, X_test, y_test)
 # plt.show()
-#
-# applyNaiveBayes()
-# applyKnn()
-# applyDecisionTree()
-# applyLogisticRegression()
-# applyRandomForest()
-# # applyLinearSVM()
-# applySigmoidSVM()
-# applyGaussianSVM()
-# applyPolynomialSVM()
+
+applyNaiveBayes()
+applyKnn()
+applyDecisionTree()
+applyLogisticRegression()
+applyRandomForest()
+applyLinearSVM()
+applySigmoidSVM()
+applyGaussianSVM()
