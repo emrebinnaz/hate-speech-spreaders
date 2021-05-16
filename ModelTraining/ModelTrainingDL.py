@@ -17,6 +17,8 @@ from keras.preprocessing import sequence
 from keras.optimizers import RMSprop
 from keras.models import Model
 from keras.layers import LSTM, Activation, Dense, Dropout, Input, Embedding
+from tensorflow.python.layers.normalization import BatchNormalization
+
 from ModelTraining.DatasetFunctions import convertLabelToFloat, prepareDataSetForDL, split_train_test
 from ModelTraining.ModelFunctionsDL import *
 from gensim.models import Word2Vec
@@ -98,6 +100,47 @@ def applyGRU(tweets):
     saveTokenizerOfModel(tokenizer, modelName)
 
 
+def applyCNN(tweets):
+
+
+    X_train, X_test, Y_train, Y_test = split_train_test(tweets)
+
+    tokenizer_obj = Tokenizer()
+    total_tweets = tweets['text'].values
+    tokenizer_obj.fit_on_texts(total_tweets)
+
+    max_length = max([len(s.split()) for s in total_tweets])
+    vocab_size = len(tokenizer_obj.word_index) + 1
+
+    X_train_tokens = tokenizer_obj.texts_to_sequences(X_train)
+    X_test_tokens = tokenizer_obj.texts_to_sequences(X_test)
+
+    X_train_pad = pad_sequences(X_train_tokens, maxlen=max_length, padding='post')
+
+    print("CNN deep learning method is running")
+    Embedding(vocab_size, 100, input_length=max_length)
+    model = Sequential()
+    model.add(Embedding(vocab_size, 100, input_length=max_length))
+    model.add(layers.Conv1D(128, 5, activation='relu'))
+    model.add(layers.GlobalMaxPooling1D())
+    model.add(Dropout(0.5))
+    model.add(layers.Dense(10, activation='relu'))
+    model.add(layers.Dense(1, activation='sigmoid'))
+    model.compile(optimizer='adam',
+                  loss='binary_crossentropy',
+                  metrics=['accuracy'])
+    model.summary()
+
+    earlyStopping = EarlyStopping(monitor='val_loss', min_delta=0.0001, restore_best_weights=False)
+
+    model.fit(X_train_pad, Y_train, batch_size=128, shuffle=True, epochs=10,
+              validation_split=0.2, callbacks=[earlyStopping])
+
+    modelName = "CNN"
+    model.save('ModelsDL/' + modelName + ".h5")
+    saveTokenizerOfModel(tokenizer, modelName)
+
+
 def applyLSTM(tweets):
 
     texts = tweets['text']
@@ -148,4 +191,5 @@ if __name__ == '__main__':
     original_tweets = prepareDataSetForDL(original_tweets)
 
     # applyLSTM(original_tweets)
-    applyGRU(original_tweets)
+    # applyGRU(original_tweets)
+    applyCNN(original_tweets)
