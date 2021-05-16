@@ -42,9 +42,11 @@ def predictWithML(modelName, newTextList):
 
 
 def predictWithDL(modelName, newTextList):
+
     print("Predicted by " + modelName + ".....")
 
     model = load_model(dlModelsPath + modelName)
+    modelName = modelName.replace(".h5", "")
     model.compile(loss='binary_crossentropy', optimizer="adam", metrics=['accuracy'])
 
     tweets = pd.DataFrame({'text': newTextList})
@@ -52,7 +54,7 @@ def predictWithDL(modelName, newTextList):
 
     texts = tweets['text'].values.tolist()
 
-    tokenizer = ModelFunctionsDL.loadTokenizerOfModel(dlModelsPath, "LSTM")
+    tokenizer = ModelFunctionsDL.loadTokenizerOfModel(dlModelsPath, modelName)
     tokenizer.fit_on_texts(texts)
 
     test_samples_token = tokenizer.texts_to_sequences(texts)
@@ -120,12 +122,11 @@ def predictWithModelEnsemble(newTextList):
         print(predictedTweet.toString(), "\nTweet is :", value, "\n")
 
 
-modelName = "GRU.h5"
+modelName = "CNN.h5"
 # modelName = "LogisticRegression"
 
-newTextList = ["hope", "love", "feel energy", "jew", "nigga", "hate bitch", "dont hate", "racism",
-               "i dont love to my baby boy"]
+newTextList = ["nigga"]
 
-# predictWithDL(modelName, newTextList)
+predictWithDL(modelName, newTextList)
 # predictWithML(modelName, newTextList)
-predictWithModelEnsemble(newTextList)
+#predictWithModelEnsemble(newTextList)
