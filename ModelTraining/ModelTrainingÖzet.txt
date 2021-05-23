@@ -3,3 +3,4 @@ random forest'ın ve word2vec'in parametrelerine bakabiliriz iyileştirme için.
 word2vec future prediction
 bigram + unigram dene
 lstm için dropout dense vb ayarlarına bak
+gru iyileştirilebilir mi ?

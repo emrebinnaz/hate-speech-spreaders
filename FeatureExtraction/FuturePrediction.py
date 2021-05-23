@@ -123,13 +123,14 @@ def predictWithModelEnsemble(newTextList):
         print(predictedTweet.toString(), "\nTweet is :", value, "\n")
 
 
-modelName = "LSTM.h5"
+# modelName = "LSTM.h5"
 # modelName = "LogisticRegression"
 
-newTextList = ["shoot nigga","kill is bad","faggot","should hate", "I hate you", "hate muslim", "dont hate muslim", "stop killing"]
+newTextList = ["Your mummy is peT", "your mommy is animal","YOu are animal"]
 
-predictWithDL(modelName, newTextList)
-predictWithDL("CNNwithWord2Vec.h5", newTextList)
-predictWithDL("LSTMwithWord2Vec.h5", newTextList)
+# predictWithDL(modelName, newTextList)
+# predictWithDL("GRUwithWord2Vec.h5", newTextList)
+# predictWithDL("CNNwithWord2Vec.h5", newTextList)
+# predictWithDL("LSTMwithWord2Vec.h5", newTextList)
 #predictWithML(modelName, newTextList)
 #predictWithModelEnsemble(newTextList)

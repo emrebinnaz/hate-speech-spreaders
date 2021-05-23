@@ -3,6 +3,7 @@ import pandas as pd
 from gensim.models import Word2Vec
 from gensim.utils import simple_preprocess
 from matplotlib import pyplot, pyplot as plt
+from numpy import asarray, zeros
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 from tensorflow.keras.utils import get_file
@@ -39,7 +40,6 @@ def createWord2VecModelFile():
 
     w2v_model.save(word2vec_model_file)
 
-
 def generateWord2VecVectors(originalTweets):
 
     vectors = pd.DataFrame()
@@ -67,6 +67,32 @@ def generateWord2VecVectors(originalTweets):
     vectors.to_csv(allVectorValuesPath, index=None)
 
     return vectors
+
+
+def createEmbeddingMatrixFromGlove(vocab_size,tokenizer):
+
+    embeddings_index = dict()
+    f = open('../FeatureExtraction/glove.6B.100d.txt')
+
+    for line in f:
+
+        values = line.split()
+        word = values[0]
+        coefs = asarray(values[1:], dtype='float32')
+        embeddings_index[word] = coefs
+
+    f.close()
+    print('Loaded %s word vectors.' % len(embeddings_index))
+
+    # create a weight matrix for words in training docs
+    embedding_matrix = zeros((vocab_size, 100))
+    for word, i in tokenizer.word_index.items():
+        embedding_vector = embeddings_index.get(word)
+        if embedding_vector is not None:
+            embedding_matrix[i] = embedding_vector
+
+    return embedding_matrix
+
 
 def visualizeWord2Vec(model):
 
@@ -101,8 +127,8 @@ def visualizeWord2Vec(model):
 
 
 
-tokenizeTweets(original_tweets)
-createWord2VecModelFile()
-#word2VecModel = Word2Vec.load(word2vec_model_file_path)
-#visualizeWord2Vec(word2VecModel)
-# vectors = generateWord2VecVectors(original_tweets)
+if __name__ == '__main__':
+
+    tokenizeTweets(original_tweets)
+    createWord2VecModelFile()
+    # vectors = generateWord2VecVectors(original_tweets)

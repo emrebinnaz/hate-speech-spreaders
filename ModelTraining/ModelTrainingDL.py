@@ -21,6 +21,7 @@ from keras.layers import LSTM, Activation, Dense, Dropout, Input, Embedding
 from tensorflow.python.keras.utils.np_utils import to_categorical
 from tensorflow.python.layers.normalization import BatchNormalization
 
+from FeatureExtraction.Word2Vec import createEmbeddingMatrixFromGlove
 from ModelTraining.DatasetFunctions import convertLabelToFloat, prepareDataSetForDL, split_train_test
 from ModelTraining.ModelFunctionsDL import *
 from gensim.models import Word2Vec
@@ -83,23 +84,7 @@ def applyCNNwithWord2Vec(tweets):
     test_sequences = tokenizer.texts_to_sequences(X_test)
     test_sequences_matrix = sequence.pad_sequences(test_sequences, maxlen=max_len)
 
-    embeddings_index = dict()
-    f = open('../FeatureExtraction/glove.6B.100d.txt')
-    for line in f:
-        values = line.split()
-        word = values[0]
-        coefs = asarray(values[1:], dtype='float32')
-        embeddings_index[word] = coefs
-    f.close()
-    print('Loaded %s word vectors.' % len(embeddings_index))
-
-    # create a weight matrix for words in training docs
-    embedding_matrix = zeros((vocab_size, 100))
-    for word, i in tokenizer.word_index.items():
-        embedding_vector = embeddings_index.get(word)
-        if embedding_vector is not None:
-            embedding_matrix[i] = embedding_vector
-
+    embedding_matrix = createEmbeddingMatrixFromGlove(vocab_size, tokenizer)
 
     print("CNN and Word2Vec deep learning method is running")
     model = Sequential() # sıralı katmanlar halinde yapı kurmamızı sağlıyor.
@@ -149,23 +134,7 @@ def applyLSTMwithWord2Vec(tweets):
     test_sequences = tokenizer.texts_to_sequences(X_test)
     test_sequences_matrix = sequence.pad_sequences(test_sequences, maxlen=max_len)
 
-    embeddings_index = dict()
-    f = open('../FeatureExtraction/glove.6B.100d.txt')
-    for line in f:
-        values = line.split()
-        word = values[0]
-        coefs = asarray(values[1:], dtype='float32')
-        embeddings_index[word] = coefs
-    f.close()
-    print('Loaded %s word vectors.' % len(embeddings_index))
-
-    # create a weight matrix for words in training docs
-    embedding_matrix = zeros((vocab_size, 100))
-    for word, i in tokenizer.word_index.items():
-        embedding_vector = embeddings_index.get(word)
-        if embedding_vector is not None:
-            embedding_matrix[i] = embedding_vector
-
+    embedding_matrix = createEmbeddingMatrixFromGlove(vocab_size,tokenizer)
     print("LSTM and Word2Vec deep learning method is running")
 
     model = Sequential()  # sıralı katmanlar halinde yapı kurmamızı sağlıyor.
@@ -179,7 +148,6 @@ def applyLSTMwithWord2Vec(tweets):
 
     model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-
     print(model.summary())
     model.fit(sequences_matrix, Y_train, batch_size=128, shuffle=True, epochs=10, callbacks=[earlyStopping],
               validation_data=(test_sequences_matrix, Y_test))
@@ -190,27 +158,30 @@ def applyLSTMwithWord2Vec(tweets):
     saveTokenizerOfModel(tokenizer, modelName)
 
 
-def applyGRU(tweets):
+def applyGRUwithWord2Vec(tweets):
 
-    X_train, X_test, Y_train, Y_test = split_train_test(tweets)
+    texts = asarray(tweets['text'])
+    labels = asarray(tweets['label'])
 
-    tokenizer_obj = Tokenizer()
-    total_tweets = tweets['text'].values
-    tokenizer_obj.fit_on_texts(total_tweets)
+    X_train, X_test, Y_train, Y_test = train_test_split(texts, labels, test_size=0.20, random_state=42)
 
-    max_length = max([len(s.split()) for s in total_tweets])
-    vocab_size = len(tokenizer_obj.word_index) + 1
+    tokenizer.fit_on_texts(texts)
 
-    X_train_tokens = tokenizer_obj.texts_to_sequences(X_train)
-    X_test_tokens = tokenizer_obj.texts_to_sequences(X_test)
+    sequences = tokenizer.texts_to_sequences(X_train)
+    sequences_matrix = sequence.pad_sequences(sequences, maxlen=max_len)
 
-    X_train_pad = pad_sequences(X_train_tokens, maxlen=max_length, padding='post')
-    X_test_pad = pad_sequences(X_test_tokens, maxlen=max_length, padding='post')
+    vocab_size = len(tokenizer.word_index) + 1
 
-    print("GRU deep learning method is running")
-    Embedding(vocab_size, 100, input_length=max_length)
-    model = Sequential()
-    model.add(Embedding(vocab_size, 100, input_length=max_length))
+    test_sequences = tokenizer.texts_to_sequences(X_test)
+    test_sequences_matrix = sequence.pad_sequences(test_sequences, maxlen=max_len)
+
+    embedding_matrix = createEmbeddingMatrixFromGlove(vocab_size, tokenizer)
+
+    print("GRU(RNN) and Word2Vec deep learning method is running")
+    model = Sequential()  # sıralı katmanlar halinde yapı kurmamızı sağlıyor.
+    embedding = Embedding(vocab_size, 100, weights=[embedding_matrix], input_length=max_len, trainable=False)
+    model.add(embedding)
+
     model.add(GRU(units=32, dropout=0.2, recurrent_dropout=0.2))
     model.add(Dense(1, activation='sigmoid'))
 
@@ -218,9 +189,10 @@ def applyGRU(tweets):
                   loss='binary_crossentropy',
                   metrics=['accuracy'])
 
-    model.fit(X_train_pad, Y_train, batch_size=128, epochs=1, validation_data=(X_test_pad, Y_test), verbose=2, callbacks=[earlyStopping])
+    model.fit(sequences_matrix, Y_train, batch_size=128, shuffle=True, epochs=10, callbacks=[earlyStopping],
+              validation_data=(test_sequences_matrix, Y_test))
 
-    modelName = "GRU"
+    modelName = "GRUwithWord2Vec"
     model.save('ModelsDL/' + modelName + ".h5")
     saveTokenizerOfModel(tokenizer, modelName)
 
@@ -305,14 +277,49 @@ def applyLSTM(tweets):
     saveTokenizerOfModel(tokenizer, modelName)
 
 
+def applyGRU(tweets):
+
+    X_train, X_test, Y_train, Y_test = split_train_test(tweets)
+
+    total_tweets = tweets['text'].values
+    tokenizer.fit_on_texts(total_tweets)
+
+    max_length = max([len(s.split()) for s in total_tweets])
+    vocab_size = len(tokenizer.word_index) + 1
+
+    X_train_tokens = tokenizer.texts_to_sequences(X_train)
+    X_test_tokens = tokenizer.texts_to_sequences(X_test)
+
+    X_train_pad = pad_sequences(X_train_tokens, maxlen=max_length, padding='post')
+    X_test_pad = pad_sequences(X_test_tokens, maxlen=max_length, padding='post')
+
+    print("GRU deep learning method is running")
+    Embedding(vocab_size, 100, input_length=max_length)
+    model = Sequential()
+    model.add(Embedding(vocab_size, 100, input_length=max_length))
+    model.add(GRU(units=32, dropout=0.2, recurrent_dropout=0.2))
+    model.add(Dense(1, activation='sigmoid'))
+
+    model.compile(optimizer='adam',
+                  loss='binary_crossentropy',
+                  metrics=['accuracy'])
+
+    model.fit(X_train_pad, Y_train, batch_size=128, shuffle=True, epochs=10, callbacks=[earlyStopping],
+              validation_data=(X_test_pad, Y_test))
+
+    modelName = "GRU"
+    model.save('ModelsDL/' + modelName + ".h5")
+    saveTokenizerOfModel(tokenizer, modelName)
+
 if __name__ == '__main__':
 
     original_tweets = pd.read_csv(originalTweetsPath, sep=",", skipinitialspace=True)
     original_tweets = convertLabelToFloat(original_tweets)
     original_tweets = prepareDataSetForDL(original_tweets)
 
-    #applyLSTM(original_tweets)
+    # applyLSTM(original_tweets)
     # applyGRU(original_tweets)
     # applyCNN(original_tweets)
-    #applyCNNwithWord2Vec(original_tweets)
-    applyLSTMwithWord2Vec(original_tweets)
+    # applyCNNwithWord2Vec(original_tweets)
+    # applyLSTMwithWord2Vec(original_tweets)
+    applyGRUwithWord2Vec(tweets=original_tweets)
