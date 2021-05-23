@@ -64,7 +64,8 @@ def predictWithDL(modelName, newTextList):
     string_values = []
 
     for value in float_values:
-        if value < 0.6:
+        print(value)
+        if value < 0.54:
             string_values.append("normal")
         else:
             string_values.append("hateful")
@@ -122,11 +123,13 @@ def predictWithModelEnsemble(newTextList):
         print(predictedTweet.toString(), "\nTweet is :", value, "\n")
 
 
-modelName = "CNN.h5"
+modelName = "LSTM.h5"
 # modelName = "LogisticRegression"
 
-newTextList = ["nigga"]
+newTextList = ["shoot nigga","kill is bad","faggot","should hate", "I hate you", "hate muslim", "dont hate muslim", "stop killing"]
 
 predictWithDL(modelName, newTextList)
-# predictWithML(modelName, newTextList)
+predictWithDL("CNNwithWord2Vec.h5", newTextList)
+predictWithDL("LSTMwithWord2Vec.h5", newTextList)
+#predictWithML(modelName, newTextList)
 #predictWithModelEnsemble(newTextList)

@@ -1,11 +1,18 @@
+import numpy as np
 import pandas as pd
 from gensim.models import Word2Vec
 from gensim.utils import simple_preprocess
+from matplotlib import pyplot, pyplot as plt
+from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
+from tensorflow.keras.utils import get_file
+from gensim.models.keyedvectors import KeyedVectors
+
 originalTweetsPath = '../Files/ContentOfTweets.csv'
 trainingSetPath = '../Files/Word2VecTrainingSet.csv'
 allVectorValuesPath = '../Files/allWord2VecVectorValues.csv'
-original_tweets = pd.read_csv(originalTweetsPath, sep=",", skipinitialspace=True)
-
+original_tweets = pd.read_csv(originalTweetsPath, sep=",", skipinitialspace=True, encoding='utf8')
+word2vec_model_file_path = '../Files/word2vec_1000.model'
 
 def tokenizeTweets(original_tweets):
 
@@ -18,7 +25,7 @@ def createWord2VecModelFile():
     size = 1000
     window = 5
     min_count = 1
-    workers = 3
+    workers = 5
     sg = 1  # if 1 -> skip-gram if 0 -> cbow
 
     word2vec_model_file = '../Files/word2vec_' + str(size) + '.model'
@@ -36,8 +43,7 @@ def createWord2VecModelFile():
 def generateWord2VecVectors(originalTweets):
 
     vectors = pd.DataFrame()
-    word2vec_model_file = '../Files/word2vec_1000.model'
-    word2VecModel = Word2Vec.load(word2vec_model_file)
+    word2VecModel = Word2Vec.load(word2vec_model_file_path)
 
     for tokenizedTextList in originalTweets['tokenized_text']:
 
@@ -62,6 +68,41 @@ def generateWord2VecVectors(originalTweets):
 
     return vectors
 
+def visualizeWord2Vec(model):
+
+    labels = []
+    tokens = []
+
+
+
+    # for word in model.wv.index_to_key:
+    #     tokens.append(model.wv[word])
+    #     labels.append(word)
+    #
+    # tsne_model = TSNE(perplexity=40, n_components=2, init='pca', n_iter=2500, random_state=23)
+    # new_values = tsne_model.fit_transform(tokens)
+    #
+    # x = []
+    # y = []
+    # for value in new_values:
+    #     x.append(value[0])
+    #     y.append(value[1])
+    #
+    # plt.figure(figsize=(16, 16))
+    # for i in range(len(x)):
+    #     plt.scatter(x[i], y[i])
+    #     plt.annotate(labels[i],
+    #                  xy=(x[i], y[i]),
+    #                  xytext=(5, 2),
+    #                  textcoords='offset points',
+    #                  ha='right',
+    #                  va='bottom')
+    # plt.show()
+
+
+
 tokenizeTweets(original_tweets)
 createWord2VecModelFile()
-vectors = generateWord2VecVectors(original_tweets)
+#word2VecModel = Word2Vec.load(word2vec_model_file_path)
+#visualizeWord2Vec(word2VecModel)
+# vectors = generateWord2VecVectors(original_tweets)

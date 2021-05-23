@@ -6,9 +6,10 @@ import tensorflow as tf
 import random as python_random
 from keras.models import Sequential
 from keras.layers import Dense, Embedding, GRU
+from numpy import asarray, zeros
 from sklearn.preprocessing import LabelEncoder
 from tensorflow.python.keras.callbacks import EarlyStopping
-from tensorflow.python.keras.layers import LSTM
+from tensorflow.python.keras.layers import LSTM, Conv1D, MaxPool1D, GlobalMaxPool1D, Flatten, MaxPooling1D
 from keras import layers
 from keras.models import load_model
 from tensorflow.python.keras.preprocessing.sequence import pad_sequences
@@ -17,6 +18,7 @@ from keras.preprocessing import sequence
 from keras.optimizers import RMSprop
 from keras.models import Model
 from keras.layers import LSTM, Activation, Dense, Dropout, Input, Embedding
+from tensorflow.python.keras.utils.np_utils import to_categorical
 from tensorflow.python.layers.normalization import BatchNormalization
 
 from ModelTraining.DatasetFunctions import convertLabelToFloat, prepareDataSetForDL, split_train_test
@@ -40,6 +42,7 @@ python_random.seed(42)
 seed(42)  # keras seed fixing
 tf.random.set_seed(42)  # tensorflow seed fixing
 
+earlyStopping = EarlyStopping(monitor='val_loss', min_delta=0.0001, restore_best_weights=False)
 
 def deepLearningMethodWithWord2Vec():
 
@@ -61,6 +64,130 @@ def deepLearningMethodWithWord2Vec():
 
     _, accuracy = model.evaluate(X, Y)
     print('Accuracy: %.2f' % (accuracy * 100))
+
+
+def applyCNNwithWord2Vec(tweets):
+
+    texts = asarray(tweets['text'])
+    labels = asarray(tweets['label'])
+
+    X_train, X_test, Y_train, Y_test = train_test_split(texts, labels, test_size=0.20,random_state=42)
+
+    tokenizer.fit_on_texts(texts)
+
+    sequences = tokenizer.texts_to_sequences(X_train)
+    sequences_matrix = sequence.pad_sequences(sequences, maxlen=max_len)
+
+    vocab_size = len(tokenizer.word_index) + 1
+
+    test_sequences = tokenizer.texts_to_sequences(X_test)
+    test_sequences_matrix = sequence.pad_sequences(test_sequences, maxlen=max_len)
+
+    embeddings_index = dict()
+    f = open('../FeatureExtraction/glove.6B.100d.txt')
+    for line in f:
+        values = line.split()
+        word = values[0]
+        coefs = asarray(values[1:], dtype='float32')
+        embeddings_index[word] = coefs
+    f.close()
+    print('Loaded %s word vectors.' % len(embeddings_index))
+
+    # create a weight matrix for words in training docs
+    embedding_matrix = zeros((vocab_size, 100))
+    for word, i in tokenizer.word_index.items():
+        embedding_vector = embeddings_index.get(word)
+        if embedding_vector is not None:
+            embedding_matrix[i] = embedding_vector
+
+
+    print("CNN and Word2Vec deep learning method is running")
+    model = Sequential() # sıralı katmanlar halinde yapı kurmamızı sağlıyor.
+    embedding = Embedding(vocab_size, 100, weights=[embedding_matrix], input_length=max_len, trainable=False)
+    model.add(embedding)
+
+    model.add(layers.Conv1D(128, 5, activation='relu'))
+    model.add(layers.MaxPooling1D())
+    model.add(Flatten())
+    model.add(Dropout(0.5))
+    model.add(layers.Dense(10, activation='relu'))
+    model.add(Dropout(0.5))
+    model.add(layers.Dense(1, activation='sigmoid'))
+    model.compile(optimizer='adam',
+                  loss='binary_crossentropy',
+                  metrics=['accuracy'])
+    print(model.summary())
+
+
+    # fit the model
+    model.fit(sequences_matrix, Y_train, batch_size=128, shuffle=True, epochs=10,callbacks=[earlyStopping],
+              validation_data=(test_sequences_matrix, Y_test))
+
+    modelName = "CNNwithWord2Vec"
+    model.save('ModelsDL/' + modelName + ".h5")
+
+    saveTokenizerOfModel(tokenizer, modelName)
+
+
+def applyLSTMwithWord2Vec(tweets):
+
+
+    texts = tweets['text']
+    labels = tweets['label']
+
+    labels = LabelEncoder().fit_transform(labels)
+    labels = labels.reshape(-1, 1)  # corresponds to an array with n row 1 column
+
+    X_train, X_test, Y_train, Y_test = train_test_split(texts, labels, test_size=0.20, random_state=42)
+
+    tokenizer.fit_on_texts(X_train)
+    sequences = tokenizer.texts_to_sequences(X_train)
+    sequences_matrix = sequence.pad_sequences(sequences, maxlen=max_len)
+
+    vocab_size = len(tokenizer.word_index) + 1
+
+    test_sequences = tokenizer.texts_to_sequences(X_test)
+    test_sequences_matrix = sequence.pad_sequences(test_sequences, maxlen=max_len)
+
+    embeddings_index = dict()
+    f = open('../FeatureExtraction/glove.6B.100d.txt')
+    for line in f:
+        values = line.split()
+        word = values[0]
+        coefs = asarray(values[1:], dtype='float32')
+        embeddings_index[word] = coefs
+    f.close()
+    print('Loaded %s word vectors.' % len(embeddings_index))
+
+    # create a weight matrix for words in training docs
+    embedding_matrix = zeros((vocab_size, 100))
+    for word, i in tokenizer.word_index.items():
+        embedding_vector = embeddings_index.get(word)
+        if embedding_vector is not None:
+            embedding_matrix[i] = embedding_vector
+
+    print("LSTM and Word2Vec deep learning method is running")
+
+    model = Sequential()  # sıralı katmanlar halinde yapı kurmamızı sağlıyor.
+    embedding = Embedding(vocab_size, 100, weights=[embedding_matrix], input_length=max_len, trainable=False)
+    model.add(embedding)
+    model.add(LSTM(64))
+
+    model.add(layers.Dense(256, name = 'FC1', activation='relu'))
+    model.add(Dropout(0.5))
+    model.add(layers.Dense(1, name='out_layer', activation='sigmoid'))
+
+    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+
+    print(model.summary())
+    model.fit(sequences_matrix, Y_train, batch_size=128, shuffle=True, epochs=10, callbacks=[earlyStopping],
+              validation_data=(test_sequences_matrix, Y_test))
+
+    modelName = "LSTMwithWord2Vec"
+    model.save('ModelsDL/' + modelName + ".h5")
+
+    saveTokenizerOfModel(tokenizer, modelName)
 
 
 def applyGRU(tweets):
@@ -90,8 +217,6 @@ def applyGRU(tweets):
     model.compile(optimizer='adam',
                   loss='binary_crossentropy',
                   metrics=['accuracy'])
-
-    earlyStopping = EarlyStopping(monitor='val_loss', min_delta=0.0001, restore_best_weights=False)
 
     model.fit(X_train_pad, Y_train, batch_size=128, epochs=1, validation_data=(X_test_pad, Y_test), verbose=2, callbacks=[earlyStopping])
 
@@ -131,8 +256,6 @@ def applyCNN(tweets):
                   metrics=['accuracy'])
     model.summary()
 
-    earlyStopping = EarlyStopping(monitor='val_loss', min_delta=0.0001, restore_best_weights=False)
-
     model.fit(X_train_pad, Y_train, batch_size=128, shuffle=True, epochs=10,
               validation_split=0.2, callbacks=[earlyStopping])
 
@@ -147,7 +270,7 @@ def applyLSTM(tweets):
     labels = tweets['label']
 
     labels = LabelEncoder().fit_transform(labels)
-    labels = labels.reshape(-1, 1) # galiba lstm için boyutları değiştirdi.
+    labels = labels.reshape(-1, 1) # corresponds to an array with n row 1 column
 
     X_train, X_test, Y_train, Y_test = train_test_split(texts, labels, test_size=0.20,random_state=42)
 
@@ -169,8 +292,6 @@ def applyLSTM(tweets):
     layer = Activation('sigmoid')(layer)
     model = Model(inputs=inputs, outputs=layer)
 
-    earlyStopping = EarlyStopping(monitor='val_loss', min_delta=0.0001, restore_best_weights=False)
-
     model.summary()
     model.compile(loss='binary_crossentropy', optimizer = 'adam', metrics=['accuracy'])
     model.fit(sequences_matrix, Y_train, batch_size=128, shuffle=True, epochs=10,
@@ -190,6 +311,8 @@ if __name__ == '__main__':
     original_tweets = convertLabelToFloat(original_tweets)
     original_tweets = prepareDataSetForDL(original_tweets)
 
-    # applyLSTM(original_tweets)
+    #applyLSTM(original_tweets)
     # applyGRU(original_tweets)
-    applyCNN(original_tweets)
+    # applyCNN(original_tweets)
+    #applyCNNwithWord2Vec(original_tweets)
+    applyLSTMwithWord2Vec(original_tweets)
