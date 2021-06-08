@@ -1,4 +1,4 @@
-import numpy as np
+
 import pandas as pd
 from gensim.models import Word2Vec
 from gensim.utils import simple_preprocess
@@ -8,6 +8,10 @@ from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 from tensorflow.keras.utils import get_file
 from gensim.models.keyedvectors import KeyedVectors
+
+
+import sys
+sys.path.append('/home/emre/Desktop/Belgelerim/HateSpeechSpreaders/hate-speech-spreaders/FeatureExtraction')
 
 originalTweetsPath = '../Files/ContentOfTweets.csv'
 trainingSetPath = '../Files/Word2VecTrainingSet.csv'

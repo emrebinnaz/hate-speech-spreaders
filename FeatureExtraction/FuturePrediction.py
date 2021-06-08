@@ -1,12 +1,16 @@
 import pandas as pd
-import joblib
+import joblib as jb
 from nltk.tokenize.toktok import ToktokTokenizer
 from tensorflow.python.keras.models import load_model
+
+
+import sys
+sys.path.append('/home/emre/Desktop/Belgelerim/HateSpeechSpreaders/hate-speech-spreaders')
 
 import ModelTraining.ModelFunctionsML as ModelFunctionsML
 import ModelTraining.ModelFunctionsDL as ModelFunctionsDL
 from FeatureExtraction.PredictedTweet import PredictedTweet
-from ModelTraining.ModelTrainingDL import tokenizer, max_len
+from ModelTraining.ModelTrainingDL import max_len
 from Preprocessing.Preprocessing import generalPreprocessingForPrediction
 from Config.Lemmatization import *
 from tensorflow.python.keras.preprocessing.sequence import pad_sequences
@@ -24,7 +28,7 @@ def predictWithML(modelName, newTextList):
     print("Predicted by " + modelName + ".....")
 
     model = ModelFunctionsML.loadModel(mlModelsPath, modelName)
-    tfidfVector = joblib.load(open("../Files/TfidfVector.pkl", "rb"))
+    tfidfVector = jb.load(open("../Files/TfidfVector.pkl", "rb"))
 
     tweets = pd.DataFrame({'text': newTextList})
 
@@ -76,7 +80,7 @@ def predictWithDL(modelName, newTextList):
 def predictWithModelEnsemble(newTextList):
     print("Predicted by " + "Model Ensemble Method .....")
 
-    tfidfVector = joblib.load(open("../Files/TfidfVector.pkl", "rb"))
+    tfidfVector = jb.load(open("../Files/TfidfVector.pkl", "rb"))
 
     tweets = pd.DataFrame({'text': newTextList})
     tweets = generalPreprocessingForPrediction(tweets)
@@ -126,11 +130,11 @@ def predictWithModelEnsemble(newTextList):
 # modelName = "LSTM.h5"
 # modelName = "LogisticRegression"
 
-newTextList = ["Your mummy is peT", "your mommy is animal","YOu are animal"]
+newTextList = ["Your mummy is peT", "your mommy is animal","YOu are animal","nigga"]
 
 # predictWithDL(modelName, newTextList)
 # predictWithDL("GRUwithWord2Vec.h5", newTextList)
 # predictWithDL("CNNwithWord2Vec.h5", newTextList)
-# predictWithDL("LSTMwithWord2Vec.h5", newTextList)
+predictWithDL("LSTMwithWord2Vec.h5", newTextList)
 #predictWithML(modelName, newTextList)
 #predictWithModelEnsemble(newTextList)

@@ -1,7 +1,6 @@
-import pickle
+
 import pandas as pd
 import numpy as np
-import collections
 import tensorflow as tf
 import random as python_random
 from keras.models import Sequential
@@ -11,23 +10,20 @@ from sklearn.preprocessing import LabelEncoder
 from tensorflow.python.keras.callbacks import EarlyStopping
 from tensorflow.python.keras.layers import LSTM, Conv1D, MaxPool1D, GlobalMaxPool1D, Flatten, MaxPooling1D
 from keras import layers
-from keras.models import load_model
 from tensorflow.python.keras.preprocessing.sequence import pad_sequences
 from tensorflow.python.keras.preprocessing.text import Tokenizer
 from keras.preprocessing import sequence
-from keras.optimizers import RMSprop
 from keras.models import Model
 from keras.layers import LSTM, Activation, Dense, Dropout, Input, Embedding
-from tensorflow.python.keras.utils.np_utils import to_categorical
-from tensorflow.python.layers.normalization import BatchNormalization
 
 from FeatureExtraction.Word2Vec import createEmbeddingMatrixFromGlove
 from ModelTraining.DatasetFunctions import convertLabelToFloat, prepareDataSetForDL, split_train_test
 from ModelTraining.ModelFunctionsDL import *
-from gensim.models import Word2Vec
 from sklearn.model_selection import train_test_split
 from numpy.random import seed
 
+import sys
+sys.path.append('/home/emre/Desktop/Belgelerim/HateSpeechSpreaders/hate-speech-spreaders/ModelTraining')
 
 originalTweetsPath = '../Files/ContentOfTweets.csv'
 allVectorValuesPath = '../Files/allWord2VecVectorValues.csv'

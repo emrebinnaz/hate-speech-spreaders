@@ -1,33 +1,39 @@
 import tweepy
 from TwitterConfig import api
 
-abc = "dnz"
 
-def getTweetsOfUser(username):
-    tweet_count = 20
-    userTimeline = api.user_timeline(id = username, count = tweet_count)
-    for i in userTimeline:
-        print(i.text)
+def getTweetsOfUser(username, tweetCount):
+
+    return api.user_timeline(id = username, count = tweetCount)
+
 
 def allCountryCodes():
+
     places = api.trends_available()
     allCountries = {place['name'].lower() : place['woeid'] for place in places }
     return allCountries
 
+
 def getWoeIdOfCountry(country):
+
     country = country.lower()
     trends = api.trends_available()
     allWoeIds = allCountryCodes()
+
     return allWoeIds[country]
 
-def getTweetsOfHashtag(hashtag):
+
+def getTweetsOfHashtag(hashtag, tweetCount):
+
     tweets = api.search(q = hashtag,
                         lang = "tr",
                         result_type = "recent",
-                        count = 2)
+                        count = tweetCount)
     return tweets
 
+
 def getTweetById(id):
+
     tweetText = ""
     try:
         status = api.get_status(id, tweet_mode="extended")
@@ -38,9 +44,29 @@ def getTweetById(id):
 
     return tweetText
 
+
 def getUserInformationsOfTweet(tweetId):
-    # fetching the status with extended tweet_mode
     status = api.get_status(tweetId, tweet_mode="extended")
 
     user = api.get_user(status.user.screen_name)  # espinozac_ @ile başlayan user' in ismini çeker.
-    print(user)
+
+    return user
+
+
+def getHashtagList(place):
+
+    woeid = getWoeIdOfCountry(place)
+
+    # fetching the trends
+    trends = api.trends_place(id=woeid)
+
+    hashtagNameList = []
+    for value in trends:
+        for trend in value['trends']:
+            hashtagNameList.append(trend['name'])
+
+    return hashtagNameList
+
+
+
+
