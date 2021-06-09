@@ -1,5 +1,5 @@
 import tweepy
-from TwitterConfig import api
+from TweetAccess.TwitterConfig import api
 
 
 def getTweetsOfUser(username, tweetCount):
@@ -65,8 +65,24 @@ def getHashtagList(place):
         for trend in value['trends']:
             hashtagNameList.append(trend['name'])
 
-    return hashtagNameList
+    return hashtagNameList[0:10]
 
+
+# tweets = getTweetsOfUser("emrebinnaz",20)
+#
+# for tweet in tweets:
+#
+#     username = tweet.user.screen_name
+#     tweetOwnerId = tweet.user.id
+#     following = tweet.user.friends_count
+#     followers = tweet.user.followers_count
+#     retweetCount = tweet.retweet_count
+#     favoriteCount = tweet.favorite_count
+#     text = tweet.text
+#     tweetId = tweet.id
+#
+#     profileImageUrl = tweet.user.profile_image_url_https
+#     hashtags = tweet.entities['hashtags']
 
 
 

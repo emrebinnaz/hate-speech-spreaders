@@ -51,26 +51,11 @@ def writeTweetsToCSV(tweets):
         writeTweetToCSV(tweet,index)
         index = index + 1
 
-# tweets = []
-# tweets = readDataSet("../Files/DirtyDatasets/DatasetWithTweetId.csv")
-# writeTweetsToCSV(tweets)
+tweets = []
+tweets = readDataSet("../Files/DirtyDatasets/DatasetWithTweetId.csv")
+writeTweetsToCSV(tweets)
 
-# tweets = getTweetsOfUser("emrebinnaz",20)
-#
-# for tweet in tweets:
-#
-#     username = tweet.user.screen_name
-#     tweetOwnerId = tweet.user.id
-#     description = tweet.user.description
-#     following = tweet.user.friends_count
-#     followers = tweet.user.followers_count
-#     retweetCount = tweet.retweet_count
-#     favoriteCount = tweet.favorite_count
-#     text = tweet.text
-#     tweetId = tweet.id
-#
-#     profileImageUrl = tweet.user.profile_image_url_https
-#     hashtags = tweet.entities['hashtags']
+
 
 
 

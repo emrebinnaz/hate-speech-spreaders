@@ -3,10 +3,6 @@ import joblib as jb
 from nltk.tokenize.toktok import ToktokTokenizer
 from tensorflow.python.keras.models import load_model
 
-
-import sys
-sys.path.append('/home/emre/Desktop/Belgelerim/HateSpeechSpreaders/hate-speech-spreaders')
-
 import ModelTraining.ModelFunctionsML as ModelFunctionsML
 import ModelTraining.ModelFunctionsDL as ModelFunctionsDL
 from FeatureExtraction.PredictedTweet import PredictedTweet
@@ -16,6 +12,9 @@ from Config.Lemmatization import *
 from tensorflow.python.keras.preprocessing.sequence import pad_sequences
 
 import os
+
+import sys
+sys.path.append('/home/emre/Desktop/Belgelerim/HateSpeechSpreaders/hate-speech-spreaders')
 
 words = set(nltk.corpus.words.words())
 toktokTokenizer = ToktokTokenizer()
