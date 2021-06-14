@@ -26,7 +26,7 @@ def getWoeIdOfCountry(country):
 def getTweetsOfHashtag(hashtag, tweetCount):
 
     tweets = api.search(q = hashtag,
-                        lang = "en",
+                        lang = "tr",
                         result_type = "recent",
                         count = tweetCount)
     return tweets
@@ -53,7 +53,7 @@ def getUserInformationsOfTweet(tweetId):
     return user
 
 
-def getHashtagList(place, hashtagCount):
+def getHashtagList(place):
 
     woeid = getWoeIdOfCountry(place)
 
@@ -65,15 +65,24 @@ def getHashtagList(place, hashtagCount):
         for trend in value['trends']:
             hashtagNameList.append(trend['name'])
 
-    return hashtagNameList[0:hashtagCount]
-
+    return hashtagNameList[0:10]
 
 
 # tweets = getTweetsOfUser("emrebinnaz",20)
+#
+# for tweet in tweets:
+#
 #     username = tweet.user.screen_name
-#     profileImageUrl = tweet.user.profile_image_url_https
+#     tweetOwnerId = tweet.user.id
 #     following = tweet.user.friends_count
 #     followers = tweet.user.followers_count
-
-
+#     retweetCount = tweet.retweet_count
+#     favoriteCount = tweet.favorite_count
+#     text = tweet.text
+#     tweetId = tweet.id
+#
+#     profileImageUrl = tweet.user.profile_image_url_https
 #     hashtags = tweet.entities['hashtags']
+
+
+

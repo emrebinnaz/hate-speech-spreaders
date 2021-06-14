@@ -67,14 +67,14 @@ def predictWithDL(modelName, newTextList):
     string_values = []
 
     for value in float_values:
-
+        print(value)
         if value < 0.54:
             string_values.append("normal")
         else:
             string_values.append("hateful")
 
-    # print(string_values)
-    return string_values
+    print(string_values)
+
 
 def predictWithModelEnsemble(newTextList):
     print("Predicted by " + "Model Ensemble Method .....")
@@ -126,16 +126,14 @@ def predictWithModelEnsemble(newTextList):
         print(predictedTweet.toString(), "\nTweet is :", value, "\n")
 
 
-if __name__ == '__main__':
+# modelName = "LSTM.h5"
+# modelName = "LogisticRegression"
 
-    # modelName = "LSTM.h5"
-    # modelName = "LogisticRegression"
+newTextList = ["Your mummy is peT", "your mommy is animal","YOu are animal","nigga"]
 
-    newTextList = ["Your mummy is peT", "your mommy is animal","YOu are animal","nigga"]
-
-    # predictWithDL(modelName, newTextList)
-    predictWithDL("GRUwithWord2Vec.h5", newTextList)
-    predictWithDL("CNNwithWord2Vec.h5", newTextList)
-    predictWithDL("LSTMwithWord2Vec.h5", newTextList)
-    #predictWithML(modelName, newTextList)
-    #predictWithModelEnsemble(newTextList)
+# predictWithDL(modelName, newTextList)
+# predictWithDL("GRUwithWord2Vec.h5", newTextList)
+# predictWithDL("CNNwithWord2Vec.h5", newTextList)
+predictWithDL("LSTMwithWord2Vec.h5", newTextList)
+#predictWithML(modelName, newTextList)
+#predictWithModelEnsemble(newTextList)
