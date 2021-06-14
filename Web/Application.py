@@ -3,8 +3,8 @@ from DatabaseOperations.Operations import *
 from FeatureExtraction.FuturePrediction import *
 from datetime import date
 
-TWEET_COUNT_OF_HASHTAG = 2
-HASHTAG_COUNT = 2
+TWEET_COUNT_OF_HASHTAG = 10
+HASHTAG_COUNT = 5
 
 today = date.today()
 today = today.strftime("%d-%m-%Y")
@@ -75,7 +75,12 @@ def insertTweetTuples(hashtagsFromDB):
         for tweet in tweets:
 
             tweetId = tweet.id
-            favoriteCount = tweet.favorite_count
+
+            if tweet.text.startswith("RT @"):
+                favoriteCount = tweet.retweeted_status.favorite_count
+            else:
+                favoriteCount = tweet.favorite_count
+
             retweetCount = tweet.retweet_count
             text = tweet.text
             preprocessedText = " "
@@ -88,19 +93,48 @@ def insertTweetTuples(hashtagsFromDB):
             tweetIdList.append(tweetId)
             tweetOwnerList.append(tweet.user)
 
-    print(tweetIdList)
-
     insertTweetOwnerTuples(tweetOwnerList, connection, cursor)
-
-    getOwners()
 
     insertTweet(tweetList)
 
     insertTweetsOfHashtagTuples(hashtagsFromDB, tweetIdList)
 
 
-insertHashtagTuples()
-hashtagsFromDB = getHashtags(today, connection, cursor)
-insertTweetTuples(hashtagsFromDB)
+def insertTweetsOfOwners(mostInteractedTweetOwnerIdList):
 
+    tweetList = []
+    for mostInteractedTweetOwnerId in mostInteractedTweetOwnerIdList:
+
+        tweets = getTweetsOfUser(mostInteractedTweetOwnerId, TWEET_COUNT_OF_HASHTAG)
+
+        for tweet in tweets:
+
+            tweetId = tweet.id
+
+            if tweet.text.startswith("RT @"):
+                favoriteCount = tweet.retweeted_status.favorite_count
+            else:
+                favoriteCount = tweet.favorite_count
+
+            retweetCount = tweet.retweet_count
+            text = tweet.text
+            preprocessedText = " "
+            placeOfTweet = "PROFILE"
+            label = predictWithDL("LSTM.h5", [text])[0]
+            tweetOwnerId = tweet.user.id
+
+            tweetTuple = (tweetId, today, favoriteCount, label, placeOfTweet,
+                          preprocessedText, retweetCount, text, tweetOwnerId)
+            tweetList.append(tweetTuple)
+
+    insertTweet(tweetList)
+
+
+# insertHashtagTuples()
+# hashtagsFromDB = getHashtags(today, connection, cursor)
+# insertTweetTuples(hashtagsFromDB)
+# tweetOwnersFromDB = getMostInteractedTweetOwners()
+# insertTweetOwnersTweets()
+mostInteractedTweetOwnerIdList = getMostInteractedTweetOwnerIds()
+insertTweetsOfOwners(mostInteractedTweetOwnerIdList)
 connection.close()

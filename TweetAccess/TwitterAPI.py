@@ -68,7 +68,6 @@ def getHashtagList(place, hashtagCount):
     return hashtagNameList[0:hashtagCount]
 
 
-
 # tweets = getTweetsOfUser("emrebinnaz",20)
 #     username = tweet.user.screen_name
 #     profileImageUrl = tweet.user.profile_image_url_https
@@ -77,3 +76,5 @@ def getHashtagList(place, hashtagCount):
 
 
 #     hashtags = tweet.entities['hashtags']
+
+#tweets = getTweetsOfHashtag("Wasabi",25)
