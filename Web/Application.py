@@ -83,12 +83,12 @@ def insertTweetTuples(hashtagsFromDB):
 
             retweetCount = tweet.retweet_count
             text = tweet.text
-            preprocessedText = " "
             placeOfTweet = "STREAM"
             label = predictWithDL("LSTM.h5", [text])[0]
             tweetOwnerId = tweet.user.id
-
-            tweetTuple = (tweetId, today, favoriteCount, label, placeOfTweet, preprocessedText, retweetCount, text, tweetOwnerId)
+            created_date = tweet.created_at
+            tweetTuple = (tweetId, today, favoriteCount, label, placeOfTweet,
+                          retweetCount, text, tweetOwnerId, created_date)
             tweetList.append(tweetTuple)
             tweetIdList.append(tweetId)
             tweetOwnerList.append(tweet.user)
@@ -118,23 +118,21 @@ def insertTweetsOfOwners(mostInteractedTweetOwnerIdList):
 
             retweetCount = tweet.retweet_count
             text = tweet.text
-            preprocessedText = " "
             placeOfTweet = "PROFILE"
             label = predictWithDL("LSTM.h5", [text])[0]
             tweetOwnerId = tweet.user.id
+            created_date = tweet.created_at
 
             tweetTuple = (tweetId, today, favoriteCount, label, placeOfTweet,
-                          preprocessedText, retweetCount, text, tweetOwnerId)
+                          retweetCount, text, tweetOwnerId, created_date)
             tweetList.append(tweetTuple)
 
     insertTweet(tweetList)
 
 
-# insertHashtagTuples()
-# hashtagsFromDB = getHashtags(today, connection, cursor)
-# insertTweetTuples(hashtagsFromDB)
-# tweetOwnersFromDB = getMostInteractedTweetOwners()
-# insertTweetOwnersTweets()
+insertHashtagTuples()
+hashtagsFromDB = getHashtags(today, connection, cursor)
+insertTweetTuples(hashtagsFromDB)
 mostInteractedTweetOwnerIdList = getMostInteractedTweetOwnerIds()
 insertTweetsOfOwners(mostInteractedTweetOwnerIdList)
 connection.close()

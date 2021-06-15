@@ -39,7 +39,7 @@ def insertTweet(records):
     cursor = connection.cursor()
 
     sql_insert_query = """ INSERT INTO tweet(id, fetching_time, fav_count, label, place_of_tweet, 
-                                            preprocessed_text, rt_count, text, owner_id) 
+                                            rt_count, text, owner_id, created_date) 
                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT (id) do update set place_of_tweet = 'BOTH'"""
 
     cursor.executemany(sql_insert_query, records)

@@ -69,9 +69,9 @@ def predictWithDL(modelName, newTextList):
     for value in float_values:
 
         if value < 0.54:
-            string_values.append("normal")
+            string_values.append("NORMAL")
         else:
-            string_values.append("hateful")
+            string_values.append("HATEFUL")
 
     # print(string_values)
     return string_values
