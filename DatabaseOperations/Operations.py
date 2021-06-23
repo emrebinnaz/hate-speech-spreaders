@@ -61,6 +61,7 @@ def insertTweetsOfHashtag(records):
     print(cursor.rowcount, "Record were inserted to tweets_of_hashtag table successfully")
     connection.close()
 
+
 def getHashtags(date, connection, cursor):
 
     sql_select_query = """ SELECT *  FROM hashtag WHERE fetching_time = %s """

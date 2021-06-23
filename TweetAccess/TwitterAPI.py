@@ -2,11 +2,6 @@ import tweepy
 from TweetAccess.TwitterConfig import api
 
 
-def getTweetsOfUser(username, tweetCount):
-
-    return api.user_timeline(id = username, count = tweetCount)
-
-
 def allCountryCodes():
 
     places = api.trends_available()
@@ -23,6 +18,21 @@ def getWoeIdOfCountry(country):
     return allWoeIds[country]
 
 
+def getHashtagList(place, hashtagCount):
+
+    woeid = getWoeIdOfCountry(place)
+
+    # fetching the trends
+    trends = api.trends_place(id=woeid)
+
+    hashtagNameList = []
+    for value in trends:
+        for trend in value['trends']:
+            hashtagNameList.append(trend['name'])
+
+    return hashtagNameList[0:hashtagCount]
+
+
 def getTweetsOfHashtag(hashtag, tweetCount):
 
     tweets = api.search(q = hashtag,
@@ -30,6 +40,11 @@ def getTweetsOfHashtag(hashtag, tweetCount):
                         result_type = "recent",
                         count = tweetCount)
     return tweets
+
+
+def getTweetsOfUser(username, tweetCount):
+
+    return api.user_timeline(id = username, count = tweetCount)
 
 
 def getTweetById(id):
@@ -53,16 +68,4 @@ def getUserInformationsOfTweet(tweetId):
     return user
 
 
-def getHashtagList(place, hashtagCount):
 
-    woeid = getWoeIdOfCountry(place)
-
-    # fetching the trends
-    trends = api.trends_place(id=woeid)
-
-    hashtagNameList = []
-    for value in trends:
-        for trend in value['trends']:
-            hashtagNameList.append(trend['name'])
-
-    return hashtagNameList[0:hashtagCount]
