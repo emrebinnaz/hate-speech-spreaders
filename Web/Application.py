@@ -4,6 +4,7 @@ from FeatureExtraction.FuturePrediction import *
 from datetime import date
 
 TWEET_COUNT_OF_HASHTAG = 10
+TWEET_COUNT_OF_OWNER = 10
 HASHTAG_COUNT = 5
 
 today = date.today()
@@ -35,11 +36,12 @@ def insertTweetOwnerTuples(tweetOwnerList, connection, cursor):
         followers = owner.followers_count
         following = owner.friends_count
         image_url = owner.profile_image_url_https
+        is_most_interacted_user = False
         name = owner.name
         ownerId = owner.id
         type_of_spreader = "NORMAL"
         username = owner.screen_name
-        ownerTuple = (ownerId, today, followers, following, image_url, name, type_of_spreader, username)
+        ownerTuple = (ownerId, today, followers, following, image_url, is_most_interacted_user, name, type_of_spreader, username)
         ownerList.append(ownerTuple)
 
     insertTweetOwner(ownerList, connection, cursor)
@@ -105,7 +107,7 @@ def insertTweetsOfOwners(mostInteractedTweetOwnerIdList):
     tweetList = []
     for mostInteractedTweetOwnerId in mostInteractedTweetOwnerIdList:
 
-        tweets = getTweetsOfUser(mostInteractedTweetOwnerId, TWEET_COUNT_OF_HASHTAG)
+        tweets = getTweetsOfUser(mostInteractedTweetOwnerId, TWEET_COUNT_OF_OWNER)
 
         for tweet in tweets:
 
@@ -127,7 +129,18 @@ def insertTweetsOfOwners(mostInteractedTweetOwnerIdList):
                           retweetCount, text, tweetOwnerId, created_date)
             tweetList.append(tweetTuple)
 
-    insertTweet(tweetList)
+    insertTweetForTweetOwners(tweetList)
+    updateTweetOwner(mostInteractedTweetOwnerIdList)
+
+
+def updateTweetOwner(mostInteractedTweetOwnerIdList):
+
+    mostInteractedTweetOwnerIdListTuple = []
+    for id in mostInteractedTweetOwnerIdList:
+        idTuple = (True, id)
+        mostInteractedTweetOwnerIdListTuple.append(idTuple)
+
+    updateTweetOwnerForMostInteractedUser(mostInteractedTweetOwnerIdListTuple)
 
 
 insertHashtagTuples()
