@@ -78,13 +78,13 @@ def insertTweetTuples(hashtagsFromDB):
 
             tweetId = tweet.id
 
-            if tweet.text.startswith("RT @"):
+            if tweet.full_text.startswith("RT @"):
                 favoriteCount = tweet.retweeted_status.favorite_count
             else:
                 favoriteCount = tweet.favorite_count
 
             retweetCount = tweet.retweet_count
-            text = tweet.text
+            text = getTextOfTweet(tweet)
             placeOfTweet = "STREAM"
             label = predictWithDL("LSTM.h5", [text])[0]
             tweetOwnerId = tweet.user.id
@@ -113,13 +113,13 @@ def insertTweetsOfOwners(mostInteractedTweetOwnerIdList):
 
             tweetId = tweet.id
 
-            if tweet.text.startswith("RT @"):
+            if tweet.full_text.startswith("RT @"):
                 favoriteCount = tweet.retweeted_status.favorite_count
             else:
                 favoriteCount = tweet.favorite_count
 
             retweetCount = tweet.retweet_count
-            text = tweet.text
+            text = getTextOfTweet(tweet)
             placeOfTweet = "PROFILE"
             label = predictWithDL("LSTM.h5", [text])[0]
             tweetOwnerId = tweet.user.id

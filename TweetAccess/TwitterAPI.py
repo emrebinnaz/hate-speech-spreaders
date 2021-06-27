@@ -38,13 +38,14 @@ def getTweetsOfHashtag(hashtag, tweetCount):
     tweets = api.search(q = hashtag,
                         lang = "en",
                         result_type = "recent",
+                        tweet_mode='extended',
                         count = tweetCount)
     return tweets
 
 
 def getTweetsOfUser(username, tweetCount):
 
-    return api.user_timeline(id = username, count = tweetCount)
+    return api.user_timeline(id = username, count = tweetCount, tweet_mode='extended')
 
 
 def getTweetById(id):
@@ -67,5 +68,19 @@ def getUserInformationsOfTweet(tweetId):
 
     return user
 
+
+tweets = getTweetsOfHashtag("Hungary", 10)
+
+
+def getTextOfTweet(tweet):
+
+    if tweet.full_text.startswith("RT @"):
+
+        rtAndUsernamePartOfTweet = tweet.full_text.split(':')[0]
+
+        return rtAndUsernamePartOfTweet + ': ' + tweet.retweeted_status.full_text
+
+    else:
+        return tweet.full_text
 
 
