@@ -142,10 +142,56 @@ def updateTweetOwner(mostInteractedTweetOwnerIdList):
 
     updateTweetOwnerForMostInteractedUser(mostInteractedTweetOwnerIdListTuple)
 
+def insertJohnBro(connection, cursor):
 
-insertHashtagTuples()
-hashtagsFromDB = getHashtags(today, connection, cursor)
-insertTweetTuples(hashtagsFromDB)
-mostInteractedTweetOwnerIdList = getMostInteractedTweetOwnerIds()
-insertTweetsOfOwners(mostInteractedTweetOwnerIdList)
-connection.close()
+    tweets = getTweetsOfUser("JohnBroo94", TWEET_COUNT_OF_OWNER)
+
+    owner = tweets[0].user
+    followers = owner.followers_count
+    following = owner.friends_count
+    image_url = owner.profile_image_url_https
+    is_most_interacted_user = True
+    name = owner.name
+    ownerId = owner.id
+    type_of_spreader = "HATE"
+    username = owner.screen_name
+
+    ownerTuples = []
+    ownerTuple = (ownerId, today, followers, following, image_url, is_most_interacted_user, name, type_of_spreader, username)
+    ownerTuples.append(ownerTuple)
+
+    insertTweetOwner(ownerTuples, connection, cursor)
+
+    tweetList = []
+
+    for tweet in tweets:
+
+        tweetId = tweet.id
+
+        if tweet.full_text.startswith("RT @"):
+            favoriteCount = tweet.retweeted_status.favorite_count
+        else:
+            favoriteCount = tweet.favorite_count
+
+        retweetCount = tweet.retweet_count
+        text = getTextOfTweet(tweet)
+        placeOfTweet = "PROFILE"
+        label = predictWithDL("LSTM.h5", [text])[0]
+        tweetOwnerId = tweet.user.id
+        created_date = tweet.created_at
+
+        tweetTuple = (tweetId, today, favoriteCount, label, placeOfTweet,
+                      retweetCount, text, tweetOwnerId, created_date)
+        tweetList.append(tweetTuple)
+
+    insertTweetForTweetOwners(tweetList)
+
+
+# insertHashtagTuples()
+# hashtagsFromDB = getHashtags(today, connection, cursor)
+# insertTweetTuples(hashtagsFromDB)
+# mostInteractedTweetOwnerIdList = getMostInteractedTweetOwnerIds()
+# insertTweetsOfOwners(mostInteractedTweetOwnerIdList)
+# connection.close()
+
+insertJohnBro(connection, cursor)

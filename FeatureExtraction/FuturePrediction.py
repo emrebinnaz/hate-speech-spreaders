@@ -128,14 +128,22 @@ def predictWithModelEnsemble(newTextList):
 
 if __name__ == '__main__':
 
-    # modelName = "LSTM.h5"
+    modelName = "LSTM.h5"
     # modelName = "LogisticRegression"
 
-    newTextList = ["Your mummy is peT", "your mommy is animal","YOu are animal","nigga"]
+    newTextList = ["my coins are devalued because of the elon musk idiot!! you re faggot boi",
+                   "i want to say just that these niggas must be banned",
+                   "i think virtual currencies will soon take over the world",
+                   "Fucking shiba coin started to rise again !!!",
+                   "Here is a song for us ",
+                   "some bitches re tryring to prevent rising of BNB. We must stop them!!",
+                   "lol im about to go crazy",
+                   "Makes great America againn",
+                   "We have to win this match otherwise whole fucking assholes should be fired",
+                   "If I had magical power, I would want to kill fucking ",
+                   " I hate all nazis because they are evil",
+                   "These fellas can just suck my dick"]
 
-    # predictWithDL(modelName, newTextList)
-    predictWithDL("GRUwithWord2Vec.h5", newTextList)
-    predictWithDL("CNNwithWord2Vec.h5", newTextList)
-    predictWithDL("LSTMwithWord2Vec.h5", newTextList)
+    predictWithDL(modelName, newTextList)
     #predictWithML(modelName, newTextList)
     #predictWithModelEnsemble(newTextList)
