@@ -186,12 +186,13 @@ def insertJohnBro(connection, cursor):
 
     insertTweetForTweetOwners(tweetList)
 
-
+#
 # insertHashtagTuples()
 # hashtagsFromDB = getHashtags(today, connection, cursor)
 # insertTweetTuples(hashtagsFromDB)
 # mostInteractedTweetOwnerIdList = getMostInteractedTweetOwnerIds()
 # insertTweetsOfOwners(mostInteractedTweetOwnerIdList)
+#
+#
+# insertJohnBro(connection, cursor)
 # connection.close()
-
-insertJohnBro(connection, cursor)

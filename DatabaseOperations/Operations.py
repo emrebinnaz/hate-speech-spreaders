@@ -101,7 +101,7 @@ def getMostInteractedTweetOwnerIds():
                                     from (
                                             select distinct on (text) text, fav_count, rt_count, owner_id
                                             from tweet) as uniqueTweets) as uniqueOwners
-                          order by fav_count + rt_count desc limit 5;"""
+                          order by fav_count + rt_count desc limit 4;"""
 
     cursor.execute(sql_select_query)
     connection.commit()
